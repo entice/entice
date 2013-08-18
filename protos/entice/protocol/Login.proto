@@ -8,9 +8,10 @@ import "EntitySystem.proto";
 import "Util.proto";
 
 
-// TODO add C# option, check if this is OK:
 option java_package = "entice.protocol";
 option java_outer_classname = "LoginProcess";
+option (google.protobuf.csharp_file_options).namespace = "Entice.Protocol";
+option (google.protobuf.csharp_file_options).umbrella_classname = "LoginProcess";
 
 
 message LoginRequest {

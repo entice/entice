@@ -5,9 +5,10 @@
 package entice.protocol;
 
 
-// TODO add C# option, check if this is OK:
 option java_package = "entice.protocol";
 option java_outer_classname = "Util";
+option (google.protobuf.csharp_file_options).namespace = "Entice.Protocol";
+option (google.protobuf.csharp_file_options).umbrella_classname = "Util";
 
 
 message UID16 {                       // Took Java's UUID class as a design guide...
