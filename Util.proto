@@ -10,7 +10,22 @@ option java_package = "entice.protocol";
 option java_outer_classname = "Util";
 
 
-message UID16 {
+message UID16 {                       // Took Java's UUID class as a design guide...
+                                      // maybe we need something different here.
   required fixed64 mostSigBytes;
   required fixed64 leastSigBytes;
+}
+
+
+message Vector2D {
+  required float x;
+  required float y;
+}
+
+
+message Position2D {                  // TODO maybe merge this with vector2d, especially
+                                      // if the plane is unnecessary!
+  required float x;
+  required float y;
+  optional int32 plane;
 }
