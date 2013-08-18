@@ -4,6 +4,7 @@
 
 package entice.protocol;
 
+import "EntitySystem.proto";
 import "Util.proto";
 
 
@@ -19,13 +20,19 @@ message LoginRequest {
 }
 
 
-message LoginReply {
-  required UID16 accUID = 1;
+message LoginResponse {
+  required UID16 accUID = 1;            // UID of the acc object of the current session, or (0,0)
+  optional ErrorCode errorcode = 2;     // ID of the error if any occured     
+  repeated EntityDiff characters = 3;   // All characters owned by the acc, as entities
   
-  message Character {
-    required UID16 charUID = 1;
-    // TODO complete me
+  enum ErrorCode {
+    NONE = 1
+    INVALID_CREDENTIALS = 2;            // email, password or character incorrect
+    ACC_BANNED = 3;
   }
-  
-  repeated Character = 2;
+}
+
+
+service LoginService {                  // TODO can we use this?
+  rpc Login (LoginRequest) returns (LoginResponse);
 }
