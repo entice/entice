@@ -1,0 +1,103 @@
+////
+// For license information see the LICENSE document
+////
+
+package entice.protocol;
+
+import "Util.proto";
+
+
+// TODO add C# option, check if this is OK:
+option java_package = "entice.protocol";
+option java_outer_classname = "EntitySystem";
+
+
+message Entity {
+  required UID16 entityUID = 1;
+}
+
+
+message Components {                        // Lists all components defined below. This is so we can
+                                            // have a message containing any number of different components.
+  optional Identification ident = 1;
+  optional Position position = 2;
+  optional Movement move = 3;
+  optional CharAppearance appearance = 4;
+}
+
+
+message EntityState {                       // A snapshot of an entity and any number of its components
+  required Entity entity = 1;
+  required Components components = 2;       // This does not require ALL available components of the entity!
+}
+
+
+message WorldDiff {
+  repeated EntityDiff entityDiffs = 1;
+}
+
+
+////
+// Component definitions:
+//
+// Note that components should only consist of simple (scalar) types or enums.
+// If there is a need to define a subtype, then it should keep to the same principle.
+// Remember to keep it simple!
+// Vector and Positions and all that defined in Util are regarded as simple types.
+////
+
+
+message Identification {
+  required int32 agentID = 1;               // Identifiers agentID + localID are the same
+  optional string name = 2;                 // Optional cause PCs have it, some NPCs don't
+}
+
+
+message Position {
+  required Position2D pos = 1;
+}
+
+
+message Movement {
+  required Vector2D dir = 1;
+  required float speed = 2;
+}
+
+
+message CharAppearance {
+  required Campaign campaign = 1;
+  required Face face = 2;
+  required Skin skin = 3;
+  required HairColor hairColor = 4;
+  required HairStyle hairStyle = 5;
+  required Height height = 6;
+  required Sex sex = 7;
+  
+  enum Campaign {
+    // TODO
+  }
+  
+  enum Face {
+    // TODO
+  }
+  
+  enum Skin {
+    // TODO
+  }
+  
+  enum HairColor {
+    // TODO
+  }
+  
+  enum HairStyle {
+    // TODO
+  }
+  
+  enum Height {
+    // TODO
+  }
+  
+  enum Sex {
+    // TODO
+  }
+}
