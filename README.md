@@ -1,5 +1,10 @@
 # Protocol definition
 
+### General hints:
+
+To use the protobuf code with the C# port, follow this guide:  
+* [protobuf-csharp-port Guide](https://code.google.com/p/protobuf-csharp-port/wiki/GettingStarted)
+
 ### 1. Login process
 
 Login might be implemented in a service kind of way, meaning the client **requests** a login, and the 
