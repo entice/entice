@@ -5,6 +5,7 @@
 package entice.protocol;
 
 import "Util.proto";
+import "google/protobuf/csharp_options.proto";
 
 
 option java_package = "entice.protocol";

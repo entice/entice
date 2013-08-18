@@ -4,6 +4,8 @@
 
 package entice.protocol;
 
+import "google/protobuf/csharp_options.proto";
+
 
 option java_package = "entice.protocol";
 option java_outer_classname = "Util";
