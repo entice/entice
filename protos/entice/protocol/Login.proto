@@ -4,8 +4,8 @@
 
 package entice.protocol;
 
-import "EntitySystem.proto";
-import "Util.proto";
+import "entice/protocol/EntitySystem.proto";
+import "entice/protocol/Util.proto";
 import "google/protobuf/csharp_options.proto";
 
 
@@ -23,18 +23,18 @@ message LoginRequest {
 
 
 message LoginResponse {
-  required UID16 accUID = 1;            // UID of the acc object of the current session, or (0,0)
-  optional ErrorCode errorcode = 2;     // ID of the error if any occured     
-  repeated EntityDiff characters = 3;   // All characters owned by the acc, as entities
+  required UID16 accUID = 1;                // UID of the acc object of the current session, or (0,0)
+  optional ErrorCode errorcode = 2;         // ID of the error if any occured     
+  repeated EntityDiff characters = 3;       // All characters owned by the acc, as entities
   
   enum ErrorCode {
     NONE = 1
-    INVALID_CREDENTIALS = 2;            // email, password or character incorrect
+    INVALID_CREDENTIALS = 2;                // email, password or character incorrect
     ACC_BANNED = 3;
   }
 }
 
 
-service LoginService {                  // TODO can we use this?
+service LoginService {                      // TODO can we use this?
   rpc Login (LoginRequest) returns (LoginResponse);
 }

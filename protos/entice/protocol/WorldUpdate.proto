@@ -4,7 +4,7 @@
 
 package entice.protocol;
 
-import "EntitySystem.proto";
+import "entice/protocol/EntitySystem.proto";
 import "google/protobuf/csharp_options.proto";
 
 
