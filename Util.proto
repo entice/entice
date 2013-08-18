@@ -1,0 +1,16 @@
+////
+// For license information see the LICENSE document
+////
+
+package entice.protocol;
+
+
+// TODO add C# option, check if this is OK:
+option java_package = "entice.protocol";
+option java_outer_classname = "Util";
+
+
+message UID16 {
+  required fixed64 mostSigBytes;
+  required fixed64 leastSigBytes;
+}
