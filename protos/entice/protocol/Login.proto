@@ -25,13 +25,21 @@ message LoginRequest {
 message LoginResponse {
   required UID16 accUID = 1;                // UID of the acc object of the current session, or (0,0)
   optional ErrorCode errorcode = 2;         // ID of the error if any occured     
-  repeated EntityDiff characters = 3;       // All characters owned by the acc, as entities
+  repeated CharacterStub characters = 3;    // All characters owned by the acc, as entities stubs
   
   enum ErrorCode {
     NONE = 1
     INVALID_CREDENTIALS = 2;                // email, password or character incorrect
     ACC_BANNED = 3;
   }
+}
+
+
+message CharacterStub {
+  required Entity = 1                       // Contains this characters local UID, wich will be used
+                                            // for identification of the char. Use this when trying to
+                                            // dispatch to a gameserver.
+  required CharAppearance = 2;
 }
 
 
