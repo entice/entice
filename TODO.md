@@ -22,8 +22,8 @@ Generally, we need to define the following processes, and add their protobuf stu
 
 * account login and proper reply (success or errorcode)
 * instance load into one single map
-* one other sample entity (a player)
-* movement calculations of entities
+* spawn at least one other sample entity (a player)
+* movement calculations of entities (simple: no collision)
 
 **Should not support**
 
