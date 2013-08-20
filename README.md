@@ -11,7 +11,7 @@ Login might be implemented in a service kind of way, meaning the client **reques
 server **responds** with a reply containing either general account information and characters etc.,
 or and invalid accountUID and an additional errorcode.
 
-_See Login.proto_
+_See login_service.proto_
 
 ### 2. Game State propagation
 
@@ -38,5 +38,5 @@ changed for a particular entity, or we can send definite changes, affecting only
 of some entities. (E.g. when we trigger a skill and only affect certain components of multiple entities
 in a special way)
 
-_See WorldUpdate.proto_
+_See world_update.proto_
 

@@ -4,14 +4,6 @@
 
 package entice.protocol;
 
-import "google/protobuf/csharp_options.proto";
-
-
-option java_package = "entice.protocol";
-option java_outer_classname = "Util";
-option (google.protobuf.csharp_file_options).namespace = "Entice.Protocol";
-option (google.protobuf.csharp_file_options).umbrella_classname = "Util";
-
 
 message UUID {                        // Took Java's UUID class as a design guide...
                                       // maybe we need something different here.

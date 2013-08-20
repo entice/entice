@@ -4,18 +4,11 @@
 
 package entice.protocol;
 
-import "entice/protocol/Util.proto";
-import "google/protobuf/csharp_options.proto";
-
-
-option java_package = "entice.protocol";
-option java_outer_classname = "EntitySystem";
-option (google.protobuf.csharp_file_options).namespace = "Entice.Protocol";
-option (google.protobuf.csharp_file_options).umbrella_classname = "EntitySystem";
+import "entice/protocol/util.proto";
 
 
 message Entity {
-  required GUID entityUID = 1;
+  required UUID entityUID = 1;
 }
 
 
