@@ -1,0 +1,36 @@
+////
+// For license information see the LICENSE document
+////
+
+package entice.protocol;
+
+import "entice/protocol/EntitySystem.proto";
+import "entice/protocol/Util.proto";
+import "google/protobuf/csharp_options.proto";
+
+
+option java_package = "entice.protocol";
+option java_outer_classname = "LoginService";
+option (google.protobuf.csharp_file_options).namespace = "Entice.Protocol";
+option (google.protobuf.csharp_file_options).umbrella_classname = "LoginService";
+
+
+message LoginRequest {
+  required string email = 1;
+  required string password = 2;
+}
+
+
+message LoginResponse {
+  optional ErrorCode error_code = 1;        // ID of the login related error if any occured     
+  
+  enum ErrorCode {
+    INVALID_CREDENTIALS = 1;                // email, password or character incorrect
+    ACC_BANNED = 2;
+  }
+}
+
+
+service LoginService {                      // TODO can we use this?
+  rpc Login (LoginRequest) returns (LoginResponse);
+}

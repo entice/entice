@@ -15,16 +15,15 @@ option (google.protobuf.csharp_file_options).umbrella_classname = "EntitySystem"
 
 
 message Entity {
-  required UID16 entityUID = 1;
+  required GUID entityUID = 1;
 }
 
 
 message Components {                        // Lists all components defined below. This is so we can
                                             // have a message containing any number of different components.
-  optional Identification ident = 1;
+  optional Name name = 1;
   optional Position position = 2;
-  optional Movement move = 3;
-  optional CharAppearance appearance = 4;
+  optional Movement movement = 3;
 }
 
 
@@ -35,7 +34,7 @@ message EntityState {                       // A snapshot of an entity and any n
 
 
 message WorldDiff {
-  repeated EntityDiff entityDiffs = 1;
+  repeated EntityDiff entity_diffs = 1;
 }
 
 
@@ -49,57 +48,17 @@ message WorldDiff {
 ////
 
 
-message Identification {
-  required int32 agentID = 1;               // Identifiers agentID + localID are the same
-  optional string name = 2;                 // Optional cause PCs have it, some NPCs don't
+message Name {
+  required string name = 1;                 // Optional cause PCs have it, some NPCs don't
 }
 
 
 message Position {
-  required Position2D pos = 1;
+  required Coord2D pos = 1;
 }
 
 
 message Movement {
-  required Vector2D dir = 1;
+  required Coord2D dir = 1;
   required float speed = 2;
-}
-
-
-message CharAppearance {
-  required Campaign campaign = 1;
-  required Face face = 2;
-  required Skin skin = 3;
-  required HairColor hairColor = 4;
-  required HairStyle hairStyle = 5;
-  required Height height = 6;
-  required Sex sex = 7;
-  
-  enum Campaign {
-    // TODO
-  }
-  
-  enum Face {
-    // TODO
-  }
-  
-  enum Skin {
-    // TODO
-  }
-  
-  enum HairColor {
-    // TODO
-  }
-  
-  enum HairStyle {
-    // TODO
-  }
-  
-  enum Height {
-    // TODO
-  }
-  
-  enum Sex {
-    // TODO
-  }
 }

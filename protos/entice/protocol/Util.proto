@@ -13,22 +13,15 @@ option (google.protobuf.csharp_file_options).namespace = "Entice.Protocol";
 option (google.protobuf.csharp_file_options).umbrella_classname = "Util";
 
 
-message UID16 {                       // Took Java's UUID class as a design guide...
+message UUID {                        // Took Java's UUID class as a design guide...
                                       // maybe we need something different here.
-  required fixed64 mostSigBytes;
-  required fixed64 leastSigBytes;
+  required fixed64 most_sig_bytes = 1;
+  required fixed64 least_sig_bytes = 2;
 }
 
 
-message Vector2D {
-  required float x;
-  required float y;
-}
-
-
-message Position2D {                  // TODO maybe merge this with vector2d, especially
-                                      // if the plane is unnecessary!
-  required float x;
-  required float y;
-  optional int32 plane;
+message Coord2D {                     // This might either be a vector or position
+                                      // depending on the context
+  required float x = 1;
+  required float y = 2;
 }

@@ -16,5 +16,5 @@ option (google.protobuf.csharp_file_options).umbrella_classname = "GameUpdate";
 
 message Update {                        // Coming from a client this is regarded as a request
                                         // coming from the server this is a command.
-  required WorldDiff worldDiff = 1;
+  required WorldDiff world_diff = 1;
 }
