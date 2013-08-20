@@ -27,7 +27,7 @@ message EntityState {                       // A snapshot of an entity and any n
 
 
 message WorldDiff {
-  repeated EntityDiff entity_diffs = 1;
+  repeated EntityState entity_diffs = 1;
 }
 
 
