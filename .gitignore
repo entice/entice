@@ -1,2 +1,7 @@
 # OS specific
 .DS_Store
+
+# generated files
+target/
+*.java
+*.cs
