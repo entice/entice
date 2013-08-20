@@ -29,8 +29,3 @@ message LoginResponse {
     ACC_BANNED = 2;
   }
 }
-
-
-service LoginService {                      // TODO can we use this?
-  rpc Login (LoginRequest) returns (LoginResponse);
-}
