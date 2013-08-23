@@ -33,7 +33,7 @@ message ClientToLoginServer {
 
 
 message LoginServerToClient {
-    optional LoginReply login_reply = 1;
+    optional LoginResponse login_response = 1;
 }
 
 
