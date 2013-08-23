@@ -38,5 +38,5 @@ message LoginServerToClient {
 
 
 message GameServer {
-    optional Update update = 3;
+    optional Update update = 1;
 }
