@@ -1,17 +1,10 @@
 # Protocol definition
 
-### General hints:
-
-To use the protobuf code with the C# port, follow this guide:  
-* [protobuf-csharp-port Guide](https://code.google.com/p/protobuf-csharp-port/wiki/GettingStarted)
-
 ### 1. Login process
 
 Login might be implemented in a service kind of way, meaning the client **requests** a login, and the 
 server **responds** with a reply containing either general account information and characters etc.,
 or and invalid accountUID and an additional errorcode.
-
-_See login_service.proto_
 
 ### 2. Game State propagation
 
@@ -37,6 +30,4 @@ We can either send general purpose updates, having an entity-to-component associ
 changed for a particular entity, or we can send definite changes, affecting only special components
 of some entities. (E.g. when we trigger a skill and only affect certain components of multiple entities
 in a special way)
-
-_See world_update.proto_
 
