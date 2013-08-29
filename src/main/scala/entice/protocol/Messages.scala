@@ -15,7 +15,6 @@ import info.akshaal.json.jsonmacro._
  * Can have a session, which will not be serialized.
  */
 sealed trait Message {
-    def session: Option[ActorRef] = None
 }
 
 // Login specific

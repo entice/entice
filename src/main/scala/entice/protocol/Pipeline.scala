@@ -22,7 +22,6 @@ object PipelineFactory {
         new StringByteStringAdapter("utf-8") >>
         new LengthFieldFrame(
             maxSize = 1024,
-            byteOrder = ByteOrder.LITTLE_ENDIAN,
             headerSize = 2,
             lengthIncludesHeader = false) >>
         new TcpReadWriteAdapter)
@@ -41,7 +40,7 @@ class MessageStage extends SymmetricPipelineStage[PipelineContext, Message, Stri
         }
  
         override val eventPipeline = { js: String =>
-            ctx.singleEvent(Json.fromJson[Message](JsString(js)).get)
+            ctx.singleEvent(Json.fromJson[Message](Json.parse(js)).get)
         }
     }
 }
