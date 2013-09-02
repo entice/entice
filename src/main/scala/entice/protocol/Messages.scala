@@ -12,21 +12,24 @@ import info.akshaal.json.jsonmacro._
 
 /**
  * Supertype of all network messages.
- * Can have a session, which will not be serialized.
+ * Each network message carries its own class name in a value called "type"
+ * to be able to deserialize it later on.
  */
 sealed trait Message {
+    def productPrefix: String       // implemented by all case classes, contains class name
+    val `type` = productPrefix
 }
 
 // Login specific
-case class LoginRequest(email: String, password: String) extends Message
-case class LoginResponse(error: String = "") extends Message
+case class LoginRequest     (email: String, password: String)       extends Message
+case class LoginResponse    (error: String = "")                    extends Message
 
 // Dispatch to GS specific
-case class DispatchRequest() extends Message
-case class DispatchResponse(host: String, port: Int, key: Long) extends Message
+case class DispatchRequest  ()                                      extends Message
+case class DispatchResponse (host: String, port: Int, key: Long)    extends Message
 
 // GS worldupdate specific
-case class GameUpdate(entityDiffs: List[EntityView]) extends Message
+case class GameUpdate       (entityDiffs: List[EntityView])         extends Message
 
 
 /**
@@ -44,11 +47,11 @@ object Messages {
     implicit def gameUpdateFields           = allFields[GameUpdate]         ('jsonate)
 
     implicit def messageWrites = matchingWrites[Message] {
-        case c: LoginRequest        => loginRequestFields       .extra('type -> 'loginReq).toWrites.writes(c)
-        case c: LoginResponse       => loginResponseFields      .extra('type -> 'loginRes).toWrites.writes(c)
-        case c: DispatchRequest     => dispatchRequestFields    .extra('type -> 'dispReq).toWrites.writes(c)
-        case c: DispatchResponse    => dispatchResponseFields   .extra('type -> 'dispRes).toWrites.writes(c)
-        case c: GameUpdate          => gameUpdateFields         .extra('type -> 'gameUpd).toWrites.writes(c)
+        case c: LoginRequest        => loginRequestFields       .toWrites.writes(c)
+        case c: LoginResponse       => loginResponseFields      .toWrites.writes(c)
+        case c: DispatchRequest     => dispatchRequestFields    .toWrites.writes(c)
+        case c: DispatchResponse    => dispatchResponseFields   .toWrites.writes(c)
+        case c: GameUpdate          => gameUpdateFields         .toWrites.writes(c)
     }
 
     // deserialization
@@ -60,10 +63,10 @@ object Messages {
 
     implicit def messageReads: Reads[Message] =
         predicatedReads[Message](
-            jsHas('type -> 'loginReq)   -> loginRequestFactory,
-            jsHas('type -> 'loginRes)   -> loginResponseFactory,
-            jsHas('type -> 'dispReq)    -> dispatchRequestFactory,
-            jsHas('type -> 'dispRes)    -> dispatchResponseFactory,
-            jsHas('type -> 'gameUpd)    -> gameUpdateFactory
+            jsHas('type -> 'LoginRequest)       -> loginRequestFactory,
+            jsHas('type -> 'LoginResponse)      -> loginResponseFactory,
+            jsHas('type -> 'DispatchRequest)    -> dispatchRequestFactory,
+            jsHas('type -> 'DispatchResponse)   -> dispatchResponseFactory,
+            jsHas('type -> 'GameUpdate)         -> gameUpdateFactory
         )
 }

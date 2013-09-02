@@ -2,7 +2,7 @@
  * For copyright information see the LICENSE document.
  */
 
-package entice.protocol
+package entice.protocol.utils
 
 import akka.io._
 import akka.event.LoggingAdapter
@@ -12,7 +12,12 @@ import info.akshaal.json.jsonmacro._
 
 import java.nio.ByteOrder
 
+import entice.protocol._
 
+
+/**
+ * Defines the network de/serialization stack
+ */
 object PipelineFactory {
 
     def getWithLog(log: LoggingAdapter) = {
@@ -28,7 +33,10 @@ object PipelineFactory {
     }
 }
 
- 
+
+/**
+ * De/serializes a json object to/from a message case-class
+ */
 class MessageStage extends SymmetricPipelineStage[PipelineContext, Message, String] {
  
     override def apply(ctx: PipelineContext) = new SymmetricPipePair[Message, String] {
