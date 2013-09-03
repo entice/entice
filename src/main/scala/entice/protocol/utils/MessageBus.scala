@@ -7,12 +7,14 @@ package entice.protocol.utils
 
 import akka.event.ActorEventBus
 import akka.event.LookupClassification
-import akka.actor._
+import akka.actor.ActorRef
 
 import entice.protocol._
  
- 
-case class MessageEvent(val session: ActorRef, val message: Message)
+
+object MessageBus {
+    case class MessageEvent(val sender: ActorRef, val message: Message)
+}
 
 
 /**
@@ -21,6 +23,7 @@ case class MessageEvent(val session: ActorRef, val message: Message)
  */
 class MessageBus extends ActorEventBus with LookupClassification {
  
+    import MessageBus._
 
     type Event = MessageEvent
     type Classifier = String
