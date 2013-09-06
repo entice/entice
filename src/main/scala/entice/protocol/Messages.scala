@@ -22,7 +22,8 @@ sealed trait Message {
 
 // Login specific
 case class LoginRequest     (email: String, password: String)       extends Message
-case class LoginResponse    (error: String = "")                    extends Message
+case class LoginSuccess     ()                                      extends Message
+case class LoginFail        (error: String = "")                    extends Message
 
 // Dispatch to GS specific
 case class DispatchRequest  ()                                      extends Message
@@ -41,32 +42,47 @@ object Messages {
 
     // serialization
     implicit def loginRequestFields         = allFields[LoginRequest]       ('jsonate)
-    implicit def loginResponseFields        = allFields[LoginResponse]      ('jsonate)
+    implicit def loginSuccessFields         = allFields[LoginSuccess]       ('jsonate)
+    implicit def loginFailFields            = allFields[LoginFail]          ('jsonate)
+
     implicit def dispatchRequestFields      = allFields[DispatchRequest]    ('jsonate)
     implicit def dispatchResponseFields     = allFields[DispatchResponse]   ('jsonate)
+
     implicit def gameUpdateFields           = allFields[GameUpdate]         ('jsonate)
+
 
     implicit def messageWrites = matchingWrites[Message] {
         case c: LoginRequest        => loginRequestFields       .toWrites.writes(c)
-        case c: LoginResponse       => loginResponseFields      .toWrites.writes(c)
+        case c: LoginSuccess        => loginSuccessFields       .toWrites.writes(c)
+        case c: LoginFail           => loginFailFields          .toWrites.writes(c)
+
         case c: DispatchRequest     => dispatchRequestFields    .toWrites.writes(c)
         case c: DispatchResponse    => dispatchResponseFields   .toWrites.writes(c)
+
         case c: GameUpdate          => gameUpdateFields         .toWrites.writes(c)
     }
 
+
     // deserialization
-    implicit def loginRequestFactory        = factory[LoginRequest]       ('fromJson)
-    implicit def loginResponseFactory       = factory[LoginResponse]      ('fromJson)
-    implicit def dispatchRequestFactory     = factory[DispatchRequest]    ('fromJson)
-    implicit def dispatchResponseFactory    = factory[DispatchResponse]   ('fromJson)
-    implicit def gameUpdateFactory          = factory[GameUpdate]         ('fromJson)
+    implicit def loginRequestFactory        = factory[LoginRequest]         ('fromJson)
+    implicit def loginSuccessFactory        = factory[LoginSuccess]         ('fromJson)
+    implicit def loginFailFactory           = factory[LoginFail]            ('fromJson)
+
+    implicit def dispatchRequestFactory     = factory[DispatchRequest]      ('fromJson)
+    implicit def dispatchResponseFactory    = factory[DispatchResponse]     ('fromJson)
+
+    implicit def gameUpdateFactory          = factory[GameUpdate]           ('fromJson)
+
 
     implicit def messageReads: Reads[Message] =
         predicatedReads[Message](
             jsHas('type -> 'LoginRequest)       -> loginRequestFactory,
-            jsHas('type -> 'LoginResponse)      -> loginResponseFactory,
+            jsHas('type -> 'LoginSuccess)       -> loginSuccessFactory,
+            jsHas('type -> 'LoginFail)          -> loginFailFactory,
+
             jsHas('type -> 'DispatchRequest)    -> dispatchRequestFactory,
             jsHas('type -> 'DispatchResponse)   -> dispatchResponseFactory,
+            
             jsHas('type -> 'GameUpdate)         -> gameUpdateFactory
         )
 }

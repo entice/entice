@@ -18,10 +18,13 @@ case class Coord2D(x: Float, y: Float)
 
 
 // Components
-sealed trait Component
-case class Name(name: String) extends Component
-case class Position(pos: Coord2D = Coord2D(0, 0)) extends Component
-case class Movement(dir: Coord2D = Coord2D(1, 1), speed: Float = 288) extends Component
+sealed trait Component {
+    def productPrefix: String       // implemented by all case classes, contains class name
+    val `type` = productPrefix
+}
+case class Name     (name: String)                                      extends Component
+case class Position (pos: Coord2D = Coord2D(0, 0))                      extends Component
+case class Movement (dir: Coord2D = Coord2D(1, 1), speed: Float = 288)  extends Component
 
 
 /**
@@ -33,9 +36,9 @@ object EntitySystem {
 
     // serialization
     implicit def componentWrites = matchingWrites[Component] {
-        case c: Name        => nameFields       .extra('type -> 'name).toWrites.writes(c)
-        case c: Position    => positionFields   .extra('type -> 'pos).toWrites.writes(c)
-        case c: Movement    => movementFields   .extra('type -> 'move).toWrites.writes(c)
+        case c: Name        => nameFields       .toWrites.writes(c)
+        case c: Position    => positionFields   .toWrites.writes(c)
+        case c: Movement    => movementFields   .toWrites.writes(c)
     }
 
     implicit def entityFields       = allFields[Entity]     ('jsonate)
@@ -56,8 +59,8 @@ object EntitySystem {
 
     implicit def componentReads: Reads[Component] =
         predicatedReads[Component](
-            jsHas('type -> 'name)   -> nameFactory,
-            jsHas('type -> 'pos)    -> positionFactory,
-            jsHas('type -> 'move)   -> movementFactory
+            jsHas('type -> 'Name)       -> nameFactory,
+            jsHas('type -> 'Position)   -> positionFactory,
+            jsHas('type -> 'Movement)   -> movementFactory
         )
 }
