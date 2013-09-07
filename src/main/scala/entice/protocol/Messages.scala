@@ -20,17 +20,21 @@ sealed trait Message {
     val `type` = productPrefix
 }
 
-// Login specific
-case class LoginRequest     (email: String, password: String)       extends Message
-case class LoginSuccess     ()                                      extends Message
-case class LoginFail        (error: String = "")                    extends Message
+// Login & dispatch to GS specific
+case class LoginRequest     (email: String, password: String)                   extends Message
+case class LoginSuccess     ()                                                  extends Message
+case class LoginFail        (error: String = "An unkown error occured.")        extends Message
 
-// Dispatch to GS specific
-case class DispatchRequest  ()                                      extends Message
-case class DispatchResponse (host: String, port: Int, key: Long)    extends Message
+case class DispatchRequest  ()                                                  extends Message
+case class DispatchResponse (host: String, port: Int, key: Long)                extends Message
 
-// GS worldupdate specific
-case class GameUpdate       (entityDiffs: List[EntityView])         extends Message
+// GS handshake & worldupdate specific
+case class PlayRequest      (key: Long)                                         extends Message
+case class PlaySuccess      (worldState: List[EntityView])                      extends Message
+case class PlayFail         (error: String = "An unkown error occured.")        extends Message
+
+case class GameUpdate       (timeDelta: Int, entityDiffs: List[EntityView])     extends Message
+case class MoveRequest      (pos: Position, move: Movement)                     extends Message { def toView(entity: Entity) = EntityView(entity, pos :: move :: Nil) }
 
 
 /**
@@ -48,7 +52,12 @@ object Messages {
     implicit def dispatchRequestFields      = allFields[DispatchRequest]    ('jsonate)
     implicit def dispatchResponseFields     = allFields[DispatchResponse]   ('jsonate)
 
+    implicit def playRequestFields          = allFields[PlayRequest]        ('jsonate)
+    implicit def playSuccessFields          = allFields[PlaySuccess]        ('jsonate)
+    implicit def playFailFields             = allFields[PlayFail]           ('jsonate)
+
     implicit def gameUpdateFields           = allFields[GameUpdate]         ('jsonate)
+    implicit def moveRequestFields          = allFields[MoveRequest]        ('jsonate)
 
 
     implicit def messageWrites = matchingWrites[Message] {
@@ -59,7 +68,12 @@ object Messages {
         case c: DispatchRequest     => dispatchRequestFields    .toWrites.writes(c)
         case c: DispatchResponse    => dispatchResponseFields   .toWrites.writes(c)
 
+        case c: PlayRequest         => playRequestFields        .toWrites.writes(c)
+        case c: PlaySuccess         => playSuccessFields        .toWrites.writes(c)
+        case c: PlayFail            => playFailFields           .toWrites.writes(c)
+
         case c: GameUpdate          => gameUpdateFields         .toWrites.writes(c)
+        case c: MoveRequest         => moveRequestFields        .toWrites.writes(c)
     }
 
 
@@ -71,7 +85,12 @@ object Messages {
     implicit def dispatchRequestFactory     = factory[DispatchRequest]      ('fromJson)
     implicit def dispatchResponseFactory    = factory[DispatchResponse]     ('fromJson)
 
-    implicit def gameUpdateFactory          = factory[GameUpdate]           ('fromJson)
+    implicit def playRequestFactory        = factory[PlayRequest]          ('fromJson)
+    implicit def playSuccessFactory        = factory[PlaySuccess]          ('fromJson)
+    implicit def playFailFactory           = factory[PlayFail]             ('fromJson)
+
+    implicit def gameUpdateFactory         = factory[GameUpdate]           ('fromJson)
+    implicit def moveRequestFactory        = factory[MoveRequest]          ('fromJson)
 
 
     implicit def messageReads: Reads[Message] =
@@ -82,7 +101,12 @@ object Messages {
 
             jsHas('type -> 'DispatchRequest)    -> dispatchRequestFactory,
             jsHas('type -> 'DispatchResponse)   -> dispatchResponseFactory,
+
+            jsHas('type -> 'PlayRequest)        -> playRequestFactory,
+            jsHas('type -> 'PlaySuccess)        -> playSuccessFactory,
+            jsHas('type -> 'PlayFail)           -> playFailFactory,
             
-            jsHas('type -> 'GameUpdate)         -> gameUpdateFactory
+            jsHas('type -> 'GameUpdate)         -> gameUpdateFactory,
+            jsHas('type -> 'MoveRequest)        -> moveRequestFactory
         )
 }

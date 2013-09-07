@@ -10,7 +10,7 @@ import info.akshaal.json.jsonmacro._
 
 // Entity related classes
 case class Entity(uuid: UUID)
-case class EntityView(entity: Entity, components: List[Component] = List.empty)
+case class EntityView(entity: Entity, components: List[Component] = List.empty) // can be inherited (specialized)
 
 
 // CES utils
@@ -22,9 +22,17 @@ sealed trait Component {
     def productPrefix: String       // implemented by all case classes, contains class name
     val `type` = productPrefix
 }
-case class Name     (name: String)                                      extends Component
-case class Position (pos: Coord2D = Coord2D(0, 0))                      extends Component
-case class Movement (dir: Coord2D = Coord2D(1, 1), speed: Float = 288)  extends Component
+
+case class Name     (name: String)                                                      extends Component
+case class Position (pos: Coord2D = Coord2D(0, 0))                                      extends Component
+case class Movement (dir: Coord2D = Coord2D(1, 1), speed: Float = 288, state: String)   extends Component { def moveState = MoveState.withName(state) }
+
+
+// Enums
+object MoveState extends Enumeration {
+   val NotMoving    = Value("NotMoving")
+   val Moving       = Value("Moving")
+}
 
 
 /**
