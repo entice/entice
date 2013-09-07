@@ -10,7 +10,7 @@ import info.akshaal.json.jsonmacro._
 
 // Entity related classes
 case class Entity(uuid: UUID)
-case class EntityView(entity: Entity, components: List[Component] = List.empty) // can be inherited (specialized)
+case class EntityView(entity: Entity, components: List[Component] = List.empty)
 
 
 // CES utils

@@ -30,7 +30,7 @@ case class DispatchResponse (host: String, port: Int, key: Long)                
 
 // GS handshake & worldupdate specific
 case class PlayRequest      (key: Long)                                         extends Message
-case class PlaySuccess      (worldState: List[EntityView])                      extends Message
+case class PlaySuccess      (player: Entity, worldState: List[EntityView])      extends Message
 case class PlayFail         (error: String = "An unkown error occured.")        extends Message
 
 case class GameUpdate       (timeDelta: Int, entityDiffs: List[EntityView])     extends Message
