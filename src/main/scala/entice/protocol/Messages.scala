@@ -15,7 +15,7 @@ import info.akshaal.json.jsonmacro._
  * Each network message carries its own class name in a value called "type"
  * to be able to deserialize it later on.
  */
-sealed trait Message {
+trait Message {
     def productPrefix: String       // implemented by all case classes, contains class name
     val `type` = productPrefix
 }
