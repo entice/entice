@@ -10,8 +10,14 @@ import info.akshaal.json.jsonmacro._
 
 // Entity related classes
 case class Entity(uuid: UUID)
-case class EntityView(entity: Entity, components: List[Component] = List.empty)
 
+case class EntityView(entity: Entity, components: Set[Component] = Set.empty)
+
+object EntityView {
+    def apply(m: Map[Entity, Set[Component]]): List[EntityView] = {
+        (for ((e, c) <- m) yield { EntityView(e, c) }).toList
+    }
+}
 
 // CES utils
 case class Coord2D(x: Float, y: Float)
