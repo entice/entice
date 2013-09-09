@@ -33,7 +33,10 @@ case class PlayRequest      (key: Long)                                         
 case class PlaySuccess      (player: Entity, worldState: List[EntityView])      extends Message
 case class PlayFail         (error: String = "An unkown error occured.")        extends Message
 
-case class GameUpdate       (timeDelta: Int, entityDiffs: List[EntityView])     extends Message
+case class GameUpdate       (timeDelta: Int, 
+                            entityDiffs: List[EntityView],
+                            added: List[Entity],
+                            removed: List[Entity])                              extends Message
 case class MoveRequest      (pos: Position, move: Movement)                     extends Message { def toView(entity: Entity) = EntityView(entity, Set(pos, move)) }
 
 
