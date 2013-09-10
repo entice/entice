@@ -29,9 +29,11 @@ sealed trait Component {
     val `type` = productPrefix
 }
 
-case class Name     (name: String)                                                                  extends Component
-case class Position (pos: Coord2D = Coord2D(0, 0))                                                  extends Component
-case class Movement (dir: Coord2D = Coord2D(1, 1), speed: Float = 288, state: String = "NotMoving") extends Component { def moveState = MoveState.withName(state) }
+case class Name     (var name: String)                      extends Component
+case class Position (var pos: Coord2D = Coord2D(0, 0))      extends Component
+case class Movement (var dir: Coord2D = Coord2D(1, 1), 
+                     var speed: Float = 288, 
+                     var state: String = "NotMoving")       extends Component { def moveState = MoveState.withName(state) }
 
 
 // Enums
