@@ -7,6 +7,8 @@ package entice.protocol
 import play.api.libs.json._
 import info.akshaal.json.jsonmacro._
 
+import scala.collection._
+
 
 // Entity related classes
 case class Entity(uuid: UUID)
@@ -24,7 +26,7 @@ case class Coord2D(x: Float, y: Float)
 
 
 // Components
-sealed trait Component {
+sealed trait Component extends mutable.Cloneable[Component] {
     def productPrefix: String       // implemented by all case classes, contains class name
     val `type` = productPrefix
 }
