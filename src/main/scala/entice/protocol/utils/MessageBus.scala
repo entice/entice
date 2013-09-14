@@ -13,15 +13,30 @@ import entice.protocol._
  
 
 object MessageBus {
-    case class MessageEvent(val sender: ActorRef, val message: Message)
+    case class Sender(uuid: UUID = UUID.Invalid, actor: ActorRef)
+    case class MessageEvent(sender: Sender, message: Message)
 }
 
 
 /**
  * Message bus to route messages to their appropriate handler actors.
  * This is an implementation of the Reactor design pattern.
+ *
+ * Details:
+ * When subscribing to a message, you actually subscribe to the classname of it.
+ * This is because messages provide their classname as a 'type' field anyway, so we
+ * can classify them that way easily. The class name does not need be read out by 
+ * the usage of reflection at runtime when a message gets published.
+ *
+ * Usage:
+ * This might be used with appropriate message handler actors. The message event carries
+ * an additional field just for the purpose of giving the handler some kind of information
+ * about the sender.
+ * The sender actor is additionally wrapped to make it possible to identify it.
+ * (Note that it needs to pass its identifier itself, so the sender is responsible for
+ * any conflicts that might occur.)
  */
-class MessageBus extends ActorEventBus with LookupClassification {
+case class MessageBus extends ActorEventBus with LookupClassification {
  
     import MessageBus._
 
@@ -40,7 +55,7 @@ class MessageBus extends ActorEventBus with LookupClassification {
     }
 
 
-    protected def publish(event: Event, subscriber: Subscriber): Unit = {
+    protected def publish(event: Event, subscriber: Subscriber) {
         subscriber ! event
     }
 }

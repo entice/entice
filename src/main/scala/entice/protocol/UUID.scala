@@ -34,4 +34,6 @@ object UUID {
         val id = java.util.UUID.randomUUID
         new UUID(id.getMostSignificantBits, id.getLeastSignificantBits)
     }
+
+    val Invalid = UUID(0, 0)
 }
