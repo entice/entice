@@ -66,5 +66,5 @@ Generally, we need to define the following processes over the single milestones:
 - any char actions (selection, creation etc.)
 - any account actions (creation, management etc.)
 - different entity types (everything is a player)
-- character appearance, names or whatever
+- character appearance and that (but might support names for entity-system testing purposes)
 - movement speed
