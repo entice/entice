@@ -1,33 +1,70 @@
 # Protocol definition
 
+_Always be sure to check the appropriate source files for more details._
+
 ### 1. Login process
 
-Login might be implemented in a service kind of way, meaning the client **requests** a login, and the 
-server **responds** with a reply containing either general account information and characters etc.,
-or and invalid accountUID and an additional errorcode.
+- Login is requested by the client and either succeeds or fails with a reason
 
-### 2. Game State propagation
+### 2. Dispatch  
 
-**Game state might be pushed to the clients in world diffs after a certain time interval.**  
+- Dispatch is only possible if the client is logged in
+- Dispatch is requested by the client and can only succeed  
+_(The server will always provide a game server, even if the game server itself is a non functional one)_
+- The dispatch response holds an additional key that is used to identify the client - its needed to successfully connect/play to/on a game server
+- The game server might refuse the client, but a connect/play fail usually means that there simply is no game server at all
+- When the client connects to the game server, the server publishes the complete world state _(Afterwards, only diffs will be send)_
 
-A world diff should contain a listing of entities and their components that changed. Note that
-a world diff is always **recipient specific**. Clients do only get updates to entities that they can actually
-see. If a new entity enters the viewdistance of the client then its complete state will get pushed to the
-client.  
+### 3. Game State propagation
 
-This means that we need to keep track of the changes that happened in an entities viewing distance (which can be
-done by checking for any changes of any entities and pushing only the changes a certain client can see). Plus
-we need to keep track of the changes of each entities's view. When we push the world diff to the clients,
-we then need to include both of these aspects.  
-When an entity enters the viewing distance of a client, then the entity basically gets 'spawned' for the client.
-We can either have a special spawning and despawning packet, or the clientmod needs to keep track of the changes
-happening to the View component of the entity. (Meaning we can either do it explicitly or implicitly)  
+**General**  
 
-The client can request state changes of the entity system as well, meaning it can push its own world diff
-containing any number of state changes of entities it can influence.  
+- Game state might be pushed to the clients in world diffs after a certain time interval 
+- A world diff should contain a listing of entities and their components that changed  
+_(Note that a world diff is always **recipient specific**. Clients do only get updates to entities that they can actually see. If a new entity enters the viewdistance of the client then its complete state will get pushed to the
+client.)_
+- A world diff should also contain a listing of entities that have been added or removed
 
-We can either send general purpose updates, having an entity-to-component association with all components that
-changed for a particular entity, or we can send definite changes, affecting only special components
-of some entities. (E.g. when we trigger a skill and only affect certain components of multiple entities
-in a special way)
+**Concerning the time interval**  
 
+- If critical events occur (i.e. a player changes her walking direction) the diff will be send in a shorter interval - think of it as a flush invoked by a players action
+- The diff can only be send after a certain minimum time interval, and must be send after a certain maximum time interval
+
+---
+
+# TODOs / Versions / Milestones
+
+With each milestone, we will add new features in the protocol and implement them in the server and clientmod. The milestone definitions are a rough overview of the features. Details will be added in the source code directly on demand. The milestones only define 
+
+Each milestone may modifiy existing processes and/or create new processes and messages.
+
+**Definition of done:  
+A milestone is `DONE` when all messages of the protocol are supported both in the clientmode and server, including all their features. Ideally, we will have automated tests for the messages to prove that the milestone is done.**
+
+Generally, we need to define the following processes over the single milestones:  
+
+```
+* login                [WIP]
+* dispatch             [WIP]
+* instance-load        [WIP]
+* char-create          [?]
+* gamestate-update     [WIP]
+* ...
+```
+
+### Milestone 1
+
+**Should support**  
+
+- account login and proper reply (success or errorcode)
+- instance load into one single map (propagation of the complete entity system)
+- spawn at least one other sample entity (a player)
+- movement calculations of entities (simple: no collision, client based)
+
+**Should not support**
+
+- any char actions (selection, creation etc.)
+- any account actions (creation, management etc.)
+- different entity types (everything is a player)
+- character appearance, names or whatever
+- movement speed
