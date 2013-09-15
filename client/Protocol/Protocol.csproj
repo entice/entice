@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Name.cs" />
     <Compile Include="Components\Movement.cs" />
     <Compile Include="Components\Position.cs" />
     <Compile Include="Deserializer.cs" />
