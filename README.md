@@ -68,3 +68,20 @@ Generally, we need to define the following processes over the single milestones:
 - different entity types (everything is a player)
 - character appearance and that (but might support names for entity-system testing purposes)
 - movement speed
+
+### Milestone 2
+
+**Should support**
+
+- account login, character selection (plus dispatch) based on a DB backend
+- char creation (on the LS, bringing the client back to the char selection afterwards)
+- chat (at least general chat and recognition of commands)
+- emotes
+- char appearance as component (necessary consequence of char creation and selection)
+- mod: enhanced debugging and exception handling (visually etc.)
+
+**Should not support**
+
+- account actions such as creation etc. (might come with another 'web interface' prj later on)
+- different entity types (everthing still is a player, but it also has an appearance)
+- any changes on the movement or collision system etc.
