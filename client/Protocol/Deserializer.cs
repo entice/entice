@@ -88,29 +88,44 @@ namespace Protocol
 
                 public void Deserialize(byte[] data, Socket socket = null)
                 {
-                        var stream = new MemoryStream(data) {Position = 2}; // throw away first 2 bytes (protocol)
+                        var stream = new MemoryStream(data); // throw away first 2 bytes (protocol)
 
-                        TypedMessage typedMessage = DeserializeMessage(typeof (TypedMessage), stream);
-                        stream.Position = 2; // reset to right after the first 2 bytes
-
-                        Type type;
-                        if (!_typedMessages.TryGetValue(typedMessage.Type, out type))
+                        while (stream.Position < stream.Length)
                         {
-                                throw new ArgumentException("unknown message type: " + typedMessage.Type);
-                        }
+                                var firstByte = (byte)stream.ReadByte();
+                                var lengthPrefix = BitConverter.ToInt16(new[] { (byte)stream.ReadByte(), firstByte }, 0);
 
-                        TypedMessage message = DeserializeMessage(type, stream);
+                                var messagePart = new byte[lengthPrefix];
+                                stream.Read(messagePart, 0, lengthPrefix);
 
+                                var messagePartStream = new MemoryStream(messagePart);
 
-                        Delegate handler;
-                        if (_messageHandlers.TryGetValue(type, out handler))
-                        {
-                                handler.DynamicInvoke(message, socket);
+                                TypedMessage typedMessage = DeserializeMessage(typeof(TypedMessage), messagePartStream);
+                                messagePartStream.Position = 0;
+
+                                Type type;
+                                if (!_typedMessages.TryGetValue(typedMessage.Type, out type))
+                                {
+                                        throw new ArgumentException("unknown message type: " + typedMessage.Type);
+                                }
+
+                                TypedMessage message = DeserializeMessage(type, messagePartStream);
+
+                                Delegate handler;
+                                if (_messageHandlers.TryGetValue(type, out handler))
+                                {
+                                        handler.DynamicInvoke(message, socket);
+                                }
                         }
                 }
 
                 public TypedMessage DeserializeMessage(Type messageType, Stream stream)
                 {
+                        var resetPos = stream.Position;
+                        StreamReader reader = new StreamReader(stream);
+                        string text = reader.ReadToEnd();
+                        stream.Position = resetPos;
+
                         var serializer = new DataContractJsonSerializer(messageType);
 
                         var message = (TypedMessage) serializer.ReadObject(stream);
