@@ -4,15 +4,11 @@
 
 package entice.protocol.utils
 
+import entice.protocol._
 import akka.io._
 import akka.event.LoggingAdapter
-
-import play.api.libs.json._
-import info.akshaal.json.jsonmacro._
-
+import scala.pickling._, json._
 import java.nio.ByteOrder
-
-import entice.protocol._
 
 
 /**
@@ -41,14 +37,12 @@ class MessageStage extends SymmetricPipelineStage[PipelineContext, Message, Stri
  
     override def apply(ctx: PipelineContext) = new SymmetricPipePair[Message, String] {
 
-        import entice.protocol.Messages._
-
         override val commandPipeline = { msg: Message =>
-            ctx.singleCommand(Json.toJson(msg).toString)
+            ctx.singleCommand(msg.pickle.value)
         }
  
         override val eventPipeline = { js: String =>
-            ctx.singleEvent(Json.fromJson[Message](Json.parse(js)).get)
+            ctx.singleEvent(toJSONPickle(js).unpickle[Message])
         }
     }
 }
