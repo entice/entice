@@ -27,18 +27,18 @@ case class EntityView(entity: Entity, view: View) extends Typeable
  */
 sealed trait Component extends Typeable with Cloneable
 
-case class Name         (name: String)                      extends Component
+case class Name         (name: String = "John Wayne")       extends Component
 case class Position     (pos: Coord2D = Coord2D(0, 0))      extends Component
 case class Movement     (dir: Coord2D = Coord2D(1, 1),
                         state: String = "NotMoving")        extends Component { def moveState = MoveState.withName(state) }
-case class Appearance   (profession: Int,
-                        campaign: Int,
-                        sex: Int,
-                        height: Int,
-                        skinColor: Int,
-                        hairColor: Int,
-                        hairstyle: Int,
-                        face: Int)                          extends Component
+case class Appearance   (profession: Int = 1,
+                        campaign: Int = 0,
+                        sex: Int = 1,
+                        height: Int = 0,
+                        skinColor: Int = 3,
+                        hairColor: Int = 0,
+                        hairstyle: Int = 7,
+                        face: Int = 31)                     extends Component
 
 
 /**
