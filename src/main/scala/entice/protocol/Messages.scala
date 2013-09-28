@@ -34,9 +34,9 @@ case class ServerMessage        (message: String)                               
 case class ServerCommand        (command: String, 
                                 args: Array[String])                            extends Message
 
-case class UpdateRequest        (view: EntityView)                              extends Message
-case class UpdateCommand        (timeDelta: Int,
-                                entities: Array[EntityView],
-                                added: Array[Entity],
-                                removed: Array[Entity])                         extends Message
+// case class UpdateRequest        (view: EntityView)                              extends Message
+// case class UpdateCommand        (timeDelta: Int,
+//                                 entities: Array[EntityView],
+//                                 added: Array[Entity],
+//                                 removed: Array[Entity])                         extends Message
 
