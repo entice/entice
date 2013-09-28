@@ -15,10 +15,13 @@ scalacOptions ++= Seq(
 
 resolvers ++= Seq(
     "snapshots" at "http://oss.sonatype.org/content/repositories/snapshots",
-    "releases"  at "http://oss.sonatype.org/content/repositories/releases"
+    "releases"  at "http://oss.sonatype.org/content/repositories/releases",
+    "Mandubian repository snapshots" at "https://github.com/mandubian/mandubian-mvn/raw/master/snapshots/",
+    "Mandubian repository releases" at "https://github.com/mandubian/mandubian-mvn/raw/master/releases/"
 )
 
 libraryDependencies ++= Seq(
     "com.typesafe.akka" %% "akka-actor" % "2.2.0",
-    "org.scala-lang" %% "scala-pickling" % "0.8.0-SNAPSHOT"
+    "play" %% "play-json" % "2.2-SNAPSHOT"
 )
+

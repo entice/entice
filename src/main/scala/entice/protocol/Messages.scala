@@ -4,18 +4,20 @@
 
 package entice.protocol
 
+import play.api.libs.json._
+import info.akshaal.json.jsonmacro._
+
 
 /**
  * Supertype of all network messages.
  * Each network message carries its own class name in a value called "type"
  * to be able to dispatch it to a handler later on.
  */
-trait Message
-
+trait Message extends Typeable
 
 case class LoginRequest         (email: String, 
                                 password: String)                               extends Message
-case class LoginSuccess         (chars: Array[CharacterView])                   extends Message
+case class LoginSuccess         (chars: List[CharacterView])                    extends Message
 case class LoginFail            (error: String = "An unkown error occured.")    extends Message
 
 
@@ -25,18 +27,110 @@ case class CharCreateFail       (error: String = "An unkown error occured.")    
 
 
 case class PlayRequest          (char: Entity)                                  extends Message
-case class PlaySuccess          (world: Array[AllCompsView])                    extends Message
+case class PlaySuccess          (world: List[EntityView])                       extends Message
 case class PlayFail             (error: String = "An unkown error occured.")    extends Message
 
 
-case class ChatMessage          (message: String)                               extends Message
-case class ServerMessage        (message: String)                               extends Message
+case class ChatMessage          (message: String)                               extends Message // from client (or server f)
+case class ServerMessage        (message: String)                               extends Message // from server
 case class ServerCommand        (command: String, 
-                                args: Array[String])                            extends Message
+                                args: List[String])                             extends Message
 
-case class UpdateRequest        (view: EntityView)                              extends Message
+
+case class UpdateRequest        (entityView: EntityView)                        extends Message // entity will be ignored depending on the view and client permissions
 case class UpdateCommand        (timeDelta: Int,
-                                entities: Array[EntityView],
-                                added: Array[Entity],
-                                removed: Array[Entity])                         extends Message
+                                entityViews: List[EntityView],
+                                added: List[Entity],
+                                removed: List[Entity])                          extends Message
 
+
+object Message {
+
+    import EntitySystem._
+
+    // serialization
+    implicit def loginRequestFields             = allFields[LoginRequest]       ('jsonate)
+    implicit def loginSuccessFields             = allFields[LoginSuccess]       ('jsonate)
+    implicit def loginFailFields                = allFields[LoginFail]          ('jsonate)
+
+    implicit def charCreateRequestFields        = allFields[CharCreateRequest]  ('jsonate)
+    implicit def charCreateSuccessFields        = allFields[CharCreateSuccess]  ('jsonate)
+    implicit def charCreateFailFields           = allFields[CharCreateFail]     ('jsonate)
+
+    implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
+    implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
+    implicit def playFailFields                 = allFields[PlayFail]           ('jsonate)
+
+    implicit def chatMessageFields              = allFields[ChatMessage]        ('jsonate)
+    implicit def serverMessageFields            = allFields[ServerMessage]      ('jsonate)
+    implicit def serverCommandFields            = allFields[ServerCommand]      ('jsonate)
+
+    implicit def updateRequestFields            = allFields[UpdateRequest]      ('jsonate) 
+    implicit def updateCommandFields            = allFields[UpdateCommand]      ('jsonate)
+
+
+    implicit def messageWrites = matchingWrites[Message] {
+        case c: LoginRequest                    => loginRequestFields           .toWrites.writes(c)
+        case c: LoginSuccess                    => loginSuccessFields           .toWrites.writes(c)
+        case c: LoginFail                       => loginFailFields              .toWrites.writes(c)
+
+        case c: CharCreateRequest               => charCreateRequestFields      .toWrites.writes(c)
+        case c: CharCreateSuccess               => charCreateSuccessFields      .toWrites.writes(c)
+        case c: CharCreateFail                  => charCreateFailFields         .toWrites.writes(c)
+
+        case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
+        case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
+        case c: PlayFail                        => playFailFields               .toWrites.writes(c)
+
+        case c: ChatMessage                     => chatMessageFields            .toWrites.writes(c)
+        case c: ServerMessage                   => serverMessageFields          .toWrites.writes(c)
+        case c: ServerCommand                   => serverCommandFields          .toWrites.writes(c)
+
+        case c: UpdateRequest                   => updateRequestFields          .toWrites.writes(c)
+        case c: UpdateCommand                   => updateCommandFields          .toWrites.writes(c)
+    }
+
+
+    // deserialization
+    implicit def loginRequestFactory            = factory[LoginRequest]         ('fromJson)
+    implicit def loginSuccessFactory            = factory[LoginSuccess]         ('fromJson)
+    implicit def loginFailFactory               = factory[LoginFail]            ('fromJson)
+
+    implicit def charCreateRequestFactory       = factory[CharCreateRequest]    ('fromJson)
+    implicit def charCreateSuccessFactory       = factory[CharCreateSuccess]    ('fromJson)
+    implicit def charCreateFailFactory          = factory[CharCreateFail]       ('fromJson)
+
+    implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
+    implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
+    implicit def playFailFactory                = factory[PlayFail]             ('fromJson)
+
+    implicit def chatMessageFactory             = factory[ChatMessage]          ('fromJson)
+    implicit def serverMessageFactory           = factory[ServerMessage]        ('fromJson)
+    implicit def serverCommandFactory           = factory[ServerCommand]        ('fromJson)
+
+    implicit def updateRequestFactory           = factory[UpdateRequest]        ('fromJson) 
+    implicit def updatecommandFactory           = factory[UpdateCommand]        ('fromJson)
+
+
+    implicit def messageReads: Reads[Message] =
+        predicatedReads[Message](
+            jsHas('type                         -> 'LoginRequest)               -> loginRequestFactory,
+            jsHas('type                         -> 'LoginSuccess)               -> loginSuccessFactory,
+            jsHas('type                         -> 'LoginFail)                  -> loginFailFactory,
+
+            jsHas('type                         -> 'CharCreateRequest)          -> charCreateRequestFactory,
+            jsHas('type                         -> 'CharCreateSuccess)          -> charCreateSuccessFactory,
+            jsHas('type                         -> 'CharCreateFail)             -> charCreateFailFactory,
+
+            jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
+            jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
+            jsHas('type                         -> 'PlayFail)                   -> playFailFactory,
+
+            jsHas('type                         -> 'ChatMessage)                -> chatMessageFactory,
+            jsHas('type                         -> 'ServerMessage)              -> serverMessageFactory,
+            jsHas('type                         -> 'ServerCommand)              -> serverCommandFactory,
+            
+            jsHas('type                         -> 'UpdateRequest)              -> updateRequestFactory,
+            jsHas('type                         -> 'UpdateCommand)              -> updatecommandFactory
+        )
+}
