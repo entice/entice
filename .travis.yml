@@ -1,0 +1,12 @@
+language: scala
+scala:
+  - 2.10.2
+branches:
+  only:
+    - milestone1
+    - master
+notifications:
+  irc: "irc.rizon.net#gwlpr"
+jdk:
+  - openjdk7
+  - oraclejdk7
