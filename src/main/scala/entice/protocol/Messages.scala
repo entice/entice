@@ -17,7 +17,7 @@ trait Message extends Typeable
 
 case class LoginRequest         (email: String, 
                                 password: String)                               extends Message
-case class LoginSuccess         (chars: List[CharacterView])                    extends Message
+case class LoginSuccess         (chars: List[EntityView])                       extends Message // convention: this will only contain CharacterViews
 case class LoginFail            (error: String = "An unkown error occured.")    extends Message
 
 

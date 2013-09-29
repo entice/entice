@@ -4,6 +4,7 @@ scala:
 branches:
   only:
     - milestone1
+    - milestone2
     - master
 notifications:
   irc: "irc.rizon.net#gwlpr"
