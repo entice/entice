@@ -21,19 +21,19 @@ case class LoginSuccess         (chars: List[EntityView])                       
 case class LoginFail            (error: String = "An unkown error occured.")    extends Message
 
 
-case class CharCreateRequest    (char: CharacterView)                           extends Message
-case class CharCreateSuccess    (char: Entity)                                  extends Message
+case class CharCreateRequest    (chara: CharacterView)                          extends Message
+case class CharCreateSuccess    (chara: Entity)                                 extends Message
 case class CharCreateFail       (error: String = "An unkown error occured.")    extends Message
 
 
-case class PlayRequest          (char: Entity)                                  extends Message
+case class PlayRequest          (chara: Entity)                                 extends Message
 case class PlaySuccess          (world: List[EntityView])                       extends Message
 case class PlayFail             (error: String = "An unkown error occured.")    extends Message
 
 
 case class ChatMessage          (message: String)                               extends Message // from client (or server f)
 case class ServerMessage        (message: String)                               extends Message // from server
-case class ServerCommand        (command: String, 
+case class ChatCommand          (command: String, 
                                 args: List[String])                             extends Message
 
 
@@ -63,7 +63,7 @@ object Message {
 
     implicit def chatMessageFields              = allFields[ChatMessage]        ('jsonate)
     implicit def serverMessageFields            = allFields[ServerMessage]      ('jsonate)
-    implicit def serverCommandFields            = allFields[ServerCommand]      ('jsonate)
+    implicit def chatCommandFields              = allFields[ChatCommand]        ('jsonate)
 
     implicit def updateRequestFields            = allFields[UpdateRequest]      ('jsonate) 
     implicit def updateCommandFields            = allFields[UpdateCommand]      ('jsonate)
@@ -84,7 +84,7 @@ object Message {
 
         case c: ChatMessage                     => chatMessageFields            .toWrites.writes(c)
         case c: ServerMessage                   => serverMessageFields          .toWrites.writes(c)
-        case c: ServerCommand                   => serverCommandFields          .toWrites.writes(c)
+        case c: ChatCommand                     => chatCommandFields            .toWrites.writes(c)
 
         case c: UpdateRequest                   => updateRequestFields          .toWrites.writes(c)
         case c: UpdateCommand                   => updateCommandFields          .toWrites.writes(c)
@@ -106,7 +106,7 @@ object Message {
 
     implicit def chatMessageFactory             = factory[ChatMessage]          ('fromJson)
     implicit def serverMessageFactory           = factory[ServerMessage]        ('fromJson)
-    implicit def serverCommandFactory           = factory[ServerCommand]        ('fromJson)
+    implicit def chatCommandFactory             = factory[ChatCommand]        ('fromJson)
 
     implicit def updateRequestFactory           = factory[UpdateRequest]        ('fromJson) 
     implicit def updatecommandFactory           = factory[UpdateCommand]        ('fromJson)
@@ -128,7 +128,7 @@ object Message {
 
             jsHas('type                         -> 'ChatMessage)                -> chatMessageFactory,
             jsHas('type                         -> 'ServerMessage)              -> serverMessageFactory,
-            jsHas('type                         -> 'ServerCommand)              -> serverCommandFactory,
+            jsHas('type                         -> 'ChatCommand)                -> chatCommandFactory,
             
             jsHas('type                         -> 'UpdateRequest)              -> updateRequestFactory,
             jsHas('type                         -> 'UpdateCommand)              -> updatecommandFactory

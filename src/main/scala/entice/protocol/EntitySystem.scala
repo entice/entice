@@ -16,7 +16,7 @@ import info.akshaal.json.jsonmacro._
 
 
 /**
- * Simple UUID wrapper. (Exists so we attach )
+ * Simple UUID wrapper.
  */
 case class Entity(uuid: UUID) extends Typeable
 case class EntityView(entity: Entity, view: View) extends Typeable
