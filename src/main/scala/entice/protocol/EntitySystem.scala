@@ -40,7 +40,7 @@ case class Appearance   (profession: Int = 1,
                         hairColor: Int = 0,
                         hairstyle: Int = 7,
                         face: Int = 31)                     extends Component
-case class Animation    (id: String)                        extends Component { def animationId = Animations.withName(id) }
+case class Animation    (id: String = "none")               extends Component { def animationId = Animations.withName(id) }
 
 
 /**
