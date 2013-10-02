@@ -36,6 +36,16 @@ object MoveState extends Enumeration {
 }
 
 
+/**
+ * Some animations
+ */
+object Animations extends Enumeration {
+   val None         = Value("none")
+   val Dance        = Value("dance")
+   // TODO complete me pls...
+}
+
+
 object Utils {
 
     // serialization

@@ -36,8 +36,6 @@ case class ChatMessage          (sender: Entity,
 case class ServerMessage        (message: String)                               extends Message // from server
 case class ChatCommand          (command: String, 
                                 args: List[String])                             extends Message // from client
-case class PerformEmote         (entity: Entity,
-                                emote: String)                                  extends Message // bidirectional
 
 
 case class UpdateRequest        (entityView: EntityView)                        extends Message // entity will be ignored depending on the view and client permissions
@@ -67,7 +65,6 @@ object Message {
     implicit def chatMessageFields              = allFields[ChatMessage]        ('jsonate)
     implicit def serverMessageFields            = allFields[ServerMessage]      ('jsonate)
     implicit def chatCommandFields              = allFields[ChatCommand]        ('jsonate)
-    implicit def performEmoteFields             = allFields[PerformEmote]       ('jsonate)
 
     implicit def updateRequestFields            = allFields[UpdateRequest]      ('jsonate) 
     implicit def updateCommandFields            = allFields[UpdateCommand]      ('jsonate)
@@ -89,7 +86,6 @@ object Message {
         case c: ChatMessage                     => chatMessageFields            .toWrites.writes(c)
         case c: ServerMessage                   => serverMessageFields          .toWrites.writes(c)
         case c: ChatCommand                     => chatCommandFields            .toWrites.writes(c)
-        case c: PerformEmote                    => performEmoteFields           .toWrites.writes(c)
 
         case c: UpdateRequest                   => updateRequestFields          .toWrites.writes(c)
         case c: UpdateCommand                   => updateCommandFields          .toWrites.writes(c)
@@ -112,7 +108,6 @@ object Message {
     implicit def chatMessageFactory             = factory[ChatMessage]          ('fromJson)
     implicit def serverMessageFactory           = factory[ServerMessage]        ('fromJson)
     implicit def chatCommandFactory             = factory[ChatCommand]          ('fromJson)
-    implicit def performEmoteFactory            = factory[PerformEmote]         ('fromJson)
 
     implicit def updateRequestFactory           = factory[UpdateRequest]        ('fromJson) 
     implicit def updatecommandFactory           = factory[UpdateCommand]        ('fromJson)
@@ -135,7 +130,6 @@ object Message {
             jsHas('type                         -> 'ChatMessage)                -> chatMessageFactory,
             jsHas('type                         -> 'ServerMessage)              -> serverMessageFactory,
             jsHas('type                         -> 'ChatCommand)                -> chatCommandFactory,
-            jsHas('type                         -> 'PerformEmote)               -> performEmoteFactory,
             
             jsHas('type                         -> 'UpdateRequest)              -> updateRequestFactory,
             jsHas('type                         -> 'UpdateCommand)              -> updatecommandFactory
