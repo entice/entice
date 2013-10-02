@@ -31,12 +31,13 @@ case class PlaySuccess          (world: List[EntityView])                       
 case class PlayFail             (error: String = "An unkown error occured.")    extends Message
 
 
-case class ChatMessage          (message: String)                               extends Message // from client (or server f)
+case class ChatMessage          (sender: Entity,
+                                message: String)                                extends Message // bidirectional
 case class ServerMessage        (message: String)                               extends Message // from server
 case class ChatCommand          (command: String, 
-                                args: List[String])                             extends Message
+                                args: List[String])                             extends Message // from client
 case class PerformEmote         (entity: Entity,
-                                emote: String)                                  extends Message
+                                emote: String)                                  extends Message // bidirectional
 
 
 case class UpdateRequest        (entityView: EntityView)                        extends Message // entity will be ignored depending on the view and client permissions
