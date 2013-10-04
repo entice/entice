@@ -4,8 +4,6 @@
 
 package entice.protocol
 
-import akka.actor.ActorRef
-
 import play.api.libs.json._
 import info.akshaal.json.jsonmacro._
 
@@ -13,103 +11,127 @@ import info.akshaal.json.jsonmacro._
 /**
  * Supertype of all network messages.
  * Each network message carries its own class name in a value called "type"
- * to be able to deserialize it later on.
+ * to be able to dispatch it to a handler later on.
  */
-trait Message {
-    def productPrefix: String       // implemented by all case classes, contains class name
-    val `type` = productPrefix
-}
+sealed trait Message extends Typeable
 
-// Login & dispatch to GS specific
-case class LoginRequest     (email: String, password: String)                   extends Message
-case class LoginSuccess     ()                                                  extends Message
-case class LoginFail        (error: String = "An unkown error occured.")        extends Message
-
-case class DispatchRequest  ()                                                  extends Message
-case class DispatchResponse (host: String, port: Int, key: Long)                extends Message
-
-// GS handshake & worldupdate specific
-case class PlayRequest      (key: Long)                                         extends Message
-case class PlaySuccess      (player: Entity, worldState: List[EntityView])      extends Message
-case class PlayFail         (error: String = "An unkown error occured.")        extends Message
-
-case class GameUpdate       (timeDelta: Int, 
-                            entityDiffs: List[EntityView],
-                            added: List[Entity],
-                            removed: List[Entity])                              extends Message
-case class MoveRequest      (pos: Position, move: Movement)                     extends Message { def toView(entity: Entity) = EntityView(entity, Set(pos, move)) }
+case class LoginRequest         (email: String, 
+                                password: String)                               extends Message
+case class LoginSuccess         (chars: List[EntityView])                       extends Message // convention: this will only contain CharacterViews
+case class LoginFail            (error: String = "An unkown error occured.")    extends Message
 
 
-/**
- * Static serialization init
- */
-object Messages {
+case class CharCreateRequest    (chara: CharacterView)                          extends Message
+case class CharCreateSuccess    (chara: Entity)                                 extends Message
+case class CharCreateFail       (error: String = "An unkown error occured.")    extends Message
+
+
+case class PlayRequest          (chara: Entity)                                 extends Message
+case class PlaySuccess          (world: List[EntityView])                       extends Message
+case class PlayFail             (error: String = "An unkown error occured.")    extends Message
+
+
+case class ChatMessage          (sender: Entity,
+                                message: String)                                extends Message // bidirectional
+case class ServerMessage        (message: String)                               extends Message // from server
+case class ChatCommand          (command: String, 
+                                args: List[String])                             extends Message // from client
+
+
+case class UpdateRequest        (entityView: EntityView)                        extends Message // entity will be ignored depending on the view and client permissions
+case class UpdateCommand        (timeDelta: Int,
+                                entityViews: List[EntityView],
+                                added: List[Entity],
+                                removed: List[Entity])                          extends Message
+
+
+object Message {
 
     import EntitySystem._
 
     // serialization
-    implicit def loginRequestFields         = allFields[LoginRequest]       ('jsonate)
-    implicit def loginSuccessFields         = allFields[LoginSuccess]       ('jsonate)
-    implicit def loginFailFields            = allFields[LoginFail]          ('jsonate)
+    implicit def loginRequestFields             = allFields[LoginRequest]       ('jsonate)
+    implicit def loginSuccessFields             = allFields[LoginSuccess]       ('jsonate)
+    implicit def loginFailFields                = allFields[LoginFail]          ('jsonate)
 
-    implicit def dispatchRequestFields      = allFields[DispatchRequest]    ('jsonate)
-    implicit def dispatchResponseFields     = allFields[DispatchResponse]   ('jsonate)
+    implicit def charCreateRequestFields        = allFields[CharCreateRequest]  ('jsonate)
+    implicit def charCreateSuccessFields        = allFields[CharCreateSuccess]  ('jsonate)
+    implicit def charCreateFailFields           = allFields[CharCreateFail]     ('jsonate)
 
-    implicit def playRequestFields          = allFields[PlayRequest]        ('jsonate)
-    implicit def playSuccessFields          = allFields[PlaySuccess]        ('jsonate)
-    implicit def playFailFields             = allFields[PlayFail]           ('jsonate)
+    implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
+    implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
+    implicit def playFailFields                 = allFields[PlayFail]           ('jsonate)
 
-    implicit def gameUpdateFields           = allFields[GameUpdate]         ('jsonate)
-    implicit def moveRequestFields          = allFields[MoveRequest]        ('jsonate)
+    implicit def chatMessageFields              = allFields[ChatMessage]        ('jsonate)
+    implicit def serverMessageFields            = allFields[ServerMessage]      ('jsonate)
+    implicit def chatCommandFields              = allFields[ChatCommand]        ('jsonate)
+
+    implicit def updateRequestFields            = allFields[UpdateRequest]      ('jsonate) 
+    implicit def updateCommandFields            = allFields[UpdateCommand]      ('jsonate)
 
 
     implicit def messageWrites = matchingWrites[Message] {
-        case c: LoginRequest        => loginRequestFields       .toWrites.writes(c)
-        case c: LoginSuccess        => loginSuccessFields       .toWrites.writes(c)
-        case c: LoginFail           => loginFailFields          .toWrites.writes(c)
+        case c: LoginRequest                    => loginRequestFields           .toWrites.writes(c)
+        case c: LoginSuccess                    => loginSuccessFields           .toWrites.writes(c)
+        case c: LoginFail                       => loginFailFields              .toWrites.writes(c)
 
-        case c: DispatchRequest     => dispatchRequestFields    .toWrites.writes(c)
-        case c: DispatchResponse    => dispatchResponseFields   .toWrites.writes(c)
+        case c: CharCreateRequest               => charCreateRequestFields      .toWrites.writes(c)
+        case c: CharCreateSuccess               => charCreateSuccessFields      .toWrites.writes(c)
+        case c: CharCreateFail                  => charCreateFailFields         .toWrites.writes(c)
 
-        case c: PlayRequest         => playRequestFields        .toWrites.writes(c)
-        case c: PlaySuccess         => playSuccessFields        .toWrites.writes(c)
-        case c: PlayFail            => playFailFields           .toWrites.writes(c)
+        case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
+        case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
+        case c: PlayFail                        => playFailFields               .toWrites.writes(c)
 
-        case c: GameUpdate          => gameUpdateFields         .toWrites.writes(c)
-        case c: MoveRequest         => moveRequestFields        .toWrites.writes(c)
+        case c: ChatMessage                     => chatMessageFields            .toWrites.writes(c)
+        case c: ServerMessage                   => serverMessageFields          .toWrites.writes(c)
+        case c: ChatCommand                     => chatCommandFields            .toWrites.writes(c)
+
+        case c: UpdateRequest                   => updateRequestFields          .toWrites.writes(c)
+        case c: UpdateCommand                   => updateCommandFields          .toWrites.writes(c)
     }
 
 
     // deserialization
-    implicit def loginRequestFactory        = factory[LoginRequest]         ('fromJson)
-    implicit def loginSuccessFactory        = factory[LoginSuccess]         ('fromJson)
-    implicit def loginFailFactory           = factory[LoginFail]            ('fromJson)
+    implicit def loginRequestFactory            = factory[LoginRequest]         ('fromJson)
+    implicit def loginSuccessFactory            = factory[LoginSuccess]         ('fromJson)
+    implicit def loginFailFactory               = factory[LoginFail]            ('fromJson)
 
-    implicit def dispatchRequestFactory     = factory[DispatchRequest]      ('fromJson)
-    implicit def dispatchResponseFactory    = factory[DispatchResponse]     ('fromJson)
+    implicit def charCreateRequestFactory       = factory[CharCreateRequest]    ('fromJson)
+    implicit def charCreateSuccessFactory       = factory[CharCreateSuccess]    ('fromJson)
+    implicit def charCreateFailFactory          = factory[CharCreateFail]       ('fromJson)
 
-    implicit def playRequestFactory        = factory[PlayRequest]          ('fromJson)
-    implicit def playSuccessFactory        = factory[PlaySuccess]          ('fromJson)
-    implicit def playFailFactory           = factory[PlayFail]             ('fromJson)
+    implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
+    implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
+    implicit def playFailFactory                = factory[PlayFail]             ('fromJson)
 
-    implicit def gameUpdateFactory         = factory[GameUpdate]           ('fromJson)
-    implicit def moveRequestFactory        = factory[MoveRequest]          ('fromJson)
+    implicit def chatMessageFactory             = factory[ChatMessage]          ('fromJson)
+    implicit def serverMessageFactory           = factory[ServerMessage]        ('fromJson)
+    implicit def chatCommandFactory             = factory[ChatCommand]          ('fromJson)
+
+    implicit def updateRequestFactory           = factory[UpdateRequest]        ('fromJson) 
+    implicit def updatecommandFactory           = factory[UpdateCommand]        ('fromJson)
 
 
     implicit def messageReads: Reads[Message] =
         predicatedReads[Message](
-            jsHas('type -> 'LoginRequest)       -> loginRequestFactory,
-            jsHas('type -> 'LoginSuccess)       -> loginSuccessFactory,
-            jsHas('type -> 'LoginFail)          -> loginFailFactory,
+            jsHas('type                         -> 'LoginRequest)               -> loginRequestFactory,
+            jsHas('type                         -> 'LoginSuccess)               -> loginSuccessFactory,
+            jsHas('type                         -> 'LoginFail)                  -> loginFailFactory,
 
-            jsHas('type -> 'DispatchRequest)    -> dispatchRequestFactory,
-            jsHas('type -> 'DispatchResponse)   -> dispatchResponseFactory,
+            jsHas('type                         -> 'CharCreateRequest)          -> charCreateRequestFactory,
+            jsHas('type                         -> 'CharCreateSuccess)          -> charCreateSuccessFactory,
+            jsHas('type                         -> 'CharCreateFail)             -> charCreateFailFactory,
 
-            jsHas('type -> 'PlayRequest)        -> playRequestFactory,
-            jsHas('type -> 'PlaySuccess)        -> playSuccessFactory,
-            jsHas('type -> 'PlayFail)           -> playFailFactory,
+            jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
+            jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
+            jsHas('type                         -> 'PlayFail)                   -> playFailFactory,
+
+            jsHas('type                         -> 'ChatMessage)                -> chatMessageFactory,
+            jsHas('type                         -> 'ServerMessage)              -> serverMessageFactory,
+            jsHas('type                         -> 'ChatCommand)                -> chatCommandFactory,
             
-            jsHas('type -> 'GameUpdate)         -> gameUpdateFactory,
-            jsHas('type -> 'MoveRequest)        -> moveRequestFactory
+            jsHas('type                         -> 'UpdateRequest)              -> updateRequestFactory,
+            jsHas('type                         -> 'UpdateCommand)              -> updatecommandFactory
         )
 }

@@ -9,7 +9,7 @@ import sbt.Keys._
 object ProjectBuild extends Build {
 
     lazy val root = Project(
-        id = "protocol",
+        id = "protocol", 
         base = file(".")
     ) dependsOn(jsonMacros)
 
