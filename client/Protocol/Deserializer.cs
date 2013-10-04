@@ -7,12 +7,13 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Threading;
+using Protocol.Messages;
 
 namespace Protocol
 {
         public class Deserializer
         {
-                private readonly ConcurrentDictionary<Type, KeyValuePair<DateTime, TypedMessage>> _lastMessages = new ConcurrentDictionary<Type, KeyValuePair<DateTime, TypedMessage>>();
+                private readonly ConcurrentDictionary<Type, KeyValuePair<DateTime, Message>> _lastMessages = new ConcurrentDictionary<Type, KeyValuePair<DateTime, Message>>();
                 private readonly Dictionary<Type, Delegate> _messageHandlers;
                 private readonly Dictionary<string, Type> _typedMessages;
 
@@ -21,7 +22,7 @@ namespace Protocol
                         _typedMessages = new Dictionary<string, Type>();
                         _messageHandlers = new Dictionary<Type, Delegate>();
 
-                        IEnumerable<Type> typedMessagesTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof (TypedMessage)));
+                        IEnumerable<Type> typedMessagesTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof (Message)));
 
                         foreach (Type type in typedMessagesTypes)
                         {
@@ -30,8 +31,8 @@ namespace Protocol
                 }
 
                 public int WaitForMessage<T1, T2>(int timeout, out T1 messagePossibility1, out T2 messagePossibility2)
-                        where T1 : TypedMessage
-                        where T2 : TypedMessage
+                        where T1 : Message
+                        where T2 : Message
                 {
                         DateTime timeStamp = DateTime.Now;
 
@@ -49,7 +50,7 @@ namespace Protocol
                         return 0;
                 }
 
-                public bool WaitForMessage<T>(int timeout, out T message) where T : TypedMessage
+                public bool WaitForMessage<T>(int timeout, out T message) where T : Message
                 {
                         DateTime timeStamp = DateTime.Now;
 
@@ -65,14 +66,14 @@ namespace Protocol
                         return false;
                 }
 
-                private bool MessageAvailable<T>(DateTime timeStamp, out T message) where T : TypedMessage
+                private bool MessageAvailable<T>(DateTime timeStamp, out T message) where T : Message
                 {
-                        KeyValuePair<DateTime, TypedMessage> lastTMessage;
-                        if (_lastMessages.TryGetValue(typeof (T), out lastTMessage))
+                        KeyValuePair<DateTime, Message> lastMessage;
+                        if (_lastMessages.TryGetValue(typeof (T), out lastMessage))
                         {
-                                if (lastTMessage.Key > timeStamp)
+                                if (lastMessage.Key > timeStamp)
                                 {
-                                        message = (T) lastTMessage.Value;
+                                        message = (T) lastMessage.Value;
                                         return true;
                                 }
                         }
@@ -81,26 +82,33 @@ namespace Protocol
                         return false;
                 }
 
-                public void RegisterMessageHandler<T>(Action<T, Socket> handler) where T : TypedMessage
+                public void RegisterMessageHandler<T>(Action<T, Socket> handler) where T : Message
                 {
-                        _messageHandlers.Add(typeof (T), handler);
+                        if (_messageHandlers.ContainsKey(typeof (T)))
+                        {
+                                _messageHandlers[typeof (T)] = handler;
+                        }
+                        else
+                        {
+                                _messageHandlers.Add(typeof(T), handler);
+                        }
                 }
 
                 public void Deserialize(byte[] data, Socket socket = null)
                 {
-                        var stream = new MemoryStream(data); // throw away first 2 bytes (protocol)
+                        var stream = new MemoryStream(data);
 
                         while (stream.Position < stream.Length)
                         {
-                                var firstByte = (byte)stream.ReadByte();
-                                var lengthPrefix = BitConverter.ToInt16(new[] { (byte)stream.ReadByte(), firstByte }, 0);
+                                var firstByte = (byte) stream.ReadByte();
+                                short lengthPrefix = BitConverter.ToInt16(new[] {(byte) stream.ReadByte(), firstByte}, 0);
 
                                 var messagePart = new byte[lengthPrefix];
                                 stream.Read(messagePart, 0, lengthPrefix);
 
                                 var messagePartStream = new MemoryStream(messagePart);
 
-                                TypedMessage typedMessage = DeserializeMessage(typeof(TypedMessage), messagePartStream);
+                                Message typedMessage = DeserializeMessage(typeof (Message), messagePartStream);
                                 messagePartStream.Position = 0;
 
                                 Type type;
@@ -109,7 +117,7 @@ namespace Protocol
                                         throw new ArgumentException("unknown message type: " + typedMessage.Type);
                                 }
 
-                                TypedMessage message = DeserializeMessage(type, messagePartStream);
+                                Message message = DeserializeMessage(type, messagePartStream);
 
                                 Delegate handler;
                                 if (_messageHandlers.TryGetValue(type, out handler))
@@ -119,18 +127,19 @@ namespace Protocol
                         }
                 }
 
-                public TypedMessage DeserializeMessage(Type messageType, Stream stream)
+                public Message DeserializeMessage(Type messageType, Stream stream)
                 {
-                        var resetPos = stream.Position;
-                        StreamReader reader = new StreamReader(stream);
+                        long resetPos = stream.Position;
+                        var reader = new StreamReader(stream);
                         string text = reader.ReadToEnd();
                         stream.Position = resetPos;
 
-                        var serializer = new DataContractJsonSerializer(messageType);
 
-                        var message = (TypedMessage) serializer.ReadObject(stream);
+                        DataContractJsonSerializer serializer = CustomJsonSerializer.Instance.Get(messageType);
 
-                        var newValue = new KeyValuePair<DateTime, TypedMessage>(DateTime.Now, message);
+                        var message = (Message) serializer.ReadObject(stream);
+
+                        var newValue = new KeyValuePair<DateTime, Message>(DateTime.Now, message);
                         _lastMessages.AddOrUpdate(messageType, newValue, (k, v) => newValue);
 
                         return message;

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using Protocol.Components;
-using Protocol.Messages;
+using Protocol.Views;
 
 namespace Protocol.Types
 {
@@ -33,16 +31,8 @@ namespace Protocol.Types
                         _handledComponents.Add(typeof (T), handler);
                 }
 
-                public void Update(IncomingComponent incomingComponent)
+                public void Update(Component component)
                 {
-                        Component component = ComponentFactory.Instance.CreateComponent(incomingComponent);
-
-                        if (component == null)
-                        {
-                                MessageBox.Show("unknown incoming IncomingComponent type: " + incomingComponent.Type);
-                                return;
-                        }
-
                         Delegate handler;
                         if (_handledComponents.TryGetValue(component.GetType(), out handler))
                         {
@@ -51,33 +41,6 @@ namespace Protocol.Types
                         else
                         {
                                 MessageBox.Show("entity " + UUID + "(" + GetType().Name + ") ignored component update " + component.GetType());
-                        }
-                }
-
-                private class ComponentFactory
-                {
-                        public static readonly ComponentFactory Instance = new ComponentFactory();
-
-                        private readonly Dictionary<string, Type> _componentTypesMapping;
-
-                        private ComponentFactory()
-                        {
-                                _componentTypesMapping = new Dictionary<string, Type>();
-
-                                IEnumerable<Type> typedMessagesTypes = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof (Component)));
-
-                                foreach (Type type in typedMessagesTypes)
-                                {
-                                        _componentTypesMapping.Add(type.Name, type);
-                                }
-                        }
-
-                        public Component CreateComponent(IncomingComponent incomingIncomingComponent)
-                        {
-                                Type type;
-                                if (!_componentTypesMapping.TryGetValue(incomingIncomingComponent.Type, out type)) return null;
-
-                                return (Component) Activator.CreateInstance(type, incomingIncomingComponent);
                         }
                 }
         }
