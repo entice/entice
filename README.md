@@ -85,3 +85,19 @@ Generally, we need to define the following processes over the single milestones:
 - account actions such as creation etc. (might come with another 'web interface' prj later on)
 - different entity types (everthing still is a player, but it also has an appearance)
 - any changes on the movement or collision system etc.
+
+### Milestone 3
+
+**Should support**
+
+- different worlds, i.e. the outposts of The Battle Isles, incl. command based map-change
+- character deletion
+- quit playing and going back to char selection
+- proper despawning/deletion of entities upon map-change or logout etc. (which is a fix)
+- player groups, incl. invite, accept, merge, leave, etc.
+- a 4 bytes length prefix in the protocol to support very large JSON docs
+
+**Should not support**
+
+- different instances and districts of one outpost
+- group search window (who needs that really?)
