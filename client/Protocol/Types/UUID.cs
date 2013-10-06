@@ -4,43 +4,34 @@ using System.Runtime.Serialization;
 namespace Protocol.Types
 {
         [DataContract]
-        public class UUID : IEquatable<UUID>
+        public class UUID : Serializable, IEquatable<UUID>
         {
-                [DataMember] private long leastSigBytes;
-                [DataMember] private long mostSigBytes;
+                [DataMember] public long leastSigBytes;
+                [DataMember] public long mostSigBytes;
 
-
-                public UUID(long leastSignificantBytes, long mostSignificantBytes)
+                public UUID()
                 {
-                        LeastSignificantBytes = leastSignificantBytes;
-                        MostSignificantBytes = mostSignificantBytes;
                 }
 
-                public long LeastSignificantBytes
+                public UUID(long leastSigBytes, long mostSigBytes)
                 {
-                        get { return leastSigBytes; }
-                        private set { leastSigBytes = value; }
-                }
-
-                public long MostSignificantBytes
-                {
-                        get { return mostSigBytes; }
-                        private set { mostSigBytes = value; }
+                        this.leastSigBytes = leastSigBytes;
+                        this.mostSigBytes = mostSigBytes;
                 }
 
                 public bool Equals(UUID other)
                 {
-                        return MostSignificantBytes == other.MostSignificantBytes && LeastSignificantBytes == other.LeastSignificantBytes;
+                        return mostSigBytes == other.mostSigBytes && leastSigBytes == other.leastSigBytes;
                 }
 
                 public override int GetHashCode()
                 {
-                        return MostSignificantBytes.GetHashCode() ^ LeastSignificantBytes.GetHashCode();
+                        return mostSigBytes.GetHashCode() ^ leastSigBytes.GetHashCode();
                 }
 
                 public override string ToString()
                 {
-                        return string.Format("[{0}:{1}]", MostSignificantBytes, LeastSignificantBytes);
+                        return string.Format("[{0}:{1}]", mostSigBytes, leastSigBytes);
                 }
         }
 }

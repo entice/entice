@@ -6,18 +6,15 @@ namespace Protocol.Components
         [DataContract]
         public class Position : Component
         {
-                [DataMember] private Coord2D pos;
+                [DataMember] public Coord2D pos;
 
-
-                public Position(Coord2D position)
+                public Position()
                 {
-                        Value = position;
                 }
 
-                public Coord2D Value
+                public Position(Coord2D pos)
                 {
-                        get { return pos; }
-                        private set { pos = value; }
+                        this.pos = pos;
                 }
         }
 }

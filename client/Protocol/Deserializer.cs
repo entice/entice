@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Runtime.Serialization.Json;
 using System.Threading;
+using System.Web.Script.Serialization;
 using Protocol.Messages;
 
 namespace Protocol
@@ -90,7 +90,7 @@ namespace Protocol
                         }
                         else
                         {
-                                _messageHandlers.Add(typeof(T), handler);
+                                _messageHandlers.Add(typeof (T), handler);
                         }
                 }
 
@@ -108,39 +108,28 @@ namespace Protocol
 
                                 var messagePartStream = new MemoryStream(messagePart);
 
-                                Message typedMessage = DeserializeMessage(typeof (Message), messagePartStream);
-                                messagePartStream.Position = 0;
-
-                                Type type;
-                                if (!_typedMessages.TryGetValue(typedMessage.Type, out type))
-                                {
-                                        throw new ArgumentException("unknown message type: " + typedMessage.Type);
-                                }
-
-                                Message message = DeserializeMessage(type, messagePartStream);
+                                Message message = DeserializeMessage(messagePartStream);
 
                                 Delegate handler;
-                                if (_messageHandlers.TryGetValue(type, out handler))
+                                if (_messageHandlers.TryGetValue(message.GetType(), out handler))
                                 {
                                         handler.DynamicInvoke(message, socket);
                                 }
                         }
                 }
 
-                public Message DeserializeMessage(Type messageType, Stream stream)
+                public Message DeserializeMessage(Stream stream)
                 {
-                        long resetPos = stream.Position;
                         var reader = new StreamReader(stream);
                         string text = reader.ReadToEnd();
-                        stream.Position = resetPos;
 
+                        var serializer = new JavaScriptSerializer();
+                        serializer.RegisterConverters(new[] {new CustomJsonResolver()});
 
-                        DataContractJsonSerializer serializer = CustomJsonSerializer.Instance.Get(messageType);
-
-                        var message = (Message) serializer.ReadObject(stream);
+                        var message = serializer.Deserialize<Message>(text);
 
                         var newValue = new KeyValuePair<DateTime, Message>(DateTime.Now, message);
-                        _lastMessages.AddOrUpdate(messageType, newValue, (k, v) => newValue);
+                        _lastMessages.AddOrUpdate(message.GetType(), newValue, (k, v) => newValue);
 
                         return message;
                 }

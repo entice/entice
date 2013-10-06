@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using Protocol.Components;
-using Protocol.Views;
 
 namespace Protocol.Types
 {
         [DataContract]
-        public class Entity
+        public class Entity : Serializable
         {
-                private readonly Dictionary<Type, Delegate> _handledComponents;
-                [DataMember] private UUID uuid;
+                private readonly Dictionary<Type, Delegate> _handledComponents = new Dictionary<Type, Delegate>();
+                [DataMember] public UUID uuid;
+
+
+                public Entity()
+                {
+                }
 
                 public Entity(UUID uuid)
                 {
-                        UUID = uuid;
-
-                        _handledComponents = new Dictionary<Type, Delegate>();
+                        this.uuid = uuid;
                 }
 
-                public UUID UUID
+                public Entity(Entity other)
                 {
-                        get { return uuid; }
-                        private set { uuid = value; }
+                        uuid = other.uuid;
                 }
 
                 protected void RegisterComponentHandler<T>(Action<T> handler) where T : Component
@@ -40,7 +41,7 @@ namespace Protocol.Types
                         }
                         else
                         {
-                                MessageBox.Show("entity " + UUID + "(" + GetType().Name + ") ignored component update " + component.GetType());
+                                MessageBox.Show("entity " + uuid + "(" + GetType().Name + ") ignored component update " + component.GetType());
                         }
                 }
         }

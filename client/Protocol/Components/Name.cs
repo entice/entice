@@ -5,18 +5,16 @@ namespace Protocol.Components
         [DataContract]
         public class Name : Component
         {
-                [DataMember] private string name;
+                [DataMember] public string name;
 
+
+                public Name()
+                {
+                }
 
                 public Name(string name)
                 {
-                        Value = name;
-                }
-
-                public string Value
-                {
-                        get { return name; }
-                        private set { name = value; }
+                        this.name = name;
                 }
         }
 }

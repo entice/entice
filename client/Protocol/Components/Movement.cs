@@ -6,40 +6,19 @@ namespace Protocol.Components
         [DataContract]
         public class Movement : Component
         {
-                public enum MovementState
+                [DataMember] public Coord2D dir;
+                [DataMember] public float speed;
+                [DataMember] public string state;
+
+                public Movement()
                 {
-                        Moving,
-                        NotMoving
                 }
 
-                [DataMember] private Coord2D dir;
-                [DataMember] private float speed;
-                [DataMember] private string state;
-
-
-                public Movement(Coord2D direction, float speedModifier, MovementState state)
+                public Movement(Coord2D dir, float speed, string state)
                 {
-                        Direction = direction;
-                        SpeedModifier = speedModifier;
-                        State = state;
-                }
-
-                public Coord2D Direction
-                {
-                        get { return dir; }
-                        set { dir = value; }
-                }
-
-                public float SpeedModifier
-                {
-                        get { return speed; }
-                        set { speed = value; }
-                }
-
-                public MovementState State
-                {
-                        get { return state.Equals("Moving") ? MovementState.Moving : MovementState.NotMoving; }
-                        set { state = value == MovementState.Moving ? "Moving" : "NotMoving"; }
+                        this.dir = dir;
+                        this.speed = speed;
+                        this.state = state;
                 }
         }
 }
