@@ -1,28 +1,43 @@
 # Protocol definition
 
-_Always be sure to check the appropriate source files for more details._
+_Always be sure to check the appropriate source files for more details._  
+_Hint: We use the same server for login, char selection and playing._
 
 ### 1. Login process
 
-- Login is requested by the client and either succeeds or fails with a reason
+- Login is requested by the client for a certain email and password and either succeeds or fails with a reason
+- Upon login, the client will receive all its associated characters
 
-### 2. Dispatch  
+### 2. Character creation
 
-- Dispatch is only possible if the client is logged in
-- Dispatch is requested by the client and can only succeed  
-_(The server will always provide a game server, even if the game server itself is a non functional one)_
-- The dispatch response holds an additional key that is used to identify the client - its needed to successfully connect/play to/on a game server
-- The game server might refuse the client, but a connect/play fail usually means that there simply is no game server at all
-- When the client connects to the game server, the server publishes the complete world state _(Afterwards, only diffs will be send)_
+- Char creation is requested by the client (it must be in the 'lobby' state)
+- Either succeeds with the creation of a new entity, or fails with a reason
+- Fails under certain conditions:
+  - Client is not in the right state (e.g. not logged in, or currently playing)
+  - The character's new attributes are invalid
+  - The character name is unappropriate or already taken
 
-### 3. Game State propagation
+### 3. Game instance load
+
+- Instance load is requested by the client for a certain entity (it must be in the 'lobby' state)
+- Either succeeds with special instance load data, or fails with a reason
+- Fails under certain conditions:
+  - Client is not in the right state (e.g. not logged in, or currently playing)
+  - The chosen entity does not belong to the client (results in a kick)
+
+### 4. General game events
+
+- ChatMessage: Bidirectional. Has an entity as sender and should be ignored by the client if the entity is unkown
+- ServerMessage: From server only. Notification for anything that concerns the server (e.g. broadcasts etc.)
+- ChatCommand: From client only. Has a no-spaces string as command and several args. Commands are server specific (scripted) and can documentation can be found ingame by entering "/helpme" or "/info [command]"
+
+### 5. Game state propagation
 
 **General**  
 
-- Game state might be pushed to the clients in world diffs after a certain time interval 
+- Game state must be pushed to the clients in world diffs after a certain time interval 
 - A world diff should contain a listing of entities and their components that changed  
-_(Note that a world diff is always **recipient specific**. Clients do only get updates to entities that they can actually see. If a new entity enters the viewdistance of the client then its complete state will get pushed to the
-client.)_
+_(Note that a world diff is always **recipient specific**. Clients do only get updates to entities that they can actually see. If a new entity enters the viewdistance/relevantset of the client then its complete state will get pushed to the client.)_
 - A world diff should also contain a listing of entities that have been added or removed
 
 **Concerning the time interval**  
@@ -41,18 +56,24 @@ Each milestone may modifiy existing processes and/or create new processes and me
 **Definition of done:  
 A milestone is `DONE` when all messages of the protocol are supported both in the clientmode and server, including all their features. Ideally, we will have automated tests for the messages to prove that the milestone is done.**
 
-Generally, we need to define the following processes over the single milestones:  
+Generally, we need to create the following features over the single milestones:  
 
 ```
-* login                [WIP]
-* dispatch             [WIP]
-* instance-load        [WIP]
-* char-create          [?]
-* gamestate-update     [WIP]
+* login                [DONE]
+* account-create       [?]
+* account-delete       [?]
+* instance-load        [70%]
+* map-change           [0%]
+* char-create          [DONE]
+* char-delete          [0%]
+* gamestate-update     [70%]
+* movement             [50%]
+* chat                 [50%]
+* emotes               [DONE] (scripted)
 * ...
 ```
 
-### Milestone 1
+### Milestone 1 `DONE`
 
 **Should support**  
 
@@ -69,7 +90,7 @@ Generally, we need to define the following processes over the single milestones:
 - character appearance and that (but might support names for entity-system testing purposes)
 - movement speed
 
-### Milestone 2
+### Milestone 2 `DONE`
 
 **Should support**
 
