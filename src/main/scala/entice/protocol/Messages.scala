@@ -15,22 +15,21 @@ import info.akshaal.json.jsonmacro._
  */
 sealed trait Message extends Typeable
 
+case class Failure              (error: String = "An unkown error occured.")    extends Message // send if requests fail, or an error occured generally
+
 case class LoginRequest         (email: String, 
                                 password: String)                               extends Message
 case class LoginSuccess         (chars: List[EntityView])                       extends Message // convention: this will only contain CharacterViews
-case class LoginFail            (error: String = "An unkown error occured.")    extends Message
 
 
 case class CharCreateRequest    (chara: CharacterView)                          extends Message
 case class CharCreateSuccess    (chara: Entity)                                 extends Message
-case class CharCreateFail       (error: String = "An unkown error occured.")    extends Message
 
 
 case class PlayRequest          (chara: Entity)                                 extends Message
 case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
 case class PlaySuccess          (map: String
                                 world: List[EntityView])                        extends Message { def mapData = Maps.withMapName(map) }
-case class PlayFail             (error: String = "An unkown error occured.")    extends Message
 
 
 case class ChatMessage          (sender: Entity,
@@ -51,18 +50,17 @@ object Message {
     import EntitySystem._
 
     // serialization
+    implicit def failureFields                  = allFields[Failure]            ('jsonate)
+
     implicit def loginRequestFields             = allFields[LoginRequest]       ('jsonate)
     implicit def loginSuccessFields             = allFields[LoginSuccess]       ('jsonate)
-    implicit def loginFailFields                = allFields[LoginFail]          ('jsonate)
 
     implicit def charCreateRequestFields        = allFields[CharCreateRequest]  ('jsonate)
     implicit def charCreateSuccessFields        = allFields[CharCreateSuccess]  ('jsonate)
-    implicit def charCreateFailFields           = allFields[CharCreateFail]     ('jsonate)
 
     implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
     implicit def playChangeMapFields            = allFields[PlayChangeMap]      ('jsonate)
     implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
-    implicit def playFailFields                 = allFields[PlayFail]           ('jsonate)
 
     implicit def chatMessageFields              = allFields[ChatMessage]        ('jsonate)
     implicit def serverMessageFields            = allFields[ServerMessage]      ('jsonate)
@@ -73,18 +71,17 @@ object Message {
 
 
     implicit def messageWrites = matchingWrites[Message] {
+        case c: Failure                         => failureFields                .toWrites.writes(c)
+
         case c: LoginRequest                    => loginRequestFields           .toWrites.writes(c)
         case c: LoginSuccess                    => loginSuccessFields           .toWrites.writes(c)
-        case c: LoginFail                       => loginFailFields              .toWrites.writes(c)
 
         case c: CharCreateRequest               => charCreateRequestFields      .toWrites.writes(c)
         case c: CharCreateSuccess               => charCreateSuccessFields      .toWrites.writes(c)
-        case c: CharCreateFail                  => charCreateFailFields         .toWrites.writes(c)
 
         case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
         case c: PlayChangeMap                   => playChangeMapFields          .toWrites.writes(c)
         case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
-        case c: PlayFail                        => playFailFields               .toWrites.writes(c)
 
         case c: ChatMessage                     => chatMessageFields            .toWrites.writes(c)
         case c: ServerMessage                   => serverMessageFields          .toWrites.writes(c)
@@ -96,18 +93,17 @@ object Message {
 
 
     // deserialization
+    implicit def failureFactory                 = factory[Failure]              ('fromJson)
+
     implicit def loginRequestFactory            = factory[LoginRequest]         ('fromJson)
     implicit def loginSuccessFactory            = factory[LoginSuccess]         ('fromJson)
-    implicit def loginFailFactory               = factory[LoginFail]            ('fromJson)
 
     implicit def charCreateRequestFactory       = factory[CharCreateRequest]    ('fromJson)
     implicit def charCreateSuccessFactory       = factory[CharCreateSuccess]    ('fromJson)
-    implicit def charCreateFailFactory          = factory[CharCreateFail]       ('fromJson)
 
     implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
     implicit def playChangeMapFactory           = factory[PlayChangeMap]        ('fromJson)
     implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
-    implicit def playFailFactory                = factory[PlayFail]             ('fromJson)
 
     implicit def chatMessageFactory             = factory[ChatMessage]          ('fromJson)
     implicit def serverMessageFactory           = factory[ServerMessage]        ('fromJson)
@@ -119,18 +115,17 @@ object Message {
 
     implicit def messageReads: Reads[Message] =
         predicatedReads[Message](
+            jsHas('type                         -> 'Failure)                    -> failureFactory,
+
             jsHas('type                         -> 'LoginRequest)               -> loginRequestFactory,
             jsHas('type                         -> 'LoginSuccess)               -> loginSuccessFactory,
-            jsHas('type                         -> 'LoginFail)                  -> loginFailFactory,
 
             jsHas('type                         -> 'CharCreateRequest)          -> charCreateRequestFactory,
             jsHas('type                         -> 'CharCreateSuccess)          -> charCreateSuccessFactory,
-            jsHas('type                         -> 'CharCreateFail)             -> charCreateFailFactory,
 
             jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
             jsHas('type                         -> 'PlayChangeMap)              -> playChangeMapFactory,
             jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
-            jsHas('type                         -> 'PlayFail)                   -> playFailFactory,
 
             jsHas('type                         -> 'ChatMessage)                -> chatMessageFactory,
             jsHas('type                         -> 'ServerMessage)              -> serverMessageFactory,
