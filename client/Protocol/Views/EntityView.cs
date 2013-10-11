@@ -3,7 +3,7 @@ using Protocol.Types;
 
 namespace Protocol.Views
 {
-        public class EntityView : Serializable
+        public class EntityView : Typeable
         {
                 [DataMember] public Entity entity;
                 [DataMember] public View view;

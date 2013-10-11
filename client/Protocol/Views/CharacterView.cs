@@ -9,6 +9,7 @@ namespace Protocol.Views
                 [DataMember] public Appearance appearance;
                 [DataMember] public Name name;
 
+
                 public CharacterView()
                 {
                 }
@@ -18,7 +19,6 @@ namespace Protocol.Views
                         this.name = name;
                         this.appearance = appearance;
                 }
-
 
                 public override List<Component> GetComponents()
                 {

@@ -7,7 +7,7 @@ using Protocol.Components;
 namespace Protocol.Types
 {
         [DataContract]
-        public class Entity : Serializable
+        public class Entity : Typeable
         {
                 private readonly Dictionary<Type, Delegate> _handledComponents = new Dictionary<Type, Delegate>();
                 [DataMember] public UUID uuid;

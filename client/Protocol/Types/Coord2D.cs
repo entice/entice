@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Protocol.Types
 {
         [DataContract]
-        public class Coord2D : Serializable
+        public class Coord2D : Typeable
         {
                 [DataMember] public float x;
                 [DataMember] public float y;

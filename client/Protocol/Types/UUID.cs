@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Protocol.Types
 {
         [DataContract]
-        public class UUID : Serializable, IEquatable<UUID>
+        public class UUID : Typeable, IEquatable<UUID>
         {
                 [DataMember] public long leastSigBytes;
                 [DataMember] public long mostSigBytes;

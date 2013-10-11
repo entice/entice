@@ -7,5 +7,16 @@ namespace Protocol.Messages.StartPlaying
         public class PlaySuccess : Message
         {
                 [DataMember] public List<EntityView> world;
+
+
+                public PlaySuccess()
+                {
+                        
+                }
+
+                public PlaySuccess(List<EntityView> world)
+                {
+                        this.world = world;
+                }
         }
 }
