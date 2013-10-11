@@ -28,6 +28,7 @@ case class CharCreateSuccess    (chara: Entity)                                 
 
 case class PlayRequest          (chara: Entity)                                 extends Message
 case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
+case class PlayQuit             ()                                              extends Message
 case class PlaySuccess          (map: String
                                 world: List[EntityView])                        extends Message { def mapData = Maps.withMapName(map) }
 
@@ -60,6 +61,7 @@ object Message {
 
     implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
     implicit def playChangeMapFields            = allFields[PlayChangeMap]      ('jsonate)
+    implicit def playQuitFields                 = allFields[PlayQuit]           ('jsonate)
     implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
 
     implicit def chatMessageFields              = allFields[ChatMessage]        ('jsonate)
@@ -81,6 +83,7 @@ object Message {
 
         case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
         case c: PlayChangeMap                   => playChangeMapFields          .toWrites.writes(c)
+        case c: PlayQuit                        => playQuitFields               .toWrites.writes(c)
         case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
 
         case c: ChatMessage                     => chatMessageFields            .toWrites.writes(c)
@@ -103,6 +106,7 @@ object Message {
 
     implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
     implicit def playChangeMapFactory           = factory[PlayChangeMap]        ('fromJson)
+    implicit def playQuitFactory                = factory[PlayQuit]             ('fromJson)
     implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
 
     implicit def chatMessageFactory             = factory[ChatMessage]          ('fromJson)
@@ -125,6 +129,7 @@ object Message {
 
             jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
             jsHas('type                         -> 'PlayChangeMap)              -> playChangeMapFactory,
+            jsHas('type                         -> 'PlayQuit)                   -> playQuitFactory,
             jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
 
             jsHas('type                         -> 'ChatMessage)                -> chatMessageFactory,
