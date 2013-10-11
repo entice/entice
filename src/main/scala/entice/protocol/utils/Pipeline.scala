@@ -23,8 +23,7 @@ object PipelineFactory {
         new MessageStage >>
         new StringByteStringAdapter("utf-8") >>
         new LengthFieldFrame(
-            maxSize = 32000,
-            headerSize = 2,
+            maxSize = Int.MaxValue,
             lengthIncludesHeader = false) >>
         new TcpReadWriteAdapter)
     }
