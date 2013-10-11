@@ -29,7 +29,7 @@ case class CharCreateSuccess    (chara: Entity)                                 
 case class PlayRequest          (chara: Entity)                                 extends Message
 case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
 case class PlayQuit             ()                                              extends Message
-case class PlaySuccess          (map: String
+case class PlaySuccess          (map: String,
                                 world: List[EntityView])                        extends Message { def mapData = Maps.withMapName(map) }
 
 
