@@ -27,7 +27,9 @@ case class CharCreateFail       (error: String = "An unkown error occured.")    
 
 
 case class PlayRequest          (chara: Entity)                                 extends Message
-case class PlaySuccess          (world: List[EntityView])                       extends Message
+case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
+case class PlaySuccess          (map: String
+                                world: List[EntityView])                        extends Message { def mapData = Maps.withMapName(map) }
 case class PlayFail             (error: String = "An unkown error occured.")    extends Message
 
 
@@ -36,7 +38,6 @@ case class ChatMessage          (sender: Entity,
 case class ServerMessage        (message: String)                               extends Message // from server
 case class ChatCommand          (command: String, 
                                 args: List[String])                             extends Message // from client
-
 
 case class UpdateRequest        (entityView: EntityView)                        extends Message // entity will be ignored depending on the view and client permissions
 case class UpdateCommand        (timeDelta: Int,
@@ -59,6 +60,7 @@ object Message {
     implicit def charCreateFailFields           = allFields[CharCreateFail]     ('jsonate)
 
     implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
+    implicit def playChangeMapFields            = allFields[PlayChangeMap]      ('jsonate)
     implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
     implicit def playFailFields                 = allFields[PlayFail]           ('jsonate)
 
@@ -80,6 +82,7 @@ object Message {
         case c: CharCreateFail                  => charCreateFailFields         .toWrites.writes(c)
 
         case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
+        case c: PlayChangeMap                   => playChangeMapFields          .toWrites.writes(c)
         case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
         case c: PlayFail                        => playFailFields               .toWrites.writes(c)
 
@@ -102,6 +105,7 @@ object Message {
     implicit def charCreateFailFactory          = factory[CharCreateFail]       ('fromJson)
 
     implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
+    implicit def playChangeMapFactory           = factory[PlayChangeMap]        ('fromJson)
     implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
     implicit def playFailFactory                = factory[PlayFail]             ('fromJson)
 
@@ -124,6 +128,7 @@ object Message {
             jsHas('type                         -> 'CharCreateFail)             -> charCreateFailFactory,
 
             jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
+            jsHas('type                         -> 'PlayChangeMap)              -> playChangeMapFactory,
             jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
             jsHas('type                         -> 'PlayFail)                   -> playFailFactory,
 
