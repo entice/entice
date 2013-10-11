@@ -24,6 +24,7 @@ case class LoginSuccess         (chars: List[EntityView])                       
 
 case class CharCreateRequest    (chara: CharacterView)                          extends Message
 case class CharCreateSuccess    (chara: Entity)                                 extends Message
+case class CharDelete           (chara: Entity)                                 extends Message
 
 
 case class PlayRequest          (chara: Entity)                                 extends Message
@@ -58,6 +59,7 @@ object Message {
 
     implicit def charCreateRequestFields        = allFields[CharCreateRequest]  ('jsonate)
     implicit def charCreateSuccessFields        = allFields[CharCreateSuccess]  ('jsonate)
+    implicit def charDeleteFields               = allFields[CharDelete]         ('jsonate)
 
     implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
     implicit def playChangeMapFields            = allFields[PlayChangeMap]      ('jsonate)
@@ -80,6 +82,7 @@ object Message {
 
         case c: CharCreateRequest               => charCreateRequestFields      .toWrites.writes(c)
         case c: CharCreateSuccess               => charCreateSuccessFields      .toWrites.writes(c)
+        case c: CharDelete                      => charDeleteFields             .toWrites.writes(c)
 
         case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
         case c: PlayChangeMap                   => playChangeMapFields          .toWrites.writes(c)
@@ -103,6 +106,7 @@ object Message {
 
     implicit def charCreateRequestFactory       = factory[CharCreateRequest]    ('fromJson)
     implicit def charCreateSuccessFactory       = factory[CharCreateSuccess]    ('fromJson)
+    implicit def charDeleteFactory              = factory[CharDelete]           ('fromJson)
 
     implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
     implicit def playChangeMapFactory           = factory[PlayChangeMap]        ('fromJson)
@@ -126,6 +130,7 @@ object Message {
 
             jsHas('type                         -> 'CharCreateRequest)          -> charCreateRequestFactory,
             jsHas('type                         -> 'CharCreateSuccess)          -> charCreateSuccessFactory,
+            jsHas('type                         -> 'CharDelete)                 -> charDeleteFactory,
 
             jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
             jsHas('type                         -> 'PlayChangeMap)              -> playChangeMapFactory,
