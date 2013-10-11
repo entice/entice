@@ -22,8 +22,17 @@ _Hint: We use the same server for login, char selection and playing._
 - Instance load is requested by the client for a certain entity (it must be in the 'lobby' state)
 - Either succeeds with special instance load data, or fails with a reason
 - Fails under certain conditions:
-  - Client is not in the right state (e.g. not logged in, or currently playing)
+  - Client is not in the right state (e.g. not logged in)
   - The chosen entity does not belong to the client (results in a kick)
+
+#### 3.1 Map change
+
+- Clients can request to change their current map (using the world-map)
+- Either succeeds with special instance load data, or fails with a reason
+- Conditions under which it fails might be:
+  - Client is not in the right state (e.g. not logged in, not playing)
+  - Map is inaccesible to the client
+  - Client already is on the map
 
 ### 4. General game events
 
