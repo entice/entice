@@ -80,13 +80,13 @@ object Animations extends Enumeration {
  */
 object Maps extends Enumeration {
     // internal structure
-    class MapVal(name: String, val groupSize: Int) extends Val(nextId, name)
-    protected final def Value(name: String, groupSize: Int): MapVal = new MapVal(name, groupSize)
+    class MapVal(name: String, val groupSize: Int, val spawns: List[Coord2D]) extends Val(nextId, name)
+    protected final def Value(name: String, groupSize: Int, spawns: List[Coord2D]): MapVal = new MapVal(name, groupSize, spawns)
 
     // workaround for withName
     final def withMapName(name: String): MapVal = super.withName(name).asInstanceOf[MapVal]
 
-    val HeroesAscent            = Value("HeroesAscent", 8)
-    val TeamArenas              = Value("TeamArenas",   8)
-    val RandomArenas            = Value("RandomArenas", 8)
+    val HeroesAscent            = Value("HeroesAscent", 8, List(Coord2D(0, 0)))
+    val TeamArenas              = Value("TeamArenas",   8, List(Coord2D(0, 0)))
+    val RandomArenas            = Value("RandomArenas", 8, List(Coord2D(0, 0)))
 }
