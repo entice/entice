@@ -86,7 +86,7 @@ object Maps extends Enumeration {
     // workaround for withName
     final def withMapName(name: String): MapVal = super.withName(name).asInstanceOf[MapVal]
 
-    val HeroesAscent            = Value("HeroesAscent", 8, List(Coord2D(0, 0)))
-    val TeamArenas              = Value("TeamArenas",   8, List(Coord2D(0, 0)))
-    val RandomArenas            = Value("RandomArenas", 8, List(Coord2D(0, 0)))
+    val HeroesAscent            = Value("HeroesAscent", 8, List(Coord2D(2017, -3241)))
+    val TeamArenas              = Value("TeamArenas",   8, List(Coord2D(-1873, 352)))
+    val RandomArenas            = Value("RandomArenas", 8, List(Coord2D(3854, 3874)))
 }
