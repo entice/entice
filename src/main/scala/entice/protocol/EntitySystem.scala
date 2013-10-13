@@ -19,7 +19,7 @@ import scala.collection._
 /**
  * Simple UUID wrapper.
  */
-case class Entity       (uuid: UUID)                        extends Typeable
+case class Entity       (uuid: UUID = UUID())               extends Typeable
 
 
 /**
@@ -72,10 +72,10 @@ case class Appearance   (profession: Int = 1,
                         hairstyle: Int = 7,
                         face: Int = 31)                     extends Component
 case class Animation    (id: String = "none")               extends Component { def animationId = Animations.withName(id) }
-case class GroupLeader  (members: List[Entity],
-                        invited: List[Entity],
-                        joinRequests: List[Entity])         extends Component
-case class GroupMember  (leader: Entity)                    extends Component
+case class GroupLeader  (members: List[Entity] = Nil,
+                        invited: List[Entity] = Nil,
+                        joinRequests: List[Entity] = Nil)   extends Component
+case class GroupMember  (leader: Entity = Entity())         extends Component
 
 
 /**
