@@ -19,8 +19,39 @@ import scala.collection._
 /**
  * Simple UUID wrapper.
  */
-case class Entity(uuid: UUID) extends Typeable
-case class EntityView(entity: Entity, view: View) extends Typeable
+case class Entity       (uuid: UUID)                        extends Typeable
+
+
+/**
+ * Holds the state or a state diff of an entity.
+ * Remember that a state of an entity is defined by its components,
+ * but for state transitions we also need to know which components were
+ * removed or added.The lists are disjunct.
+ *
+ * Details:
+ * - `changed` only holds components that were present (in the recipients CES) 
+ *   before the last entity view of that entity got send, but changed since then.
+ * - `added` only holds components that were added since the last entity update.
+ * - `removed` only holds the type-strings (see Typeable) of the components that
+ *   were removed since the last entity update.
+ *
+ * Some patterns:
+ * - Entity spawn:   EntityView(_, Nil, List(???), Nil)
+ * - Entity despawn: EntityView(_, Nil, Nil, List(???))
+ * - World dump:     EntityView(_, List(???), Nil, Nil)
+ * - State trans.:   EntityView(_, List(???), List(???), List(???))
+ *
+ * State transitions can include any other of the above mentioned patterns, so
+ * one still needs to check if the entity has really been added or removed, which
+ * is included in the UpdateCommand from the server.
+ *
+ * Note that because of the packet-design, only the server can spawn or despawn 
+ * entities, which is intended.
+ */
+case class EntityView   (entity: Entity, 
+                        changed: List[Component],
+                        added: List[Component],
+                        removed: List[String])              extends Typeable
 
 
 /**
@@ -41,21 +72,10 @@ case class Appearance   (profession: Int = 1,
                         hairstyle: Int = 7,
                         face: Int = 31)                     extends Component
 case class Animation    (id: String = "none")               extends Component { def animationId = Animations.withName(id) }
-
-
-/**
- * A state of certain components (or all, depending on the view) of an entity
- */
-sealed trait View extends Typeable {
-    def components: List[Component]
-}
-
-case class AllCompsView         (components: List[Component]) extends View
-case class CharacterView        (name: Name, 
-                                appearance: Appearance)       extends View { def components = List(name, appearance) }
-case class MovementView         (position: Position, 
-                                movement: Movement)           extends View { def components = List(position, movement) }
-case class VisualsView          (animation: Animation)        extends View { def components = List(animation) }
+case class GroupLeader  (members: List[Entity],
+                        invited: List[Entity],
+                        joinRequests: List[Entity])         extends Component
+case class GroupMember  (leader: Entity)                    extends Component
 
 
 /**
@@ -73,6 +93,8 @@ object EntitySystem {
     implicit def movementFields         = allFields[Movement]       ('jsonate)
     implicit def appearanceFields       = allFields[Appearance]     ('jsonate)
     implicit def animationFields        = allFields[Animation]      ('jsonate)
+    implicit def groupLeaderFields      = allFields[GroupLeader]    ('jsonate)
+    implicit def groupMemberFields      = allFields[GroupMember]    ('jsonate)
 
     implicit def componentWrites = matchingWrites[Component] {
         case c: Name                    => nameFields               .toWrites.writes(c)
@@ -80,22 +102,12 @@ object EntitySystem {
         case c: Movement                => movementFields           .toWrites.writes(c)
         case c: Appearance              => appearanceFields         .toWrites.writes(c)
         case c: Animation               => animationFields          .toWrites.writes(c)
-    }
-
-    // views
-    implicit def allCompsViewFields     = allFields[AllCompsView]   ('jsonate)
-    implicit def characterViewFields    = allFields[CharacterView]  ('jsonate)
-    implicit def movementViewFields     = allFields[MovementView]   ('jsonate)
-    implicit def visualsViewFields      = allFields[VisualsView]    ('jsonate)
-
-    implicit def viewWrites = matchingWrites[View] {
-        case c: AllCompsView            => allCompsViewFields       .toWrites.writes(c)
-        case c: CharacterView           => characterViewFields      .toWrites.writes(c)
-        case c: MovementView            => movementViewFields       .toWrites.writes(c)
-        case c: VisualsView             => visualsViewFields        .toWrites.writes(c)
+        case c: GroupLeader             => groupLeaderFields        .toWrites.writes(c)
+        case c: GroupMember             => groupMemberFields        .toWrites.writes(c)  
     }
 
     implicit def entityViewFields       = allFields[EntityView]     ('jsonate)
+
 
     // deserialization
     implicit def entityFactory          = factory[Entity]           ('fromJson)
@@ -105,6 +117,8 @@ object EntitySystem {
     implicit def movementFactory        = factory[Movement]         ('fromJson)
     implicit def appearanceFactory      = factory[Appearance]       ('fromJson)
     implicit def animationFactory       = factory[Animation]        ('fromJson)
+    implicit def groupLeaderFactory     = factory[GroupLeader]      ('fromJson)
+    implicit def groupMemberFactory     = factory[GroupMember]      ('fromJson)
 
     implicit def componentReads: Reads[Component] =
         predicatedReads[Component](
@@ -112,21 +126,9 @@ object EntitySystem {
             jsHas('type                 -> 'Position)               -> positionFactory,
             jsHas('type                 -> 'Movement)               -> movementFactory,
             jsHas('type                 -> 'Appearance)             -> appearanceFactory,
-            jsHas('type                 -> 'Animation)              -> animationFactory
-        )
-
-    // views
-    implicit def allCompsViewFactory    = factory[AllCompsView]     ('fromJson)
-    implicit def characterViewFactory   = factory[CharacterView]    ('fromJson)
-    implicit def movementViewFactory    = factory[MovementView]     ('fromJson)
-    implicit def visualsViewFactory     = factory[VisualsView]      ('fromJson)
-
-    implicit def viewReads: Reads[View] = 
-        predicatedReads[View](
-            jsHas('type                 -> 'AllCompsView)           -> allCompsViewFactory,
-            jsHas('type                 -> 'CharacterView)          -> characterViewFactory,
-            jsHas('type                 -> 'MovementView)           -> movementViewFactory,
-            jsHas('type                 -> 'VisualsView)            -> visualsViewFactory 
+            jsHas('type                 -> 'Animation)              -> animationFactory,
+            jsHas('type                 -> 'GroupLeader)            -> groupLeaderFactory,
+            jsHas('type                 -> 'GroupMember)            -> groupMemberFactory
         )
 
     implicit def entityViewFactory      = factory[EntityView]       ('fromJson)

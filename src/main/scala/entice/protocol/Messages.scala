@@ -22,7 +22,8 @@ case class LoginRequest         (email: String,
 case class LoginSuccess         (chars: List[EntityView])                       extends Message // convention: this will only contain CharacterViews
 
 
-case class CharCreateRequest    (chara: CharacterView)                          extends Message
+case class CharCreateRequest    (name: Name,
+                                appearance: Appearance)                         extends Message
 case class CharCreateSuccess    (chara: Entity)                                 extends Message
 case class CharDelete           (chara: Entity)                                 extends Message
 
