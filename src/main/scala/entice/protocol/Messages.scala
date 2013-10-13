@@ -45,7 +45,7 @@ case class ChatCommand          (command: String,
 case class MoveRequest          (position: Position,
                                 movement: Movement)                             extends Message
 case class GroupMergeRequest    (target: Entity)                                extends Message
-case class GroupLeaveRequest    ()                                              extends Message
+case class GroupKickRequest     (target: Entity)                                extends Message // can be own entity to leave group
 
 // updates on the CES, from server
 case class UpdateCommand        (timeDelta: Int,
@@ -79,7 +79,7 @@ object Message {
 
     implicit def moveRequestFields              = allFields[MoveRequest]        ('jsonate)
     implicit def groupMergeRequestFields        = allFields[GroupMergeRequest]  ('jsonate)
-    implicit def groupLeaveRequestFields        = allFields[GroupLeaveRequest]  ('jsonate)
+    implicit def groupKickRequestFields         = allFields[GroupKickRequest]   ('jsonate)
 
     implicit def updateCommandFields            = allFields[UpdateCommand]      ('jsonate)
 
@@ -105,7 +105,7 @@ object Message {
 
         case c: MoveRequest                     => moveRequestFields            .toWrites.writes(c)
         case c: GroupMergeRequest               => groupMergeRequestFields      .toWrites.writes(c)
-        case c: GroupLeaveRequest               => groupLeaveRequestFields      .toWrites.writes(c)
+        case c: GroupKickRequest                => groupKickRequestFields       .toWrites.writes(c)
 
         case c: UpdateCommand                   => updateCommandFields          .toWrites.writes(c)
     }
@@ -132,7 +132,7 @@ object Message {
 
     implicit def moveRequestFactory             = factory[MoveRequest]          ('fromJson)
     implicit def groupMergeRequestFactory       = factory[GroupMergeRequest]    ('fromJson)
-    implicit def groupLeaveRequestFactory       = factory[GroupLeaveRequest]    ('fromJson)
+    implicit def groupKickRequestFactory        = factory[GroupKickRequest]     ('fromJson)
 
     implicit def updatecommandFactory           = factory[UpdateCommand]        ('fromJson)
 
@@ -159,7 +159,7 @@ object Message {
             
             jsHas('type                         -> 'MoveRequest)                -> moveRequestFactory,
             jsHas('type                         -> 'GroupMergeRequest)          -> groupMergeRequestFactory,
-            jsHas('type                         -> 'GroupLeaveRequest)          -> groupLeaveRequestFactory,
+            jsHas('type                         -> 'GroupKickRequest)           -> groupKickRequestFactory,
 
             jsHas('type                         -> 'UpdateCommand)              -> updatecommandFactory
         )
