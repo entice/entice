@@ -9,17 +9,17 @@ namespace Protocol.Messages
         {
                 public byte[] Serialize()
                 {
-                        var serializer2 = new JavaScriptSerializer();
+                        var serializer = new JavaScriptSerializer();
 
-                        string serialized = serializer2.Serialize(this);
+                        string serialized = serializer.Serialize(this);
 
                         byte[] messageData = Encoding.ASCII.GetBytes(serialized);
-                        byte[] messageLength = BitConverter.GetBytes((ushort) messageData.Length);
+                        byte[] messageLength = BitConverter.GetBytes(messageData.Length);
+                        Array.Reverse(messageLength); //to big endian
 
                         var finalStream = new MemoryStream();
 
-                        finalStream.WriteByte(messageLength[1]);
-                        finalStream.WriteByte(messageLength[0]);
+                        finalStream.Write(messageLength, 0, messageLength.Length);
                         finalStream.Write(messageData, 0, messageData.Length);
                         finalStream.Position = 0;
 

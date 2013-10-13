@@ -100,8 +100,10 @@ namespace Protocol
 
                         while (stream.Position < stream.Length)
                         {
-                                var firstByte = (byte) stream.ReadByte();
-                                short lengthPrefix = BitConverter.ToInt16(new[] {(byte) stream.ReadByte(), firstByte}, 0);
+                                var lengthPrefixBuffer = new byte[4];
+                                stream.Read(lengthPrefixBuffer, 0, 4);
+                                Array.Reverse(lengthPrefixBuffer); // to little endian
+                                var lengthPrefix = BitConverter.ToInt32(lengthPrefixBuffer, 0);
 
                                 var messagePart = new byte[lengthPrefix];
                                 stream.Read(messagePart, 0, lengthPrefix);

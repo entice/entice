@@ -7,15 +7,14 @@ namespace Protocol.Messages.Update
 {
         public class UpdateCommand : Message
         {
-                [DataMember] public uint timeDelta;
-                [DataMember] public List<EntityView> entityViews;
                 [DataMember] public List<Entity> added;
+                [DataMember] public List<EntityView> entityViews;
                 [DataMember] public List<Entity> removed;
+                [DataMember] public uint timeDelta;
 
 
                 public UpdateCommand()
                 {
-                        
                 }
 
                 public UpdateCommand(uint timeDelta, List<EntityView> entityViews, List<Entity> added, List<Entity> removed)

@@ -10,7 +10,6 @@ namespace Protocol.Messages.CharacterCreation
 
                 public CharCreateSuccess()
                 {
-                        
                 }
 
                 public CharCreateSuccess(Entity chara)

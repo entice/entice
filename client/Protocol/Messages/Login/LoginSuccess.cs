@@ -11,7 +11,6 @@ namespace Protocol.Messages.Login
 
                 public LoginSuccess()
                 {
-                        
                 }
 
                 public LoginSuccess(List<EntityView> chars)
