@@ -41,7 +41,13 @@ case class ServerMessage        (message: String)                               
 case class ChatCommand          (command: String, 
                                 args: List[String])                             extends Message // from client
 
-case class UpdateRequest        (entityView: EntityView)                        extends Message // entity will be ignored depending on the view and client permissions
+// updates on the CES, from client
+case class MoveRequest          (position: Position,
+                                movement: Movement)                             extends Message
+case class GroupMergeRequest    (target: Entity)                                extends Message
+case class GroupLeaveRequest    ()                                              extends Message
+
+// updates on the CES, from server
 case class UpdateCommand        (timeDelta: Int,
                                 entityViews: List[EntityView],
                                 added: List[Entity],
@@ -71,7 +77,10 @@ object Message {
     implicit def serverMessageFields            = allFields[ServerMessage]      ('jsonate)
     implicit def chatCommandFields              = allFields[ChatCommand]        ('jsonate)
 
-    implicit def updateRequestFields            = allFields[UpdateRequest]      ('jsonate) 
+    implicit def moveRequestFields              = allFields[MoveRequest]        ('jsonate)
+    implicit def groupMergeRequestFields        = allFields[GroupMergeRequest]  ('jsonate)
+    implicit def groupLeaveRequestFields        = allFields[GroupLeaveRequest]  ('jsonate)
+
     implicit def updateCommandFields            = allFields[UpdateCommand]      ('jsonate)
 
 
@@ -94,7 +103,10 @@ object Message {
         case c: ServerMessage                   => serverMessageFields          .toWrites.writes(c)
         case c: ChatCommand                     => chatCommandFields            .toWrites.writes(c)
 
-        case c: UpdateRequest                   => updateRequestFields          .toWrites.writes(c)
+        case c: MoveRequest                     => moveRequestFields            .toWrites.writes(c)
+        case c: GroupMergeRequest               => groupMergeRequestFields      .toWrites.writes(c)
+        case c: GroupLeaveRequest               => groupLeaveRequestFields      .toWrites.writes(c)
+
         case c: UpdateCommand                   => updateCommandFields          .toWrites.writes(c)
     }
 
@@ -118,7 +130,10 @@ object Message {
     implicit def serverMessageFactory           = factory[ServerMessage]        ('fromJson)
     implicit def chatCommandFactory             = factory[ChatCommand]          ('fromJson)
 
-    implicit def updateRequestFactory           = factory[UpdateRequest]        ('fromJson) 
+    implicit def moveRequestFactory             = factory[MoveRequest]          ('fromJson)
+    implicit def groupMergeRequestFactory       = factory[GroupMergeRequest]    ('fromJson)
+    implicit def groupLeaveRequestFactory       = factory[GroupLeaveRequest]    ('fromJson)
+
     implicit def updatecommandFactory           = factory[UpdateCommand]        ('fromJson)
 
 
@@ -142,7 +157,10 @@ object Message {
             jsHas('type                         -> 'ServerMessage)              -> serverMessageFactory,
             jsHas('type                         -> 'ChatCommand)                -> chatCommandFactory,
             
-            jsHas('type                         -> 'UpdateRequest)              -> updateRequestFactory,
+            jsHas('type                         -> 'MoveRequest)                -> moveRequestFactory,
+            jsHas('type                         -> 'GroupMergeRequest)          -> groupMergeRequestFactory,
+            jsHas('type                         -> 'GroupLeaveRequest)          -> groupLeaveRequestFactory,
+
             jsHas('type                         -> 'UpdateCommand)              -> updatecommandFactory
         )
 }
