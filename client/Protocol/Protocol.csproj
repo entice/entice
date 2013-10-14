@@ -50,6 +50,8 @@
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Appearance.cs" />
     <Compile Include="Components\Animation.cs" />
+    <Compile Include="Components\GroupLeader.cs" />
+    <Compile Include="Components\GroupMember.cs" />
     <Compile Include="Components\Name.cs" />
     <Compile Include="Components\Movement.cs" />
     <Compile Include="Components\Position.cs" />
@@ -58,22 +60,20 @@
     <Compile Include="Messages\CharacterCreation\CharDelete.cs" />
     <Compile Include="Messages\Playing\PlayChangeMap.cs" />
     <Compile Include="Messages\Playing\PlayQuit.cs" />
+    <Compile Include="Messages\Update\GroupKickRequest.cs" />
+    <Compile Include="Messages\Update\GroupMergeRequest.cs" />
     <Compile Include="Serializable.cs" />
     <Compile Include="Deserializer.cs" />
     <Compile Include="Messages\Chat\ChatMessage.cs" />
     <Compile Include="CustomJsonResolver.cs" />
-    <Compile Include="Views\AllCompsView.cs" />
-    <Compile Include="Views\CharacterView.cs" />
     <Compile Include="Messages\CharacterCreation\CharCreateRequest.cs" />
     <Compile Include="Messages\CharacterCreation\CharCreateSuccess.cs" />
-    <Compile Include="Views\MovementView.cs" />
     <Compile Include="Typeable.cs" />
-    <Compile Include="Views\View.cs" />
-    <Compile Include="Views\EntityView.cs" />
+    <Compile Include="Messages\EntityView.cs" />
     <Compile Include="Messages\Update\UpdateCommand.cs" />
     <Compile Include="Messages\Login\LoginRequest.cs" />
     <Compile Include="Messages\Login\LoginSuccess.cs" />
-    <Compile Include="Messages\Update\UpdateRequest.cs" />
+    <Compile Include="Messages\Update\MoveRequest.cs" />
     <Compile Include="Messages\Failure.cs" />
     <Compile Include="Messages\Playing\PlayRequest.cs" />
     <Compile Include="Messages\Playing\PlaySuccess.cs" />
@@ -85,6 +85,7 @@
     <Compile Include="Types\Entity.cs" />
     <Compile Include="Types\UUID.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

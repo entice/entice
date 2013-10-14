@@ -14,7 +14,7 @@ namespace Protocol.Messages.Chat
 
                 public ChatMessage(Entity sender, string message)
                 {
-                        this.sender = new Entity(sender);
+                        this.sender = Entity.Strip(sender);
                         this.message = message;
                 }
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Protocol.Views;
 
 namespace Protocol.Messages.Login
 {

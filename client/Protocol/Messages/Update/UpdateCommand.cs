@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Protocol.Types;
-using Protocol.Views;
 
 namespace Protocol.Messages.Update
 {

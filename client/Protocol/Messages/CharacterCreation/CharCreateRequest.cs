@@ -1,19 +1,21 @@
 ﻿using System.Runtime.Serialization;
-using Protocol.Views;
+using Protocol.Components;
 
 namespace Protocol.Messages.CharacterCreation
 {
         public class CharCreateRequest : Message
         {
-                [DataMember] public CharacterView chara;
+                [DataMember] public Appearance appearance;
+                [DataMember] public Name name;
 
                 public CharCreateRequest()
                 {
                 }
 
-                public CharCreateRequest(CharacterView chara)
+                public CharCreateRequest(Name name, Appearance appearance)
                 {
-                        this.chara = chara;
+                        this.name = name;
+                        this.appearance = appearance;
                 }
         }
 }

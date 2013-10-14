@@ -103,7 +103,7 @@ namespace Protocol
                                 var lengthPrefixBuffer = new byte[4];
                                 stream.Read(lengthPrefixBuffer, 0, 4);
                                 Array.Reverse(lengthPrefixBuffer); // to little endian
-                                var lengthPrefix = BitConverter.ToInt32(lengthPrefixBuffer, 0);
+                                int lengthPrefix = BitConverter.ToInt32(lengthPrefixBuffer, 0);
 
                                 var messagePart = new byte[lengthPrefix];
                                 stream.Read(messagePart, 0, lengthPrefix);
