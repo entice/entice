@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using Protocol.Components;
 using Protocol.Types;
 
 namespace Protocol.Messages.Update

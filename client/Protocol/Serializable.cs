@@ -28,7 +28,14 @@ namespace Protocol
 
                         foreach (object item in items)
                         {
-                                result.Add(DeserializeSingle((IDictionary<string, object>) item, serializer));
+                                if (item.GetType().IsPrimitive || item is string)
+                                {
+                                        result.Add(item);
+                                }
+                                else
+                                {
+                                        result.Add(DeserializeSingle((IDictionary<string, object>)item, serializer));
+                                }
                         }
 
                         return result;
