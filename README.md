@@ -139,6 +139,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 - (improvement) group chat 
 - (improvement) server side movement
+- (improvement) purge reflection and the world.System - nice try, not useful
 - (improvement) more maps generally
 - (old feature) explorable zones
 - (old feature) NPCs
