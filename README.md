@@ -116,7 +116,7 @@ Generally, we need to create the following features over the single milestones:
 - different entity types (everything still is a player, but it also has an appearance)
 - any changes on the movement or collision system etc.
 
-### Milestone 3
+### Milestone 3 `DONE`
 
 **Should support**
 
@@ -135,11 +135,20 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 4
 
-** May support: *
+**Should support**
 
-- (improvement) group chat 
-- (improvement) server side movement
-- (improvement) purge reflection and the world.System - nice try, not useful
+- movement computation and collision detection, **server side**
+- group chat (introduction of channels)
+- a generally more reasonable instanceload/diffing/spawning system, _details yet to come_
+
+**Should not support**
+
+- any other chat channels than group chat and all chat
+
+### Milestone 5
+
+**May support:**
+
 - (improvement) more maps generally
 - (old feature) explorable zones
 - (old feature) NPCs
