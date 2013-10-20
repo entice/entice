@@ -72,13 +72,15 @@ Generally, we need to create the following features over the single milestones:
 * account-create       [?]
 * account-delete       [?]
 * instance-load        [70%]
-* map-change           [0%]
+* map-change           [DONE]
 * char-create          [DONE]
-* char-delete          [0%]
+* char-delete          [DONE]
 * game-state-diff      [70%]
 * movement             [50%]
-* chat                 [50%]
+* chat                 [60%]
 * emotes               [DONE] (scripted)
+* npc-spawns           [?]
+* npc-dialogues        [?]
 * ...
 ```
 
