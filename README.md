@@ -141,7 +141,10 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 - movement computation and collision detection, **server side**
 - group chat (introduction of channels)
-- a generally more reasonable instanceload/diffing/spawning system, _details yet to come_
+- a generally more reasonable instance-load/diffing/spawning system
+  - client side: enable spawning of incomplete entities
+  - protocol: communicate when the client is ready to play after instance-load
+  - protocol: possibly reduce complexity of component- and game state diffs
 
 **Should not support**
 
