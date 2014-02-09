@@ -72,13 +72,15 @@ Generally, we need to create the following features over the single milestones:
 * account-create       [?]
 * account-delete       [?]
 * instance-load        [70%]
-* map-change           [0%]
+* map-change           [DONE]
 * char-create          [DONE]
-* char-delete          [0%]
+* char-delete          [DONE]
 * game-state-diff      [70%]
 * movement             [50%]
-* chat                 [50%]
+* chat                 [60%]
 * emotes               [DONE] (scripted)
+* npc-spawns           [?]
+* npc-dialogues        [?]
 * ...
 ```
 
@@ -116,7 +118,7 @@ Generally, we need to create the following features over the single milestones:
 - different entity types (everything still is a player, but it also has an appearance)
 - any changes on the movement or collision system etc.
 
-### Milestone 3
+### Milestone 3 `DONE`
 
 **Should support**
 
@@ -135,10 +137,23 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 4
 
-** May support: *
+**Should support**
 
-- (improvement) group chat 
-- (improvement) server side movement
+- movement computation and collision detection, **server side**
+- group chat (introduction of channels)
+- a generally more reasonable instance-load/diffing/spawning system
+  - client side: enable spawning of incomplete entities
+  - protocol: communicate when the client is ready to play after instance-load
+  - protocol: possibly reduce complexity of component- and game state diffs
+
+**Should not support**
+
+- any other chat channels than group chat and all chat
+
+### Milestone 5
+
+**May support:**
+
 - (improvement) more maps generally
 - (old feature) explorable zones
 - (old feature) NPCs
