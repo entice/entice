@@ -13,7 +13,7 @@ namespace Protocol.Messages.Playing
 
                 public PlayRequest(Entity controlledCharacter)
                 {
-                        chara = Entity.Strip(controlledCharacter);
+                        chara = controlledCharacter;
                 }
         }
 }

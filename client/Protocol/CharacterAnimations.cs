@@ -54,5 +54,6 @@
                 Scissors = 0xCC6DE4C7,
                 Standup = 0xD22E41BC,
                 Attention3 = 0xD3825E3E,
+                None = 0
         }
 }

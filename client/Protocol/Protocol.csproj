@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CharacterAnimations.cs" />
+    <Compile Include="ComponentFactory.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Appearance.cs" />
     <Compile Include="Components\Animation.cs" />
