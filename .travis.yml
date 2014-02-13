@@ -6,6 +6,7 @@ branches:
     - milestone1
     - milestone2
     - milestone3
+    - milestone4
     - master
 notifications:
   irc: "irc.rizon.net#gwlpr"
