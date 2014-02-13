@@ -155,8 +155,11 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 **May support:**
 
 - (improvement) more maps generally
+- (improvement) server-only components (groupmember etc)
+- (improvement) automatic world unloading if empty
 - (old feature) explorable zones
 - (old feature) NPCs
 - (old feature) movement speed
 - (new feature) portals
 - (new feature) NPC dialogues
+- (new feature) items
