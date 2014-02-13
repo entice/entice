@@ -42,8 +42,7 @@ case class ChatCommand          (command: String,
                                 args: List[String])                             extends Message // from client
 
 // updates on the CES, from client
-case class MoveRequest          (position: Position,
-                                movement: Movement)                             extends Message
+case class MoveRequest          (direction: Coord2D)                            extends Message // request move in this dir
 case class GroupMergeRequest    (target: Entity)                                extends Message
 case class GroupKickRequest     (target: Entity)                                extends Message // can be own entity to leave group
 
@@ -56,6 +55,7 @@ case class UpdateCommand        (timeDelta: Int,
 
 object Message {
 
+    import Utils._
     import EntitySystem._
 
     // serialization
