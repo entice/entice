@@ -11,9 +11,9 @@ namespace Protocol.Messages.Playing
                 {
                 }
 
-                public PlayRequest(Entity controlledCharacter)
+                public PlayRequest(UUID controlledCharacter)
                 {
-                        chara = controlledCharacter;
+                        chara = new Entity(controlledCharacter);
                 }
         }
 }

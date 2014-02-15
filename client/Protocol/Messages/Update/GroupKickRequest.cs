@@ -11,9 +11,9 @@ namespace Protocol.Messages.Update
                 {
                 }
 
-                public GroupKickRequest(Entity target)
+                public GroupKickRequest(UUID targetUUID)
                 {
-                        this.target = Entity.Strip(target);
+                        this.target = new Entity(targetUUID);
                 }
         }
 }
