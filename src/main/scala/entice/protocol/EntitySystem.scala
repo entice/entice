@@ -61,7 +61,7 @@ sealed trait Component extends mutable.Cloneable[Component] with Typeable
 
 case class Name         (name: String = "John Wayne")       extends Component
 case class Position     (pos: Coord2D = Coord2D(0, 0))      extends Component
-case class Movement     (dir: Coord2D = Coord2D(1, 1),
+case class Movement     (goal: Coord2D = Coord2D(1, 1),
                         state: String = "NotMoving")        extends Component { def moveState = MoveState.withName(state) }
 case class Appearance   (profession: Int = 1,
                         campaign: Int = 0,
