@@ -12,9 +12,9 @@ namespace Protocol.Messages.CharacterCreation
                 {
                 }
 
-                public CharDelete(Entity chara)
+                public CharDelete(UUID charaUuid)
                 {
-                        this.chara = Entity.Strip(chara);
+                        this.chara = new Entity(charaUuid);
                 }
         }
 }

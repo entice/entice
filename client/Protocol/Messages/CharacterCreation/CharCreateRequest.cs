@@ -12,9 +12,9 @@ namespace Protocol.Messages.CharacterCreation
                 {
                 }
 
-                public CharCreateRequest(Name name, Appearance appearance)
+                public CharCreateRequest(string name, Appearance appearance)
                 {
-                        this.name = name;
+                        this.name = new Name(name);
                         this.appearance = appearance;
                 }
         }
