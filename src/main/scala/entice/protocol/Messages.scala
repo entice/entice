@@ -37,7 +37,7 @@ case class CharCreateSuccess    (chara: Entity)                                 
 
 // c->s
 case class PlayRequest          (chara: Entity)                                 extends Message
-case class PlayReady            ()                                              extends Message
+case class PlayReady            ()                                              extends Message // if client is ready to play after instance load
 case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
 case class PlayQuit             ()                                              extends Message
 // s->c

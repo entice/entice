@@ -24,6 +24,8 @@ _Hint: We use the same server for login, char selection and playing._
 - Fails under certain conditions:
   - Client is not in the right state (e.g. not logged in)
   - The chosen entity does not belong to the client (results in a kick)
+- After the special instance load data has been sent, the client confirms that it is ready to play
+- The server will then start with the game state propagation
 
 #### 3.1 Map change
 
