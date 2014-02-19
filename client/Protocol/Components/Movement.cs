@@ -6,18 +6,16 @@ namespace Protocol.Components
         [DataContract]
         public class Movement : Component
         {
-                [DataMember] public Coord2D dir;
-                [DataMember] public float speed;
+                [DataMember] public Coord2D goal;
                 [DataMember] public string state;
 
                 public Movement()
                 {
                 }
 
-                public Movement(Coord2D dir, float speed, string state)
+                public Movement(Coord2D goal, string state)
                 {
-                        this.dir = dir;
-                        this.speed = speed;
+                        this.goal = goal;
                         this.state = state;
                 }
         }

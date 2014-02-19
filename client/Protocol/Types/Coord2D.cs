@@ -29,5 +29,10 @@ namespace Protocol.Types
                 {
                         return new PointF(x, y);
                 }
+
+                public float[] ToNative()
+                {
+                        return new[] { x, y};
+                }
         }
 }

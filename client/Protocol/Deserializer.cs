@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading;
 using System.Web.Script.Serialization;
 using Protocol.Messages;
+using Protocol.Messages.Update;
 
 namespace Protocol
 {
@@ -111,6 +112,8 @@ namespace Protocol
                                 var messagePartStream = new MemoryStream(messagePart);
 
                                 Message message = DeserializeMessage(messagePartStream);
+
+                                if (!(message is UpdateCommand)) Console.Write("received " + message);
 
                                 Delegate handler;
                                 if (_messageHandlers.TryGetValue(message.GetType(), out handler))

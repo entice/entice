@@ -13,24 +13,6 @@ namespace Protocol.Components
                 [DataMember] public int sex;
                 [DataMember] public int skinColor;
 
-
-                public Appearance()
-                {
-                }
-
-
-                public Appearance(int packed)
-                {
-                        sex = GetPackedValue(packed, 0, 1);
-                        height = GetPackedValue(packed, 1, 4);
-                        skinColor = GetPackedValue(packed, 5, 5);
-                        hairColor = GetPackedValue(packed, 10, 5);
-                        face = GetPackedValue(packed, 15, 5);
-                        profession = GetPackedValue(packed, 20, 4);
-                        hairstyle = GetPackedValue(packed, 24, 5);
-                        campaign = GetPackedValue(packed, 29, 3);
-                }
-
                 public Appearance(int sex, int height, int skinColor, int hairColor, int face, int profession, int hairstyle, int campaign)
                 {
                         this.sex = sex;
@@ -43,34 +25,8 @@ namespace Protocol.Components
                         this.campaign = campaign;
                 }
 
-                public uint GetPackedValue()
+                public Appearance()
                 {
-                        return PackValue(sex, 0, 1) |
-                               PackValue(height, 1, 4) |
-                               PackValue(skinColor, 5, 5) |
-                               PackValue(hairColor, 10, 5) |
-                               PackValue(face, 15, 5) |
-                               PackValue(profession, 20, 4) |
-                               PackValue(hairstyle, 24, 5) |
-                               PackValue(campaign, 29, 3);
-                }
-
-                private uint PackValue(int value, int position, int length)
-                {
-                        uint mask = ~(0xFFFFFFFF << length);
-
-                        var maskedValue = (uint) (value & mask);
-
-                        return maskedValue << position;
-                }
-
-                private int GetPackedValue(int packed, int position, int length)
-                {
-                        uint mask = ~(0xFFFFFFFF << length);
-
-                        int shifted = packed >> position;
-
-                        return (int) (shifted & mask);
                 }
         }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Protocol.Components
 {
@@ -7,9 +6,5 @@ namespace Protocol.Components
         {
                 [DataMember] public string id;
 
-                public bool GetNativeValue(out CharacterAnimations nativeAnimation)
-                {
-                        return Enum.TryParse(id, true, out nativeAnimation);
-                }
         }
 }

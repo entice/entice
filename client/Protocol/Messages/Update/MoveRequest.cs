@@ -1,21 +1,19 @@
 ﻿using System.Runtime.Serialization;
-using Protocol.Components;
+using Protocol.Types;
 
 namespace Protocol.Messages.Update
 {
         public class MoveRequest : Message
         {
-                [DataMember] public Movement movement;
-                [DataMember] public Position position;
+                [DataMember] public Coord2D direction;
 
                 public MoveRequest()
                 {
                 }
 
-                public MoveRequest(Position position, Movement movement)
+                public MoveRequest(Coord2D direction)
                 {
-                        this.position = position;
-                        this.movement = movement;
+                        this.direction = direction;
                 }
         }
 }

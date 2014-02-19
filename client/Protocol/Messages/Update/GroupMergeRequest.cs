@@ -11,9 +11,9 @@ namespace Protocol.Messages.Update
                 {
                 }
 
-                public GroupMergeRequest(Entity target)
+                public GroupMergeRequest(UUID targetUUID)
                 {
-                        this.target = Entity.Strip(target);
+                        this.target = new Entity(targetUUID);
                 }
         }
 }

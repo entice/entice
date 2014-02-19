@@ -12,9 +12,9 @@ namespace Protocol.Messages.Chat
                 {
                 }
 
-                public ChatMessage(Entity sender, string message)
+                public ChatMessage(UUID sender, string message)
                 {
-                        this.sender = Entity.Strip(sender);
+                        this.sender = new Entity(sender);
                         this.message = message;
                 }
         }
