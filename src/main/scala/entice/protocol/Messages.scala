@@ -15,26 +15,37 @@ import info.akshaal.json.jsonmacro._
  */
 sealed trait Message extends Typeable
 
+// lobby/management messages:
+// s->c
 case class Failure              (error: String = "An unkown error occured.")    extends Message // send if requests fail, or an error occured generally
 
+
+// c->s
 case class LoginRequest         (email: String, 
                                 password: String)                               extends Message
+// s->c
 case class LoginSuccess         (chars: List[EntityView])                       extends Message // convention: this will only contain CharacterViews
 
 
+// c->s
 case class CharCreateRequest    (name: Name,
                                 appearance: Appearance)                         extends Message
-case class CharCreateSuccess    (chara: Entity)                                 extends Message
 case class CharDelete           (chara: Entity)                                 extends Message
+// s->c
+case class CharCreateSuccess    (chara: Entity)                                 extends Message
 
 
+// c->s
 case class PlayRequest          (chara: Entity)                                 extends Message
+case class PlayReady            ()                                              extends Message
 case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
 case class PlayQuit             ()                                              extends Message
+// s->c
 case class PlaySuccess          (map: String,
                                 world: List[EntityView])                        extends Message { def mapData = Maps.withMapName(map) }
 
 
+// ingame/gameplay messages:
 case class ChatMessage          (sender: Entity,
                                 message: String)                                extends Message // bidirectional
 case class ServerMessage        (message: String)                               extends Message // from server
@@ -69,6 +80,7 @@ object Message {
     implicit def charDeleteFields               = allFields[CharDelete]         ('jsonate)
 
     implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
+    implicit def playReadyFields                = allFields[PlayReady]          ('jsonate)
     implicit def playChangeMapFields            = allFields[PlayChangeMap]      ('jsonate)
     implicit def playQuitFields                 = allFields[PlayQuit]           ('jsonate)
     implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
@@ -95,6 +107,7 @@ object Message {
         case c: CharDelete                      => charDeleteFields             .toWrites.writes(c)
 
         case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
+        case c: PlayReady                       => playReadyFields              .toWrites.writes(c)
         case c: PlayChangeMap                   => playChangeMapFields          .toWrites.writes(c)
         case c: PlayQuit                        => playQuitFields               .toWrites.writes(c)
         case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
@@ -122,6 +135,7 @@ object Message {
     implicit def charDeleteFactory              = factory[CharDelete]           ('fromJson)
 
     implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
+    implicit def playReadyFactory               = factory[PlayReady]            ('fromJson)
     implicit def playChangeMapFactory           = factory[PlayChangeMap]        ('fromJson)
     implicit def playQuitFactory                = factory[PlayQuit]             ('fromJson)
     implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
@@ -149,6 +163,7 @@ object Message {
             jsHas('type                         -> 'CharDelete)                 -> charDeleteFactory,
 
             jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
+            jsHas('type                         -> 'PlayReady)                  -> playReadyFactory,
             jsHas('type                         -> 'PlayChangeMap)              -> playChangeMapFactory,
             jsHas('type                         -> 'PlayQuit)                   -> playQuitFactory,
             jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
