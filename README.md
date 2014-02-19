@@ -146,7 +146,6 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - a generally more reasonable instance-load/diffing/spawning system
   - client side: enable spawning of incomplete entities
   - protocol: communicate when the client is ready to play after instance-load
-  - protocol: possibly reduce complexity of component- and game state diffs
 
 **Should not support**
 
@@ -160,6 +159,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) server-only components (groupmember etc)
 - (improvement) automatic world unloading if empty
 - (improvement) animations with variable lengths
+- (improvement) protocol: possibly reduce complexity of component- and game state diffs
 - (old feature) explorable zones
 - (old feature) NPCs
 - (old feature) movement speed
