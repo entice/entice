@@ -47,7 +47,8 @@ case class PlaySuccess          (map: String,
 
 // ingame/gameplay messages:
 case class ChatMessage          (sender: Entity,
-                                message: String)                                extends Message // bidirectional
+                                message: String,                                                // bidirectional
+                                channel: String)                                extends Message { def chatChannel = ChatChannels.withName(channel) }
 case class ServerMessage        (message: String)                               extends Message // from server
 case class ChatCommand          (command: String, 
                                 args: List[String])                             extends Message // from client

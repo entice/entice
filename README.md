@@ -38,7 +38,7 @@ _Hint: We use the same server for login, char selection and playing._
 
 ### 4. General game events
 
-- ChatMessage: Bidirectional. Has an entity as sender and should be ignored by the client if the entity is unknown
+- ChatMessage: Bidirectional. Has an entity as sender and should be ignored by the client if the entity is unknown. Chat channels are available. See the enum.
 - ServerMessage: From server only. Notification for anything that concerns the server (e.g. broadcasts etc.)
 - ChatCommand: From client only. Has a no-spaces string as command and several args. Commands are server specific (scripted) and can documentation can be found in-game by entering "/helpme" or "/info [command]"
 
@@ -73,13 +73,13 @@ Generally, we need to create the following features over the single milestones:
 * login                [DONE]
 * account-create       [?]
 * account-delete       [?]
-* instance-load        [70%]
+* instance-load        [70%] <- long term WIP
 * map-change           [DONE]
 * char-create          [DONE]
 * char-delete          [DONE]
-* game-state-diff      [70%]
-* movement             [50%]
-* chat                 [60%]
+* game-state-diff      [95%] <- long term WIP
+* movement             [70%] <- long term WIP
+* chat                 [70%]
 * emotes               [DONE] (scripted)
 * npc-spawns           [?]
 * npc-dialogues        [?]
@@ -163,6 +163,10 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (old feature) explorable zones
 - (old feature) NPCs
 - (old feature) movement speed
+- (old feature) whisper messages
 - (new feature) portals
 - (new feature) NPC dialogues
 - (new feature) items
+- (new feature) friends-list
+- (new feature) guilds
+- (new feature) more chat channels (guild, trade)

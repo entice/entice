@@ -15,6 +15,16 @@ object MoveState extends Enumeration {
 
 
 /**
+ * The chat channel for a channel-based chat message
+ */
+object ChatChannels extends Enumeration {
+    val All                     = Value("All")
+    val Group                   = Value("Group")
+    // more is yet to come ;)
+}
+
+
+/**
  * Some animations (emotes)
  */
 object Animations extends Enumeration {
