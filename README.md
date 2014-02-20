@@ -160,6 +160,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) automatic world unloading if empty
 - (improvement) animations with variable lengths
 - (improvement) protocol: possibly reduce complexity of component- and game state diffs
+- (improvement) server: flush should specify a world to flush (see WorldDiff controller)
 - (old feature) explorable zones
 - (old feature) NPCs
 - (old feature) movement speed
