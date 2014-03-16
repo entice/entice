@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
 using Protocol.Messages;
@@ -17,6 +18,7 @@ namespace Protocol
                 private readonly ConcurrentDictionary<Type, KeyValuePair<DateTime, Message>> _lastMessages = new ConcurrentDictionary<Type, KeyValuePair<DateTime, Message>>();
                 private readonly Dictionary<Type, Delegate> _messageHandlers;
                 private readonly Dictionary<string, Type> _typedMessages;
+                private string _remainingData = "";
 
                 public Deserializer()
                 {
@@ -97,41 +99,64 @@ namespace Protocol
 
                 public void Deserialize(byte[] data, Socket socket = null)
                 {
-                        var stream = new MemoryStream(data);
+                        string t = Encoding.UTF8.GetString(data);
 
-                        while (stream.Position < stream.Length)
+                        string dataToProcess = _remainingData + (t[0] > 0 ? t : t.Substring(4));
+
+                        while (dataToProcess.Length > 0)
                         {
-                                var lengthPrefixBuffer = new byte[4];
-                                stream.Read(lengthPrefixBuffer, 0, 4);
-                                Array.Reverse(lengthPrefixBuffer); // to little endian
-                                int lengthPrefix = BitConverter.ToInt32(lengthPrefixBuffer, 0);
+                                bool deserializedSomethingSuccessfully = false;
 
-                                var messagePart = new byte[lengthPrefix];
-                                stream.Read(messagePart, 0, lengthPrefix);
-
-                                var messagePartStream = new MemoryStream(messagePart);
-
-                                Message message = DeserializeMessage(messagePartStream);
-
-                                if (!(message is UpdateCommand)) Console.Write("received " + message);
-
-                                Delegate handler;
-                                if (_messageHandlers.TryGetValue(message.GetType(), out handler))
+                                for (int i = 0; i < dataToProcess.Length; i++)
                                 {
-                                        handler.DynamicInvoke(message, socket);
+                                        if (dataToProcess[i] != '}') continue;
+
+                                        string messagePart = dataToProcess.Substring(0, i + 1);
+
+                                        Message message = DeserializeMessage(messagePart);
+
+                                        if (message != null)
+                                        {
+                                                dataToProcess = (i + 5 <= dataToProcess.Length ? dataToProcess.Substring(i + 5) : "");
+
+                                                if (!(message is UpdateCommand)) Console.Write("received " + message);
+
+                                                Delegate handler;
+                                                if (_messageHandlers.TryGetValue(message.GetType(), out handler))
+                                                {
+                                                        handler.DynamicInvoke(message, socket);
+                                                }
+
+                                                deserializedSomethingSuccessfully = true;
+
+                                                break;
+                                        }
+                                }
+
+                                if (!deserializedSomethingSuccessfully)
+                                {
+                                        _remainingData = dataToProcess;
+                                        return;
                                 }
                         }
+
+                        _remainingData = "";
                 }
 
-                public Message DeserializeMessage(Stream stream)
+                private Message DeserializeMessage(string text)
                 {
-                        var reader = new StreamReader(stream);
-                        string text = reader.ReadToEnd();
-
                         var serializer = new JavaScriptSerializer();
                         serializer.RegisterConverters(new[] {new CustomJsonResolver()});
 
-                        var message = serializer.Deserialize<Message>(text);
+                        Message message;
+                        try
+                        {
+                                message = serializer.Deserialize<Message>(text);
+                        }
+                        catch (Exception)
+                        {
+                                return null;
+                        }
 
                         var newValue = new KeyValuePair<DateTime, Message>(DateTime.Now, message);
                         _lastMessages.AddOrUpdate(message.GetType(), newValue, (k, v) => newValue);
