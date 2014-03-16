@@ -145,12 +145,8 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - group chat (introduction of channels)
 - a generally more reasonable instance-load/diffing/spawning system
   - client side: enable spawning of incomplete entities
-<<<<<<< HEAD
   - ~~protocol: communicate when the client is ready to play after instance-load~~
   - protocol: possibly reduce complexity of component- and game state diffs
-=======
-  - protocol: communicate when the client is ready to play after instance-load
->>>>>>> 480b612a7f9aa348f46d0a57da5752313d24103a
 
 **Should not support**
 
