@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
 using Protocol.Messages;
@@ -98,8 +99,7 @@ namespace Protocol
 
                 public void Deserialize(byte[] data, Socket socket = null)
                 {
-                        var r = new StreamReader(new MemoryStream(data));
-                        string t = r.ReadToEnd();
+                        string t = Encoding.UTF8.GetString(data);
 
                         string dataToProcess = _remainingData + (t[0] > 0 ? t : t.Substring(4));
 

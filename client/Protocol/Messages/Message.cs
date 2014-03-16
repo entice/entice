@@ -13,7 +13,7 @@ namespace Protocol.Messages
 
                         string serialized = serializer.Serialize(this);
 
-                        byte[] messageData = Encoding.ASCII.GetBytes(serialized);
+                        byte[] messageData = Encoding.UTF8.GetBytes(serialized);
                         byte[] messageLength = BitConverter.GetBytes(messageData.Length);
                         Array.Reverse(messageLength); //to big endian
 
