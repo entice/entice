@@ -37,7 +37,6 @@ case class CharCreateSuccess    (chara: Entity)                                 
 
 // c->s
 case class PlayRequest          (chara: Entity)                                 extends Message
-case class PlayReady            ()                                              extends Message // if client is ready to play after instance load
 case class PlayChangeMap        (map: String)                                   extends Message { def mapData = Maps.withMapName(map) }
 case class PlayQuit             ()                                              extends Message
 // s->c
@@ -81,7 +80,6 @@ object Message {
     implicit def charDeleteFields               = allFields[CharDelete]         ('jsonate)
 
     implicit def playRequestFields              = allFields[PlayRequest]        ('jsonate)
-    implicit def playReadyFields                = allFields[PlayReady]          ('jsonate)
     implicit def playChangeMapFields            = allFields[PlayChangeMap]      ('jsonate)
     implicit def playQuitFields                 = allFields[PlayQuit]           ('jsonate)
     implicit def playSuccessFields              = allFields[PlaySuccess]        ('jsonate)
@@ -108,7 +106,6 @@ object Message {
         case c: CharDelete                      => charDeleteFields             .toWrites.writes(c)
 
         case c: PlayRequest                     => playRequestFields            .toWrites.writes(c)
-        case c: PlayReady                       => playReadyFields              .toWrites.writes(c)
         case c: PlayChangeMap                   => playChangeMapFields          .toWrites.writes(c)
         case c: PlayQuit                        => playQuitFields               .toWrites.writes(c)
         case c: PlaySuccess                     => playSuccessFields            .toWrites.writes(c)
@@ -136,7 +133,6 @@ object Message {
     implicit def charDeleteFactory              = factory[CharDelete]           ('fromJson)
 
     implicit def playRequestFactory             = factory[PlayRequest]          ('fromJson)
-    implicit def playReadyFactory               = factory[PlayReady]            ('fromJson)
     implicit def playChangeMapFactory           = factory[PlayChangeMap]        ('fromJson)
     implicit def playQuitFactory                = factory[PlayQuit]             ('fromJson)
     implicit def playSuccessFactory             = factory[PlaySuccess]          ('fromJson)
@@ -164,7 +160,6 @@ object Message {
             jsHas('type                         -> 'CharDelete)                 -> charDeleteFactory,
 
             jsHas('type                         -> 'PlayRequest)                -> playRequestFactory,
-            jsHas('type                         -> 'PlayReady)                  -> playReadyFactory,
             jsHas('type                         -> 'PlayChangeMap)              -> playChangeMapFactory,
             jsHas('type                         -> 'PlayQuit)                   -> playQuitFactory,
             jsHas('type                         -> 'PlaySuccess)                -> playSuccessFactory,
