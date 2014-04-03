@@ -156,6 +156,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 **Should support**
 
 - remove PlayReady leftover code
+- animations with variable lengths
 - automatic world unloading if empty
 - server: flush should specify a world to flush (see WorldDiff controller)
 - further refinement of movement
@@ -172,7 +173,6 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 - (improvement) more maps generally
 - (improvement) server-only components (groupmember etc)
-- (improvement) animations with variable lengths
 - (improvement) protocol: possibly reduce complexity of component- and game state diffs
 - (old feature) explorable zones
 - (old feature) movement speed
