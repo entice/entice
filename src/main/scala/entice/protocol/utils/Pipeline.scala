@@ -7,8 +7,7 @@ package entice.protocol.utils
 import entice.protocol._
 import akka.io._
 import akka.event.LoggingAdapter
-import play.api.libs.json._
-import info.akshaal.json.jsonmacro._
+import scala.pickling._, json._
 import java.nio.ByteOrder
 
 
@@ -39,7 +38,7 @@ class MessageStage(val log: LoggingAdapter) extends SymmetricPipelineStage[Pipel
 
         override val commandPipeline = { msg: Message =>
             try {   
-                ctx.singleCommand(Json.toJson(msg).toString)
+                ctx.singleCommand(msg.pickle.value)
             } catch {
                 case exc: Throwable => 
                     log.error(exc, "Failed to serialize a json object. The object was: {}", msg)
@@ -49,7 +48,7 @@ class MessageStage(val log: LoggingAdapter) extends SymmetricPipelineStage[Pipel
  
         override val eventPipeline = { js: String =>
             try {   
-                 ctx.singleEvent(Json.fromJson[Message](Json.parse(js)).get)
+                ctx.singleEvent(toJSONPickle(js).unpickle[Message])
             } catch {
                 case exc: Throwable => 
                     log.error(exc, "Failed to deserialize a json object. The string was: {}", js)
