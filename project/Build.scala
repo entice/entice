@@ -33,7 +33,7 @@ object ProjectBuild extends Build {
 
     libraryDependencies ++= Seq(
       "com.typesafe.akka" %% "akka-actor"     % akka,
-      "org.scala-lang"    %% "scala-pickling" % "0.9.0-SNAPSHOT"
+      "org.scala-lang"    %% "scala-pickling" % "0.8.0"
     )
   )
 
