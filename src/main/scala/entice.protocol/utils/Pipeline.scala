@@ -4,7 +4,7 @@
 
 package entice.protocol.utils
 
-import entice.protocol._
+import entice.protocol._, TypeAliases._
 import akka.io._
 import akka.event.LoggingAdapter
 import scala.pickling._, json._
