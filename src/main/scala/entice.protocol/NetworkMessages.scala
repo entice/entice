@@ -61,7 +61,7 @@ import NetworkAttribute._
  * A general network message.
  * This trait is split up into special subtraits to further refine
  * what kind of message is transferred trough the network.
- * 
+ *
  * TODO: Due to current limitations in the serialization framework we try to
  * avoid using Arrays of Traits whereever possible
  *
@@ -77,15 +77,15 @@ sealed trait CanFail extends OutgoingMessage // marker for messages that can fai
 case class Failure(error: String = "An unkown error occured.")  extends Message with OutgoingMessage
 
 
-/** 
- * Login process only 
+/**
+ * Login process only
  */
 sealed trait LoginMessage extends Message
 case class EntityAppearance(entityId: EntityId, appearance: NetworkAttribute.Appearance) // Helper only
 /** Request with credentials */
 case class LoginRequest(email: String, password: String) extends LoginMessage with IncomingMessage
 /** Answer with this or fail the login */
-case class LoginSuccess(chars: Array[EntityAppearance]) extends LoginMessage with OutgoingMessage with CanFail
+case class LoginSuccess(chars: List[EntityAppearance]) extends LoginMessage with OutgoingMessage with CanFail
 
 
 /**
@@ -110,7 +110,7 @@ case class PlayRequest(chara: EntityId) extends PlayMessage with IncomingMessage
 case class PlayChangeMap(map: String) extends PlayMessage  with IncomingMessage { def mapData = Maps.withMapName(map) }
 /** Needs to be send from world. Request to change back to Lobby */
 case class PlayQuit() extends PlayMessage with IncomingMessage
-/** 
+/**
  * Initiates the map load process, or fails.
  * If this packet is send, it is garuanteed to be followed by:
  * 1. Updates to the attributes of the player.
@@ -125,10 +125,10 @@ case class PlaySuccess(map: String, chara: EntityId) extends PlayMessage with Ou
  */
 sealed trait IngameMessage
 /** Bi-directional message for ingame chats of all kinds. Client-to-client communication */
-case class ChatMessage(sender: EntityId, message: String, channel: String) 
+case class ChatMessage(sender: EntityId, message: String, channel: String)
     extends IngameMessage with IncomingMessage with OutgoingMessage { def chatChannel = ChatChannels.withName(channel) }
 /** Issues a server command. Use /helpme ingame to show available commands */
-case class IngameCommand(command: String, args: Array[String]) extends IngameMessage with IncomingMessage
+case class IngameCommand(command: String, args: List[String]) extends IngameMessage with IncomingMessage
 /** General server messages (announcements etc.) */
 case class ServerMessage(message: String) extends IngameMessage with OutgoingMessage
 
@@ -142,7 +142,7 @@ case class MoveRequest(direction: Coord2D) extends UpdateRequestMessage
 /** Request to fuse my group with another one (even if you do not yet have a group). Only as leader */
 case class GroupMergeRequest(target: EntityId) extends UpdateRequestMessage
 /** Request to kick a player from the group. Only as leader, only if play in your group */
-case class GroupKickRequest(target: EntityId) extends UpdateRequestMessage 
+case class GroupKickRequest(target: EntityId) extends UpdateRequestMessage
 
 
 /**
