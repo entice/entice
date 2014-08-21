@@ -1,6 +1,8 @@
+![Travis-CI](https://travis-ci.org/entice/protocol.svg?branch=milestone5)
+
 # Protocol definition
 
-_Always be sure to check the appropriate source files for more details._  
+_Always be sure to check the appropriate source files for more details._
 _Hint: We use the same server for login, char selection and playing._
 
 ### 1. Login process
@@ -44,14 +46,14 @@ _Hint: We use the same server for login, char selection and playing._
 
 ### 5. Game state propagation
 
-**General**  
+**General**
 
-- Game state must be pushed to the clients in world diffs after a certain time interval 
-- A world diff should contain a listing of entities and their components that changed  
+- Game state must be pushed to the clients in world diffs after a certain time interval
+- A world diff should contain a listing of entities and their components that changed
 _(Note that a world diff is always **recipient specific**. Clients do only get updates to entities that they can actually see. If a new entity enters the view-distance/relevant-set of the client then its complete state will get pushed to the client.)_
 - A world diff should also contain a listing of entities that have been added or removed
 
-**Concerning the time interval**  
+**Concerning the time interval**
 
 - If critical events occur (i.e. a player changes her walking direction) the diff will be send in a shorter interval - think of it as a flush invoked by a players action
 - The diff can only be send after a certain minimum time interval, and must be send after a certain maximum time interval
@@ -60,14 +62,14 @@ _(Note that a world diff is always **recipient specific**. Clients do only get u
 
 # TODOs / Versions / Milestones
 
-With each milestone, we will add new features in the protocol and implement them in the server and client-mod. The milestone definitions are a rough overview of the features. Details will be added in the source code directly on demand. The milestones only define 
+With each milestone, we will add new features in the protocol and implement them in the server and client-mod. The milestone definitions are a rough overview of the features. Details will be added in the source code directly on demand. The milestones only define
 
 Each milestone may modify existing processes and/or create new processes and messages.
 
-**Definition of done:  
+**Definition of done:
 A milestone is `DONE` when all messages of the protocol are supported both in the client-mod and server, including all their features. Ideally, we will have automated tests for the messages to prove that the milestone is done.**
 
-Generally, we need to create the following features over the single milestones:  
+Generally, we need to create the following features over the single milestones:
 
 ```
 * login                [DONE]
@@ -88,7 +90,7 @@ Generally, we need to create the following features over the single milestones:
 
 ### Milestone 1 `DONE`
 
-**Should support**  
+**Should support**
 
 - account login and proper reply (success or error-code)
 - instance load into one single map (propagation of the complete entity system)
@@ -128,7 +130,7 @@ Generally, we need to create the following features over the single milestones:
 - character deletion
 - quit playing and going back to char selection
 - proper despawning/deletion of entities upon map-change or logout etc. (which is a fix)
-- player groups, incl. invite, accept, merge, leave, etc.  
+- player groups, incl. invite, accept, merge, leave, etc.
 _(Hint: Make sure that all groups in a world are known to all clients, either by handling them separately or by having a well designed group component... or both. The server does all the checks (group-size etc.) but the client can and should do its own soft checking when trying to merge groups etc.)_
 - a 4 bytes length prefix in the protocol to support very large JSON docs
 
