@@ -81,11 +81,11 @@ case class Failure(error: String = "An unkown error occured.")  extends Message 
  * Login process only
  */
 sealed trait LoginMessage extends Message
-case class EntityAppearance(entityId: EntityId, appearance: NetworkAttribute.Appearance) // Helper only
+case class CharacterView(entityId: EntityId, name: Name, appearance: Appearance) // Helper only
 /** Request with credentials */
 case class LoginRequest(email: String, password: String) extends LoginMessage with IncomingMessage
 /** Answer with this or fail the login */
-case class LoginSuccess(chars: List[EntityAppearance]) extends LoginMessage with OutgoingMessage with CanFail
+case class LoginSuccess(chars: List[CharacterView]) extends LoginMessage with OutgoingMessage with CanFail
 
 
 /**
@@ -93,7 +93,7 @@ case class LoginSuccess(chars: List[EntityAppearance]) extends LoginMessage with
  */
 sealed trait LobbyMessage extends Message
 /** Request to create a new character (no pvp/pve yet) on the server */
-case class CharCreateRequest(name: NetworkAttribute.Name, appearance: NetworkAttribute.Appearance) extends LobbyMessage with IncomingMessage
+case class CharCreateRequest(name: Name, appearance: Appearance) extends LobbyMessage with IncomingMessage
 /** Request to delete a specified character, will not be answered */
 case class CharDelete(chara: EntityId) extends LobbyMessage with IncomingMessage
 /** Answer to creation process, or failure */
