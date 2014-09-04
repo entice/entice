@@ -45,16 +45,19 @@ class NetworkMessageSpec extends WordSpec with MustMatchers {
 
 
     "pickle and unpickle: LoginSuccess" in {
-      val msg: Message = LoginSuccess(List(EntityAppearance(321, Appearance())))
+      val msg: Message = LoginSuccess(List(CharacterView(321, Name(), Appearance())))
       val raw = """
         |{
         |  "tpe": "entice.protocol.LoginSuccess",
         |  "chars": {
-        |    "tpe": "scala.collection.immutable.$colon$colon[entice.protocol.EntityAppearance]",
+        |    "tpe": "scala.collection.immutable.$colon$colon[entice.protocol.CharacterView]",
         |    "elems": [
         |      {
-        |      "tpe": "entice.protocol.EntityAppearance",
+        |      "tpe": "entice.protocol.CharacterView",
         |      "entityId": 321,
+        |      "name": {
+        |        "name": "John Wayne"
+        |      },
         |      "appearance": {
         |        "profession": 1,
         |        "campaign": 0,
@@ -73,10 +76,13 @@ class NetworkMessageSpec extends WordSpec with MustMatchers {
         |{
         |  "tpe": "entice.protocol.LoginSuccess",
         |  "chars": {
-        |    "tpe": "scala.collection.immutable.$colon$colon[entice.protocol.EntityAppearance]",
+        |    "tpe": "scala.collection.immutable.$colon$colon[entice.protocol.CharacterView]",
         |    "elems": [
         |      {
         |      "entityId": 321,
+        |      "name": {
+        |        "name": "John Wayne"
+        |      },
         |      "appearance": {
         |        "profession": 1,
         |        "campaign": 0,
