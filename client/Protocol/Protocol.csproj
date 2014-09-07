@@ -58,7 +58,6 @@
     <Compile Include="Endian.cs" />
     <Compile Include="Maps.cs" />
     <Compile Include="Messages\CharacterCreation\CharDelete.cs" />
-    <Compile Include="Messages\Playing\PlayReady.cs" />
     <Compile Include="Messages\Playing\PlayChangeMap.cs" />
     <Compile Include="Messages\Playing\PlayQuit.cs" />
     <Compile Include="Messages\Update\GroupKickRequest.cs" />
