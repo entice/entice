@@ -1,4 +1,4 @@
-![Travis-CI](https://travis-ci.org/entice/protocol.svg?branch=milestone5)
+![Travis-CI](https://travis-ci.org/entice/server.svg?branch=master)
 
 # Protocol definition
 
