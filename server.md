@@ -36,7 +36,7 @@ The following sections describe what events the API can understand and for each 
 {
   "topic": "some_topic:some_sub_topic"
   "event": "player:create"
-  "playload": {
+  "payload": {
     // arbitrary json content, see below
   }
 }
@@ -57,7 +57,6 @@ Note: The entity-list's shape may change in the future.
 join
 - client_id       // the id of your client, from API
 - transfer_token  // a temporary token for authentication
-- char_name       // your character, needs to exist already ;)
 ```
 
 Success:
@@ -165,7 +164,6 @@ Synchroneously join a room.
 join
 - client_id       // the id of your client, from API
 - transfer_token  // a temporary token for authentication
-- char_name       // your character, needs to exist already ;)
 ```
 
 Success:
