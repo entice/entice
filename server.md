@@ -138,6 +138,16 @@ entity:move
   - y
 ```
 
+```
+group:merge
+- target          // the target entity (player, not a group!)
+```
+
+```
+group:kick
+- target          // the target entity (player, not a group!)
+```
+
 ---
 
 
