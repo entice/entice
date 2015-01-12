@@ -86,37 +86,49 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - different instances and districts of one outpost
 - group search window (who needs that really?)
 
-### Milestone 4 `DONE`
+### The following are skipped milestones, due to rework of the server branch (yet again :D)
 
-**Should support**
-
-- movement computation and collision detection, **server side**
-- group chat (introduction of channels)
-- a generally more reasonable instance-load/diffing/spawning system
-  - client side: enable spawning of incomplete entities
-  - ~~protocol: communicate when the client is ready to play after instance-load~~
-
-**Should not support**
-
-- any other chat channels than group chat and all chat
-
-### Milestone 5
-
-**Should support**
-
-- remove PlayReady leftover code
-- animations with variable lengths
-- automatic world unloading if empty
-- server: flush should specify a world to flush (see WorldDiff controller)
-- further refinement of movement
-- NPCs (spawning and scripted AI)
-- Skillbar interactions with mock-up skills
-
-**Should not support**
-
-- skill-functionality, i.e. skill casting
+> ### Milestone 4 `DONE`
+>
+> **Should support**
+>
+> - movement computation and collision detection, **server side**
+> - group chat (introduction of channels)
+> - a generally more reasonable instance-load/diffing/spawning system
+>   - client side: enable spawning of incomplete entities
+>   - ~~protocol: communicate when the client is ready to play after instance-load~~
+>
+> **Should not support**
+>
+> - any other chat channels than group chat and all chat
+>
+> ### Milestone 5
+>
+> **Should support**
+>
+> - remove PlayReady leftover code
+> - animations with variable lengths
+> - automatic world unloading if empty
+> - server: flush should specify a world to flush (see WorldDiff controller)
+> - further refinement of movement
+> - NPCs (spawning and scripted AI)
+> - Skillbar interactions with mock-up skills
+>
+> **Should not support**
+>
+> - skill-functionality, i.e. skill casting
 
 ### Milestone 6
+
+**Should support**
+
+- (probably) fix groups. if that works, add group-map-change
+- add a place to store available skills and a way to work with them (check if available, lock/unlock etc.)
+  - store as bitarray, transfer as base64 string
+- let clients manage their current skillbars
+- differentiate between worlds that allow skillbar changes, and worlds that dont
+
+### Milestone 7
 
 **May support**
 
