@@ -27,7 +27,7 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 General syntax for topics is: `topic:subtopic` e.g. `area:heroes_ascent`
 
 - `area` - handles all maps and what happens on them entity-wise
-- `chat` - handles chat between players, parties, guilds and so on
+- `social` - handles chat & emotes between players, parties, guilds and so on
 
 The messages that we can handle have the structure that is given exemplarily below.
 The following sections describe what events the API can understand and for each event what content is in the payload.
