@@ -34,11 +34,21 @@ The following sections describe what events the API can understand and for each 
 
 ```Javascript
 {
-  "topic": "some_topic:some_sub_topic"
-  "event": "player:create"
+  "topic": "some_topic:some_sub_topic",
+  "event": "player:create",
   "payload": {
     // arbitrary json content, see below
   }
+}
+```
+
+You can leave a channel (which doesn't terminate your websocket connection) by sending:
+
+```Javascript
+{
+  "topic": "some_topic:some_sub_topic",
+  "event": "leave",
+  "payload": {}
 }
 ```
 
@@ -107,23 +117,23 @@ entity:attribute:remove
 Synchroneous map change request.
 
 ```
-map:change
-- new_map         // the new map's snake-cased name
+area:change
+- map             // the new area as a snake-cased map-name
 ```
 
 Success: (Decouples the client from the former channel,
 you will need to rejoin the new map with the token)
 
 ```
-map:change:ok
+area:change:ok
 - client_id       // the client's id (should be known anyway)
 - transfer_token  // the temporary token
 ```
 
-Failure: (You'll get decoupled from the current map.)
+Failure: (You'll get decoupled from the current map. Maybe we should not do that.)
 
 ```
-map:change:error
+area:change:error
 ```
 
 ---
