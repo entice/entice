@@ -130,12 +130,6 @@ area:change:ok
 - transfer_token  // the temporary token
 ```
 
-Failure: (You'll get decoupled from the current map. Maybe we should not do that.)
-
-```
-area:change:error
-```
-
 ---
 
 Asynchroneous client requests.
