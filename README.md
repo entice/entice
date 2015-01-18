@@ -127,6 +127,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
   - store as bitarray, transfer as base64 string
 - let clients manage their current skillbars
 - differentiate between worlds that allow skillbar changes, and worlds that dont
+- propagate client-side movement updates (add apropriate attributes)
 
 ### Milestone 7
 
