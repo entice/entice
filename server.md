@@ -143,6 +143,11 @@ entity:move
 - pos             // the new position
   - x
   - y
+- goal            // position that the char is moving towards
+  - x
+  - y
+- movetype        // the type of movement (client-responsibility)
+- speed           // the speed (client-resposibilty)
 ```
 
 ```
