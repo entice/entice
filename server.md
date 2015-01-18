@@ -13,12 +13,16 @@ state of the live instance, since I will try to keep the web UI in sync with the
        auth_path  POST  /api/logout        Entice.Web.AuthController.logout/2
        char_path  GET   /api/char          Entice.Web.CharController.list/2
        char_path  POST  /api/char          Entice.Web.CharController.create/2
+       docu_path  GET   /api/maps          Entice.Web.DocuController.maps/2
+       docu_path  GET   /api/skills        Entice.Web.DocuController.skills/2
+       docu_path  GET   /api/skills/:id    Entice.Web.DocuController.skills/2
       token_path  GET   /api/token/area    Entice.Web.TokenController.area_transfer_token/2
       token_path  GET   /api/token/social  Entice.Web.TokenController.social_transfer_token/2
  web_socket_path  GET   /ws                Phoenix.Transports.WebSocket.upgrade/2
  web_socket_path  POST  /ws                Phoenix.Transports.WebSocket.upgrade/2
 long_poller_path  GET   /ws/poll           Phoenix.Transports.LongPoller.poll/2
 long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish/2
+
 
 ```
 
