@@ -164,7 +164,7 @@ group:kick
 ```
 skillbar:set
 - slot            // the slot of the skillbar (1-9)
-- id              // the id of the skill to be placed there
+- id              // the id of the skill to be placed there, or 0 for deletion
 ```
 
 ---
