@@ -146,6 +146,7 @@ entity:move
 - goal            // position that the char is moving towards
   - x
   - y
+- plane           // the id of the plane the player is on (see pathing maps)
 - movetype        // the type of movement (client-responsibility)
 - speed           // the speed (client-resposibilty)
 ```
@@ -158,6 +159,12 @@ group:merge
 ```
 group:kick
 - target          // the target entity (player, not a group!)
+```
+
+```
+skillbar:set
+- slot            // the slot of the skillbar (1-9)
+- id              // the id of the skill to be placed there
 ```
 
 ---
