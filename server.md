@@ -56,6 +56,16 @@ You can leave a channel (which doesn't terminate your websocket connection) by s
 }
 ```
 
+Since you will risk getting kicked if you're not sending data for a longer period of time, you should send heartbeats (exact copies of this):
+
+```Javascript
+{
+  "topic": "phoenix",
+  "event": "heartbeat",
+  "payload": {}
+}
+```
+
 #### Topic `area`
 
 Subtopics set the map you're trying to access. When you joined a map, you can only change it with a special mapchange request.
