@@ -116,6 +116,16 @@ entity:attribute:remove
 - attribute_type  // the attribute's type (name)
 ```
 
+General asynchroneous events.
+(Server -> Client only)
+
+```
+area:change:force
+- client_id       // your client id
+- transfer_token  // entrance ticket to the new area
+- map             // the new area's map name
+```
+
 ---
 
 Synchroneous map change request.
