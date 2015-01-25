@@ -126,7 +126,6 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - add a place to store available skills and a way to work with them (check if available, lock/unlock etc.)
   - store as bitarray, transfer as base64 string
 - let clients manage their current skillbars
-- differentiate between worlds that allow skillbar changes, and worlds that dont
 - propagate client-side movement updates (add apropriate attributes)
 
 ### Milestone 7
@@ -134,11 +133,11 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 **May support**
 
 - (improvement) more maps generally
-- (improvement) server-only components (groupmember etc)
-- (improvement) protocol: possibly reduce complexity of component- and game state diffs
+- (improvement) remove leader from groups, use list semantics `[leader|members]` only
 - (old feature) explorable zones
 - (old feature) movement speed
 - (old feature) whisper messages
+- (new feature) no skillbar changes in explorables
 - (new feature) portals
 - (new feature) NPC dialogues
 - (new feature) items
