@@ -118,7 +118,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 >
 > - skill-functionality, i.e. skill casting
 
-### Milestone 6
+### Milestone 6 `DONE`
 
 **Should support**
 
@@ -130,12 +130,22 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 7
 
+**Should fix + support**
+
+- remove leader from groups, use list semantics `[leader|members]` only
+- fix group travel, especially with new leader semantics
+- find a better way to map between client- and player-entities
+- separate movement speed, movement type and goal/pos and add special messages
+- make attributes a protocol/macro/behaviour, add :not_propagated / :not_visible
+- kick open sockets of an account on logging out
+- take over client-entity but kick player when logging in again
+- avoid form URL encoded API, replace with only JSON API instead
+
+### Milestone 8
+
 **May support**
 
 - (improvement) more maps generally
-- (improvement) remove leader from groups, use list semantics `[leader|members]` only
-- (improvement) separate movement speed, movement type and goal/pos and add special messages
-- (improvement) make attributes a protocol/macro/behaviour, add :not_propagated / :not_visible
 - (old feature) explorable zones
 - (old feature) movement speed
 - (old feature) whisper messages
