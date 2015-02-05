@@ -8,7 +8,6 @@ state of the live instance, since I will try to keep the web UI in sync with the
        page_path  GET   /                  Entice.Web.PageController.index/2
        page_path  GET   /auth              Entice.Web.PageController.auth/2
        page_path  GET   /client/:area      Entice.Web.PageController.client/2
-       page_path  GET   /chat/:chat        Entice.Web.PageController.chat/2
        auth_path  POST  /api/login         Entice.Web.AuthController.login/2
        auth_path  POST  /api/logout        Entice.Web.AuthController.logout/2
        char_path  GET   /api/char          Entice.Web.CharController.list/2
@@ -16,13 +15,11 @@ state of the live instance, since I will try to keep the web UI in sync with the
        docu_path  GET   /api/maps          Entice.Web.DocuController.maps/2
        docu_path  GET   /api/skills        Entice.Web.DocuController.skills/2
        docu_path  GET   /api/skills/:id    Entice.Web.DocuController.skills/2
-      token_path  GET   /api/token/area    Entice.Web.TokenController.area_transfer_token/2
-      token_path  GET   /api/token/social  Entice.Web.TokenController.social_transfer_token/2
+      token_path  GET   /api/token/player  Entice.Web.TokenController.player_token/2
  web_socket_path  GET   /ws                Phoenix.Transports.WebSocket.upgrade/2
  web_socket_path  POST  /ws                Phoenix.Transports.WebSocket.upgrade/2
 long_poller_path  GET   /ws/poll           Phoenix.Transports.LongPoller.poll/2
 long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish/2
-
 
 ```
 
@@ -31,6 +28,7 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 General syntax for topics is: `topic:subtopic` e.g. `area:heroes_ascent`
 
 - `area` - handles all maps and what happens on them entity-wise
+- `group` - handles the groups and their interactions (merging, kicking, ...)
 - `social` - handles chat & emotes between players, parties, guilds and so on
 
 The messages that we can handle have the structure that is given exemplarily below.
@@ -70,7 +68,7 @@ Since you will risk getting kicked if you're not sending data for a longer perio
 
 Subtopics set the map you're trying to access. When you joined a map, you can only change it with a special mapchange request.
 
-Token API: `/api/token/area?map=[...]&char_name=[...]`
+Token API: `/api/token/player?map=[...]&char_name=[...]`
 
 ---
 
@@ -80,13 +78,14 @@ Note: The entity-list's shape may change in the future.
 ```
 join
 - client_id       // the id of your client, from API
-- transfer_token  // a temporary token for authentication
+- player_token    // a temporary token for authentication
 ```
 
 Success:
 
 ```
 join:ok
+- access_token    // a temporary token for authentication with the lower level channels
 - entity          // your new entity by id
 - entities        // a list of all available entities
   - id            // the entity id
@@ -126,16 +125,6 @@ entity:attribute:remove
 - attribute_type  // the attribute's type (name)
 ```
 
-General asynchroneous events.
-(Server -> Client only)
-
-```
-area:change:force
-- client_id       // your client id
-- transfer_token  // entrance ticket to the new area
-- map             // the new area's map name
-```
-
 ---
 
 Synchroneous map change request.
@@ -151,7 +140,7 @@ you will need to rejoin the new map with the token)
 ```
 area:change:ok
 - client_id       // the client's id (should be known anyway)
-- transfer_token  // the temporary token
+- player_token    // the temporary token
 ```
 
 ---
@@ -172,16 +161,6 @@ entity:move
 ```
 
 ```
-group:merge
-- target          // the target entity (player, not a group!)
-```
-
-```
-group:kick
-- target          // the target entity (player, not a group!)
-```
-
-```
 skillbar:set
 - slot            // the slot of the skillbar (1-9)
 - id              // the id of the skill to be placed there, or 0 for deletion
@@ -190,11 +169,58 @@ skillbar:set
 ---
 
 
+#### Topic `group`
+
+Subtopics set the map you're on. (Future extensions might build on group-specific subtopics)
+
+Token API: You receive the `access_token` through the area channel.
+
+---
+
+Synchroneously add the group ability to your player.
+
+```
+join
+- client_id       // the id of your client, from API
+- access_token    // a temporary token for authentication
+```
+
+Success:
+
+```
+join:ok
+- group           // your new group by id
+```
+
+Failure:
+
+```
+join:error
+```
+
+---
+
+Asynchroneous client requests.
+
+```
+merge
+- target          // the target entity (player, not a group!)
+```
+
+```
+kick
+- target          // the target entity (player, not a group!)
+```
+
+---
+
+
+
 #### Topic `social`
 
-Subtopics set the room you're trying to access.
+Subtopics set the map you're on.
 
-Token API: `/api/token/social?room=[...]&char_name=[...]`
+Token API: You receive the `access_token` through the area channel.
 
 ---
 
@@ -203,7 +229,7 @@ Synchroneously join a room.
 ```
 join
 - client_id       // the id of your client, from API
-- transfer_token  // a temporary token for authentication
+- access_token    // a temporary token for authentication
 ```
 
 Success:
