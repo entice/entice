@@ -146,6 +146,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 **May support**
 
 - (improvement) more maps generally
+- (improvement) entity-behaviour results - `:become` and `:terminate`
 - (old feature) explorable zones
 - (old feature) movement speed
 - (old feature) whisper messages
