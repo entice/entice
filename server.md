@@ -27,8 +27,10 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 
 General syntax for topics is: `topic:subtopic` e.g. `area:heroes_ascent`
 
-- `area` - handles all maps and what happens on them entity-wise
+- `entity` - handles access to the other entity focused functionality
 - `group` - handles the groups and their interactions (merging, kicking, ...)
+- `movement` - enables the player to move and also get notified of other entities position changes
+- `skill` - enables the player to use skills and the skill bar
 - `social` - handles chat & emotes between players, parties, guilds and so on
 
 The messages that we can handle have the structure that is given exemplarily below.
@@ -87,15 +89,12 @@ Success:
 join:ok
 - access_token    // a temporary token for authentication with the lower level channels
 - entity          // your new entity by id
-- entities        // a list of all available entities
-  - id            // the entity id
-  - attributes    // list of the entities attributes
 ```
 
 Failure:
 
 ```
-join:error
+*socket crash*
 ```
 
 ---
@@ -106,23 +105,12 @@ Asynchroneous entity events. (Topic-wide broadcast)
 ```
 entity:add
 - entity          // the entity by id
+- attributes      // the entities attributes (need not be complete, sometimes you need to join other topics)
 ```
 
 ```
 entity:remove
 - entity          // the entity by id
-```
-
-```
-entity:attribute:update
-- entity          // the entity by id
-- attribute       // the whole attribute struct
-```
-
-```
-entity:attribute:remove
-- entity          // the entity by id
-- attribute_type  // the attribute's type (name)
 ```
 
 ---
@@ -132,38 +120,6 @@ Synchroneous map change request.
 ```
 area:change
 - map             // the new area as a snake-cased map-name
-```
-
-Success: (Decouples the client from the former channel,
-you will need to rejoin the new map with the token)
-
-```
-area:change:ok
-- client_id       // the client's id (should be known anyway)
-- player_token    // the temporary token
-```
-
----
-
-Asynchroneous client requests.
-
-```
-entity:move
-- pos             // the new position
-  - x
-  - y
-- goal            // position that the char is moving towards
-  - x
-  - y
-- plane           // the id of the plane the player is on (see pathing maps)
-- movetype        // the type of movement (client-responsibility)
-- speed           // the speed (client-resposibilty)
-```
-
-```
-skillbar:set
-- slot            // the slot of the skillbar (1-9)
-- id              // the id of the skill to be placed there, or 0 for deletion
 ```
 
 ---
@@ -195,7 +151,7 @@ join:ok
 Failure:
 
 ```
-join:error
+*socket crash*
 ```
 
 ---
@@ -214,6 +170,16 @@ kick
 
 ---
 
+Asynchroneous server updates.
+
+```
+change
+- leader          // the group leader (identifies the group!)
+- members         // list of member entity ids
+- invites         // list of invites
+```
+
+---
 
 
 #### Topic `movement`
@@ -224,7 +190,7 @@ Token API: You receive the `access_token` through the entity channel.
 
 ---
 
-Synchroneously add the group ability to your player.
+Synchroneously add the movement ability to your player.
 
 ```
 join
@@ -301,6 +267,56 @@ update:speed
 ---
 
 
+#### Topic `skill`
+
+Subtopics set the map you're on.
+
+Token API: You receive the `access_token` through the entity channel.
+
+---
+
+Synchroneously add the skill ability to your player.
+
+```
+join
+- client_id       // the id of your client, from API
+- access_token    // a temporary token for authentication
+```
+
+Success:
+
+```
+join:ok
+```
+
+Failure:
+
+```
+*socket crash*
+```
+
+---
+
+Synchroneous client requests.
+
+```
+skillbar:set
+- slot            // the slot of the skillbar (1-9)
+- id              // the id of the skill to be placed there, or 0 for deletion
+```
+
+Answers:
+
+```
+skillbar:ok
+```
+
+```
+skillbar:error
+```
+
+---
+
 
 #### Topic `social`
 
@@ -327,7 +343,7 @@ join:ok
 Failure:
 
 ```
-join:error
+*socket crash*
 ```
 
 ---
