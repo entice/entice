@@ -216,7 +216,7 @@ kick
 
 
 
-#### Topic `group`
+#### Topic `movement`
 
 Subtopics set the map you're on.
 
