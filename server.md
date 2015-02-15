@@ -173,7 +173,7 @@ skillbar:set
 
 Subtopics set the map you're on. (Future extensions might build on group-specific subtopics)
 
-Token API: You receive the `access_token` through the area channel.
+Token API: You receive the `access_token` through the entity channel.
 
 ---
 
@@ -216,11 +216,97 @@ kick
 
 
 
+#### Topic `group`
+
+Subtopics set the map you're on.
+
+Token API: You receive the `access_token` through the entity channel.
+
+---
+
+Synchroneously add the group ability to your player.
+
+```
+join
+- client_id       // the id of your client, from API
+- access_token    // a temporary token for authentication
+```
+
+Success:
+
+```
+join:ok
+```
+
+Failure:
+
+```
+*socket crash*
+```
+
+---
+
+Asynchroneous client requests.
+
+```
+update:pos
+- pos             // the new position
+```
+
+```
+update:goal
+- goal            // the new goal
+- plane           // the new plane
+```
+
+```
+update:movetype
+- movetype        // the new movement type (0-10)
+```
+
+```
+update:speed
+- speed           // the new speed (-1-2)
+```
+
+---
+
+Asynchroneous server updates.
+
+```
+update:pos
+- entity          // event sender
+- pos             // the new position
+```
+
+```
+update:goal
+- entity          // event sender
+- goal            // the new goal
+- plane           // the new plane
+```
+
+```
+update:movetype
+- entity          // event sender
+- movetype        // the new movement type (0-10)
+```
+
+```
+update:speed
+- entity          // event sender
+- speed           // the new speed (-1-2)
+```
+
+---
+
+
+
 #### Topic `social`
 
 Subtopics set the map you're on.
 
-Token API: You receive the `access_token` through the area channel.
+Token API: You receive the `access_token` through the entity channel.
 
 ---
 
