@@ -287,6 +287,8 @@ Success:
 
 ```
 join:ok
+- unlocked_skills // overall available skills
+- skillbar        // your character's current skillbar
 ```
 
 Failure:
