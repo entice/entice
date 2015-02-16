@@ -176,7 +176,7 @@ Asynchroneous server updates.
 change
 - leader          // the group leader (identifies the group!)
 - members         // list of member entity ids
-- invites         // list of invites
+- invited         // list of invited entities
 ```
 
 ---
