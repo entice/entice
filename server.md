@@ -15,7 +15,7 @@ state of the live instance, since I will try to keep the web UI in sync with the
        docu_path  GET   /api/maps          Entice.Web.DocuController.maps/2
        docu_path  GET   /api/skills        Entice.Web.DocuController.skills/2
        docu_path  GET   /api/skills/:id    Entice.Web.DocuController.skills/2
-      token_path  GET   /api/token/player  Entice.Web.TokenController.player_token/2
+      token_path  GET   /api/token/entity  Entice.Web.TokenController.entity_token/2
  web_socket_path  GET   /ws                Phoenix.Transports.WebSocket.upgrade/2
  web_socket_path  POST  /ws                Phoenix.Transports.WebSocket.upgrade/2
 long_poller_path  GET   /ws/poll           Phoenix.Transports.LongPoller.poll/2
@@ -25,7 +25,10 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 
 ### Topic-Overview
 
-General syntax for topics is: `topic:subtopic` e.g. `area:heroes_ascent`
+To join a topic, you will need an access token, usually called entity_token if joining the game to play.
+You can get your token by using the token API: `/api/token/entity?map=[...]&char_name=[...]`
+
+General syntax for topics is: `topic:subtopic` e.g. `entity:heroes_ascent`
 
 - `entity` - handles access to the other entity focused functionality
 - `group` - handles the groups and their interactions (merging, kicking, ...)
@@ -66,11 +69,9 @@ Since you will risk getting kicked if you're not sending data for a longer perio
 }
 ```
 
-#### Topic `area`
+#### Topic `entity`
 
 Subtopics set the map you're trying to access. When you joined a map, you can only change it with a special mapchange request.
-
-Token API: `/api/token/player?map=[...]&char_name=[...]`
 
 ---
 
@@ -80,14 +81,13 @@ Note: The entity-list's shape may change in the future.
 ```
 join
 - client_id       // the id of your client, from API
-- player_token    // a temporary token for authentication
+- entity_token    // a temporary token for authentication
 ```
 
 Success:
 
 ```
 join:ok
-- access_token    // a temporary token for authentication with the lower level channels
 - entity          // your new entity by id
 ```
 
@@ -138,7 +138,7 @@ Synchroneously add the group ability to your player.
 ```
 join
 - client_id       // the id of your client, from API
-- access_token    // a temporary token for authentication
+- entity_token    // a temporary token for authentication
 ```
 
 Success:
@@ -195,7 +195,7 @@ Synchroneously add the movement ability to your player.
 ```
 join
 - client_id       // the id of your client, from API
-- access_token    // a temporary token for authentication
+- entity_token    // a temporary token for authentication
 ```
 
 Success:
@@ -280,7 +280,7 @@ Synchroneously add the skill ability to your player.
 ```
 join
 - client_id       // the id of your client, from API
-- access_token    // a temporary token for authentication
+- entity_token    // a temporary token for authentication
 ```
 
 Success:
@@ -331,7 +331,7 @@ Synchroneously join a room.
 ```
 join
 - client_id       // the id of your client, from API
-- access_token    // a temporary token for authentication
+- entity_token    // a temporary token for authentication
 ```
 
 Success:
