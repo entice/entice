@@ -145,7 +145,6 @@ Success:
 
 ```
 join:ok
-- group           // your new group by id
 ```
 
 Failure:
