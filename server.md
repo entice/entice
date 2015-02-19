@@ -88,7 +88,6 @@ Success:
 
 ```
 join:ok
-- entity          // your new entity by id
 ```
 
 Failure:
@@ -103,23 +102,14 @@ Asynchroneous entity events. (Topic-wide broadcast)
 (Server -> Client only)
 
 ```
-entity:add
+add
 - entity          // the entity by id
 - attributes      // the entities attributes (need not be complete, sometimes you need to join other topics)
 ```
 
 ```
-entity:remove
+remove
 - entity          // the entity by id
-```
-
----
-
-Synchroneous map change request.
-
-```
-area:change
-- map             // the new area as a snake-cased map-name
 ```
 
 ---
@@ -184,8 +174,6 @@ change
 #### Topic `movement`
 
 Subtopics set the map you're on.
-
-Token API: You receive the `access_token` through the entity channel.
 
 ---
 
@@ -270,8 +258,6 @@ update:speed
 
 Subtopics set the map you're on.
 
-Token API: You receive the `access_token` through the entity channel.
-
 ---
 
 Synchroneously add the skill ability to your player.
@@ -322,8 +308,6 @@ skillbar:error
 #### Topic `social`
 
 Subtopics set the map you're on.
-
-Token API: You receive the `access_token` through the entity channel.
 
 ---
 
