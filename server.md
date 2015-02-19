@@ -27,6 +27,7 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 
 To join a topic, you will need an access token, usually called entity_token if joining the game to play.
 You can get your token by using the token API: `/api/token/entity?map=[...]&char_name=[...]`
+This will also provide you with the ID of your new entity.
 
 General syntax for topics is: `topic:subtopic` e.g. `entity:heroes_ascent`
 
@@ -104,7 +105,7 @@ Asynchroneous entity events. (Topic-wide broadcast)
 ```
 add
 - entity          // the entity by id
-- attributes      // the entities attributes (need not be complete, sometimes you need to join other topics)
+- attributes      // the entities attributes (currently will include name, position and appearance)
 ```
 
 ```
