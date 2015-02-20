@@ -89,6 +89,13 @@ Success:
 
 ```
 join:ok
+- name            // the name of the player
+- position        // the position of the player
+ - x
+ - y
+- appearance      // as it says (the GW stuff)
+ - hair_color
+ - ...
 ```
 
 Failure:
