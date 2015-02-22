@@ -76,8 +76,7 @@ Subtopics set the map you're trying to access. When you joined a map, you can on
 
 ---
 
-Synchroneously join an area.
-Note: The entity-list's shape may change in the future.
+Synchroneously add the entity-seeing ability to your player.
 
 ```
 join
@@ -112,7 +111,13 @@ Asynchroneous entity events. (Topic-wide broadcast)
 ```
 add
 - entity          // the entity by id
-- attributes      // the entities attributes (currently will include name, position and appearance)
+- name            // the name of the player
+- position        // the position of the player
+ - x
+ - y
+- appearance      // as it says (the GW stuff)
+ - hair_color
+ - ...
 ```
 
 ```
