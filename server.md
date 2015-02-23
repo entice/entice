@@ -74,6 +74,8 @@ Since you will risk getting kicked if you're not sending data for a longer perio
 
 Subtopics set the map you're trying to access. When you joined a map, you can only change it with a special mapchange request.
 
+**NOTE** When you leave this channel you will kick your entity.
+
 ---
 
 Synchroneously add the entity-seeing ability to your player.
