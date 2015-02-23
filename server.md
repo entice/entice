@@ -175,6 +175,13 @@ kick
 Asynchroneous server updates.
 
 ```
+add
+- leader          // the group leader (identifies the group!)
+- members         // list of member entity ids
+- invited         // list of invited entities
+```
+
+```
 change
 - leader          // the group leader (identifies the group!)
 - members         // list of member entity ids
