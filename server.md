@@ -70,11 +70,68 @@ Since you will risk getting kicked if you're not sending data for a longer perio
 }
 ```
 
-#### Topic `entity`
+
+#### Topic `status`
 
 Subtopics set the map you're trying to access. When you joined a map, you can only change it with a special mapchange request.
 
 **NOTE** When you leave this channel you will kick your entity.
+
+---
+
+Synchroneously join for server status updates and map change requests etc.
+
+```
+join
+- client_id       // the id of your client, from API
+- entity_token    // a temporary token for authentication
+```
+
+Success:
+
+```
+join:ok
+```
+
+Failure:
+
+```
+*socket crash*
+```
+
+---
+
+Synchroneously change the map.
+
+```
+area:change
+- map             // the underscore name of the map
+```
+
+Success: (part 1)
+
+```
+area:change:ok
+```
+
+Success: (part 2)
+
+```
+leave
+```
+
+Failure:
+
+```
+*socket crash*
+```
+
+---
+
+
+#### Topic `entity`
+
+Subtopics set the map you're trying to access.
 
 ---
 
