@@ -16,9 +16,9 @@ This project aims to create a working game-server / client-modification for a po
 You can find more information on how it works in the subprojects of entice. If you're interested in using the API, you
 can find the complete documentation here in this repository.
 
-* Milestones - These define the features we implemented and are working on
-* Routes - The public & secured HTTP API for the server
-* Topics - The secured Websocket API for the server as an overview. This is the place to start when you are looking
+* [Milestones](https://github.com/entice/protocol/blob/master/milestones.md) - These define the features we implemented and are working on
+* [Routes](https://github.com/entice/protocol/blob/master/routes.md) - The public & secured HTTP API for the server
+* [Topics](https://github.com/entice/protocol/blob/master/topics.md) - The secured Websocket API for the server as an overview. This is the place to start when you are looking
 for how things of this server work internally (API wise).
 
 
