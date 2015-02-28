@@ -42,20 +42,18 @@ kick
 
 ---
 
-Asynchroneous server updates.
+Asynchroneous server updates. (Topic-wide broadcast)
 
 ```
-add
+update
 - leader          // the group leader (identifies the group!)
 - members         // list of member entity ids
 - invited         // list of invited entities
 ```
 
 ```
-change
-- leader          // the group leader (identifies the group!)
-- members         // list of member entity ids
-- invited         // list of invited entities
+remove
+- entity          // the entity that used to be a leader
 ```
 
 ---
