@@ -134,6 +134,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 - (improvement) more maps generally
 - (improvement) entity-behaviour results - `:become` and `:terminate`
+- (improvement) clients should time out after some inactivity
 - (old feature) explorable zones
 - (old feature) movement speed
 - (old feature) whisper messages
