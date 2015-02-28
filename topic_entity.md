@@ -40,7 +40,7 @@ Failure:
 Synchroneously change the area/map.
 
 ```
-area:change:
+area:change
 - map             // the underscore name of the map
 ```
 
