@@ -42,7 +42,7 @@ kick
 
 ---
 
-Asynchroneous server updates. (Topic-wide broadcast)
+Asynchroneous server updates.
 
 ```
 update
@@ -54,6 +54,12 @@ update
 ```
 remove
 - entity          // the entity that used to be a leader
+```
+
+```
+mapchange
+- leader          // the new entity_id of the group leader
+- map             // the map that the leader travels to
 ```
 
 ---

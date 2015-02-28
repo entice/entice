@@ -37,21 +37,17 @@ Failure:
 
 ---
 
-Synchroneously change the area/map.
+Synchroneously change the map.
 
 ```
-area:change
+map:change
 - map             // the underscore name of the map
 ```
 
-Success: (part 1 & 2)
+Success: (Since this topic kills your entity upon leave, you will have to do so on your own)
 
 ```
-area:change:ok
-```
-
-```
-leave
+map:change:ok
 ```
 
 Failure:
