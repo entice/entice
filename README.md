@@ -2,11 +2,11 @@
 
 [to.entice.so](http://to.entice.so)
 
-Web master: ![Travis-CI](https://travis-ci.org/entice/web.svg?branch=master)
-Logic master: ![Travis-CI](https://travis-ci.org/entice/logic.svg?branch=master)
-Entity master: ![Travis-CI](https://travis-ci.org/entice/entity.svg?branch=master)
-Skill master: ![Travis-CI](https://travis-ci.org/entice/skill.svg?branch=master)
-Utils master: ![Travis-CI](https://travis-ci.org/entice/utils.svg?branch=master)
+* Web master: ![Travis-CI](https://travis-ci.org/entice/web.svg?branch=master)
+* Logic master: ![Travis-CI](https://travis-ci.org/entice/logic.svg?branch=master)
+* Entity master: ![Travis-CI](https://travis-ci.org/entice/entity.svg?branch=master)
+* Skill master: ![Travis-CI](https://travis-ci.org/entice/skill.svg?branch=master)
+* Utils master: ![Travis-CI](https://travis-ci.org/entice/utils.svg?branch=master)
 
 
 ## Protocol
