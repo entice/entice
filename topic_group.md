@@ -57,7 +57,7 @@ remove
 ```
 
 ```
-mapchange
+map:change
 - leader          // the new entity_id of the group leader
 - map             // the map that the leader travels to
 ```
