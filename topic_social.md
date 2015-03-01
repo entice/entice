@@ -31,10 +31,10 @@ Success:
 join:ok
 ```
 
-Failure:
+Failure: (If no crash: Means that you're not allowed to join this topic)
 
 ```
-*socket crash*
+join:error
 ```
 
 ---
