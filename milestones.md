@@ -147,6 +147,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 - (improvement) more maps generally
 - (improvement) clients should time out after some inactivity
+- (improvement) group chat should close connection when leaders / members change
 - (old feature) whisper messages
 - (new feature) portals
 - (new feature) NPC dialogues
