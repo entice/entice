@@ -115,7 +115,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - let clients manage their current skillbars
 - propagate client-side movement updates (add apropriate attributes)
 
-### Milestone 7
+### Milestone 7 `DONE`
 
 **Should fix + support**
 
@@ -130,15 +130,22 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 8
 
+**Should support**
+
+- entity-behaviour results - `:become` and `:terminate`
+- persistent skillbars for characters
+- explorable zones
+- no skillbar changes in explorables
+- group chat (or rather: general private chat rooms API)
+- client side movement message enhancement
+
+### Milestone 9
+
 **May support**
 
 - (improvement) more maps generally
-- (improvement) entity-behaviour results - `:become` and `:terminate`
 - (improvement) clients should time out after some inactivity
-- (old feature) explorable zones
-- (old feature) movement speed
 - (old feature) whisper messages
-- (new feature) no skillbar changes in explorables
 - (new feature) portals
 - (new feature) NPC dialogues
 - (new feature) items
