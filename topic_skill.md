@@ -17,7 +17,7 @@ Success:
 ```
 join:ok
 - unlocked_skills // overall available skills
-- skillbar        // your character's current skillbar
+- skillbar        // your current skillbar (slot to skill-id association)
 ```
 
 Failure:
@@ -40,6 +40,7 @@ Success:
 
 ```
 skillbar:ok
+- skillbar        // your current skillbar (slot to skill-id association)
 ```
 
 Failure:
