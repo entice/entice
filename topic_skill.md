@@ -46,10 +46,10 @@ skillbar:ok
 - skillbar        // your current skillbar as list of skill-ids
 ```
 
-Failure:
+Failure: (No permission to change skillbar)
 
 ```
-*socket crash*
+skillbar:error
 ```
 
 ---
