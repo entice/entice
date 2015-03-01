@@ -48,6 +48,7 @@ Success: (Since this topic kills your entity upon leave, you will have to do so 
 
 ```
 map:change:ok
+- map             // the underscore name of the map
 ```
 
 Failure:
