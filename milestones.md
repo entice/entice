@@ -136,7 +136,8 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - force-leave all topics when the entity terminates
 - persistent skillbars for characters
 - explorable zones
-- add sample explorable:  "isle_of_the_nameless"
+- add sample explorable: "great_temple_of_balthazar" <- fake explorable for testing purpose
+- add sample explorable: "isle_of_the_nameless"
 - no skillbar changes in explorables
 - group chat (or rather: general private chat rooms API)
 - client side movement message enhancement
