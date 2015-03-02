@@ -35,7 +35,7 @@ Synchroneous client requests.
 
 ```
 skillbar:set
-- slot            // the slot index of the skillbar (1-based, i.e. has to be between 1-8)
+- slot            // the slot index of the skillbar (0-based, i.e. has to be between 0-7)
 - id              // the id of the skill to be placed there, or 0 for deletion
 ```
 
