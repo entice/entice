@@ -25,7 +25,22 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 
 ### Details
 
-* `/client/:map` - A JavaScript frontend to the server, mainly here for testing purposes for now
-* `/api/token/entity` - Use this to acquire the key to the websockets. Essentially the server will
-initialize your entity and assign it to your account. Later on your can access the different
+#### `/client/:map`
+
+A JavaScript frontend to the server, mainly here for testing purposes for now
+
+#### `/api/token/entity`
+
+Use this to acquire the key to the websockets. Essentially the server will initialize
+your entity and assign it to your account. Later on your can access the different
 game-mechanics through the different topics.
+
+```Javascript
+{
+  "client_id": ...,     // your client's UUID
+  "entity_id": ...,     // your entity's UUID
+  "entity_token": ...,  // your access token to the websocket based APIs
+  "map": ...,           // the underscore map name you'll be able to join
+  "is_outpost": ...,    // indicates whether you'll be joining an outpost
+}
+```
