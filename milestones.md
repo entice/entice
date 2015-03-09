@@ -144,6 +144,14 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 9
 
+**Should support**
+
+- entity as a generic state-synced event manager
+- entity attribute access as a behaviour
+- casting skills from the skillbar, considering cast-time and recharge-time
+
+### Milestone 10
+
 **May support**
 
 - (improvement) more maps generally
