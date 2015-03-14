@@ -1,7 +1,9 @@
-
-<a href="http://to.entice.so">
-  <img src="http://to.entice.so/images/entice.png" alt="entice-logo" width="200" height="200">
-</a><h1> Entice</h1>
+<p>
+  <a href="http://to.entice.so">
+    <img src="http://to.entice.so/images/entice.png" alt="entice-logo" width="200" height="200">
+  </a>
+  <h1> Entice</h1>
+</p>
 
 
 * [Client](https://github.com/entice/client)
