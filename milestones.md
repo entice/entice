@@ -149,6 +149,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - entity as a generic state-synced event manager
 - entity attribute access as a behaviour
 - casting skills from the skillbar, considering cast-time and recharge-time
+- the skill distortion (id: 11), also update the unlocked skills
 
 ### Milestone 10
 
