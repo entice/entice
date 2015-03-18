@@ -27,7 +27,11 @@ long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish
 
 #### `/client/:map`
 
-A JavaScript frontend to the server, mainly here for testing purposes for now
+A JavaScript frontend to the server, mainly here for testing purposes for now.
+
+#### `/api/char`
+
+Available skills of this API are represented as a base-16 encoded bit array.
 
 #### `/api/token/entity`
 

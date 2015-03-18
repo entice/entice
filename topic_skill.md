@@ -71,6 +71,7 @@ Failure: (Already casting a skill, or still recharging)
 
 ```
 cast:error
+- slot            // the index of the skillbar-slot that you tried to use
 - reason          // the reason why the cast could not be performed
 ```
 
