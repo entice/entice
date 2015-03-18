@@ -47,11 +47,7 @@ update:goal
 ```
 update:movetype
 - movetype        // the new movement type (0-10)
-```
-
-```
-update:speed
-- speed           // the new speed (-1-2)
+- velocity        // the new velocity coefficient (-1-2)
 ```
 
 ---
@@ -75,12 +71,7 @@ update:goal
 update:movetype
 - entity          // event sender
 - movetype        // the new movement type (0-10)
-```
-
-```
-update:speed
-- entity          // event sender
-- speed           // the new speed (-1-2)
+- velocity        // the new velocity coefficient (-1-2)
 ```
 
 ---
