@@ -78,14 +78,20 @@ cast:error
 Asynchroneous server events.
 
 ```
-cast:start
+cast:instantly    // ### Only message that is sent when no cast time ###
+- entity          // entity id of the caster
+- skill           // the id of the skill that they are casting
+```
+
+```
+cast:start        // ### Part 1 of skill casting with cast-time ###
 - entity          // entity id of the caster
 - skill           // the id of the skill that they are casting
 - cast_time       // the actual cast-time in milliseconds
 ```
 
 ```
-cast:end
+cast:end          // ### Part 2 of skill casting with cast-time ###
 - entity          // entity id of the caster
 - skill           // the id of the skill that they are casting
 ```
