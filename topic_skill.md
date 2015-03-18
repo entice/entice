@@ -67,10 +67,11 @@ Success:
 cast:ok
 ```
 
-Failure: (Already casting a skill)
+Failure: (Already casting a skill, or still recharging)
 
 ```
 cast:error
+- reason          // the reason why the cast could not be performed
 ```
 
 ---
