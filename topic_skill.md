@@ -77,23 +77,38 @@ cast:error
 
 Asynchroneous server events.
 
+Skill-Casting & skill-recharging:
+Casting can end instantly or after a certain time. In any case you will be notified
+that the casting is done and it will include who did cast what. After a cast, the skill
+might need to recharge. In this case the recharge time will be more than 0 and you will
+also be notified that a recharge has ended after it did so. If the recharge time of a
+skill is 0, there will be no notification that the recharge has ended (it never took place).
+
 ```
-cast:instantly    // ### Only message that is sent when no cast time ###
+cast:instantly    // -> Start & end of casting process, if cast-time is 0
 - entity          // entity id of the caster
-- skill           // the id of the skill that they are casting
+- slot            // the index of the skillbar-slot that the player used
+- recharge-time   // the actual recharge-time in milliseconds
 ```
 
 ```
-cast:start        // ### Part 1 of skill casting with cast-time ###
+cast:start        // -> Start of the casting process, if cast-time is not 0
 - entity          // entity id of the caster
-- skill           // the id of the skill that they are casting
+- slot            // the index of the skillbar-slot that the player used
 - cast_time       // the actual cast-time in milliseconds
 ```
 
 ```
-cast:end          // ### Part 2 of skill casting with cast-time ###
+cast:end          // -> End of the casting process, if cast-time is not 0
 - entity          // entity id of the caster
-- skill           // the id of the skill that they are casting
+- slot            // the index of the skillbar-slot that the player used
+- recharge-time   // the actual recharge-time in milliseconds
+```
+
+```
+recharge:end      // -> End of the recharge process, if recharge-time is not 0
+- entity          // entity id of the caster
+- slot            // the index of the skillbar-slot that the player used
 ```
 
 ---
