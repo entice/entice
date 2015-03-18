@@ -90,6 +90,7 @@ skill is 0, there will be no notification that the recharge has ended (it never 
 cast:instantly    // -> Start & end of casting process, if cast-time is 0
 - entity          // entity id of the caster
 - slot            // the index of the skillbar-slot that the player used
+- skill           // the id of the skill the player used
 - recharge_time   // the actual recharge-time in milliseconds
 ```
 
@@ -97,6 +98,7 @@ cast:instantly    // -> Start & end of casting process, if cast-time is 0
 cast:start        // -> Start of the casting process, if cast-time is not 0
 - entity          // entity id of the caster
 - slot            // the index of the skillbar-slot that the player used
+- skill           // the id of the skill the player used
 - cast_time       // the actual cast-time in milliseconds
 ```
 
@@ -104,6 +106,7 @@ cast:start        // -> Start of the casting process, if cast-time is not 0
 cast:end          // -> End of the casting process, if cast-time is not 0
 - entity          // entity id of the caster
 - slot            // the index of the skillbar-slot that the player used
+- skill           // the id of the skill the player used
 - recharge_time   // the actual recharge-time in milliseconds
 ```
 
@@ -111,6 +114,7 @@ cast:end          // -> End of the casting process, if cast-time is not 0
 recharge:end      // -> End of the recharge process, if recharge-time is not 0
 - entity          // entity id of the caster
 - slot            // the index of the skillbar-slot that the player used
+- skill           // the id of the skill the player used
 ```
 
 ---
