@@ -81,6 +81,7 @@ Asynchroneous server events.
 cast:start
 - entity          // entity id of the caster
 - skill           // the id of the skill that they are casting
+- cast_time       // the actual cast-time in milliseconds
 ```
 
 ```
