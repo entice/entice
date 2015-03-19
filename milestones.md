@@ -160,6 +160,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) group chat should close connection when leaders / members change
 - (improvement) group-mapchange should be implemented more stable, server side
 - (improvement) skill casting should disable movement (if not stances etc.)
+- (improvement) before skillbar changes, check if the skill is available for the player
 - (old feature) whisper messages
 - (new feature) portals
 - (new feature) NPC dialogues
