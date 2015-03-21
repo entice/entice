@@ -128,7 +128,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - take over client-entity but kick player when logging in again
 - avoid form URL encoded API, replace with only JSON API instead
 
-### Milestone 8
+### Milestone 8 `DONE`
 
 **Should support**
 
@@ -142,7 +142,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - group chat (or rather: general private chat rooms API)
 - client side movement message enhancement
 
-### Milestone 9
+### Milestone 9 `DONE`
 
 **Should support**
 
@@ -152,6 +152,15 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - the skill distortion (id: 11), also update the unlocked skills
 
 ### Milestone 10
+
+**Should support**
+
+- move observ(er/able) & discover behaviour from web to logic
+- make use of channel processes where feasible (channel inits etc.)
+- refactor channels to have a standard join/terminate procedure via helpers
+-
+
+### Milestone 11
 
 **May support**
 
