@@ -158,7 +158,8 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - move observ(er/able) & discover behaviour from web to logic
 - make use of channel processes where feasible (channel inits etc.)
 - refactor channels to have a standard join/terminate procedure via helpers
--
+- players have a health and energy (mana) level
+- skill casts influence the mana level
 
 ### Milestone 11
 
