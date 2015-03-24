@@ -37,7 +37,7 @@ update:health
 ```
 update:energy
 - entity          // event sender
-- energy          // the energy of the sender in points
+- energy          // the energy of the sender in mana
 ```
 
 ---
