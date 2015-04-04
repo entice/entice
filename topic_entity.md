@@ -80,10 +80,10 @@ add
 ```
 change
 - entity          // the entity by id
-- added 					// new attributes of the entity, see above
-- changed 				// updated attributes of the entity, see above
+- added           // new attributes of the entity, see above
+- changed         // updated attributes of the entity, see above
 - removed         // removed attributes of the entity - this will be
- 									// a list with [name, position, health, ...]
+                  // a list with [name, position, health, ...]
 ```
 
 ```
