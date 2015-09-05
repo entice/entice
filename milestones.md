@@ -11,7 +11,7 @@ Generally, we need to create the following features over the single milestones:
 
 ```
 * login                [DONE]
-* account-c/r/u/d      [?]
+* account-c/r/u/d      [70%]
 * char-c/r/u/d         [50%]
 * entity-propagation   [DONE]
 * map-change           [DONE]
@@ -160,6 +160,8 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - refactor channels to have a standard join/terminate procedure via helpers
 - players have a health and energy (mana) level
 - skill casts influence the mana level
+- invitation system which enables users to generate access-keys linked to emails
+- account creation, based on the email and linked access-key
 
 ### Milestone 11
 

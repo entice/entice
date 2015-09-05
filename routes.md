@@ -8,6 +8,7 @@ state of the live instance, since I will try to keep the web UI in sync with the
        page_path  GET   /                  Entice.Web.PageController.index/2
        page_path  GET   /auth              Entice.Web.PageController.auth/2
        page_path  GET   /client/:map       Entice.Web.PageController.client/2
+       page_path  GET   /account           Entice.Web.PageController.account/2
        auth_path  POST  /api/login         Entice.Web.AuthController.login/2
        auth_path  POST  /api/logout        Entice.Web.AuthController.logout/2
        char_path  GET   /api/char          Entice.Web.CharController.list/2
@@ -16,6 +17,7 @@ state of the live instance, since I will try to keep the web UI in sync with the
        docu_path  GET   /api/skills        Entice.Web.DocuController.skills/2
        docu_path  GET   /api/skills/:id    Entice.Web.DocuController.skills/2
       token_path  GET   /api/token/entity  Entice.Web.TokenController.entity_token/2
+    account_path  POST  /api/account       Entice.Web.AccountController.create/2
  web_socket_path  GET   /ws                Phoenix.Transports.WebSocket.upgrade/2
  web_socket_path  POST  /ws                Phoenix.Transports.WebSocket.upgrade/2
 long_poller_path  GET   /ws/poll           Phoenix.Transports.LongPoller.poll/2
