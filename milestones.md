@@ -151,17 +151,18 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - casting skills from the skillbar, considering cast-time and recharge-time
 - the skill distortion (id: 11), also update the unlocked skills
 
-### Milestone 10
+### Milestone 10 (a.k.a. the longest milestone in the world of entice :P)
 
 **Should support**
 
-- move observ(er/able) & discover behaviour from web to logic
+- replace observ(er/able) & discover behaviour with something more general
 - make use of channel processes where feasible (channel inits etc.)
 - refactor channels to have a standard join/terminate procedure via helpers
 - players have a health and energy (mana) level
 - skill casts influence the mana level
 - invitation system which enables users to generate access-keys linked to emails
 - account creation, based on the email and linked access-key
+- basic friendslist implementation based on account-ids, no online status or playing character
 
 ### Milestone 11
 
@@ -173,10 +174,11 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) group-mapchange should be implemented more stable, server side
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) before skillbar changes, check if the skill is available for the player
+- (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
 - (old feature) whisper messages
 - (new feature) portals
+- (new feature) health regen/degen in its own module
 - (new feature) NPC dialogues
 - (new feature) items
-- (new feature) friends-list
 - (new feature) guilds
 - (new feature) more chat channels (guild, trade)
