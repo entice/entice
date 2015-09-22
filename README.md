@@ -2,11 +2,11 @@
 
 
 * [Client](https://github.com/entice/client)
-* [Web](https://github.com/entice/web) master: ![Travis-CI](https://travis-ci.org/entice/web.svg?branch=master)
-* [Logic](https://github.com/entice/logic) master: ![Travis-CI](https://travis-ci.org/entice/logic.svg?branch=master)
-* [Entity](https://github.com/entice/entity) master: ![Travis-CI](https://travis-ci.org/entice/entity.svg?branch=master)
-* [Skill](https://github.com/entice/skill) master: ![Travis-CI](https://travis-ci.org/entice/skill.svg?branch=master)
-* [Utils](https://github.com/entice/utils) master: ![Travis-CI](https://travis-ci.org/entice/utils.svg?branch=master)
+* [Web](https://github.com/entice/web) master: [![Build Status](https://travis-ci.org/entice/web.svg?branch=master)](https://travis-ci.org/entice/web) develop: [![Build Status](https://travis-ci.org/entice/web.svg?branch=develop)](https://travis-ci.org/entice/web)
+* [Logic](https://github.com/entice/logic) master: [![Build Status](https://travis-ci.org/entice/logic.svg?branch=master)](https://travis-ci.org/entice/logic)
+* [Entity](https://github.com/entice/entity) master: [![Build Status](https://travis-ci.org/entice/entity.svg?branch=master)](https://travis-ci.org/entice/entity)
+* [Skill](https://github.com/entice/skill) master: [![Build Status](https://travis-ci.org/entice/skill.svg?branch=master)](https://travis-ci.org/entice/skill)
+* [Utils](https://github.com/entice/utils) master: [![Build Status](https://travis-ci.org/entice/utils.svg?branch=master)](https://travis-ci.org/entice/utils)
 
 
 ## Project
