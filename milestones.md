@@ -166,14 +166,22 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 11
 
+**Should support**
+
+- (improvement) before skillbar changes, check if the skill is available for the player
+- (improvement) enhance channel tests, add integration-like tests where feasible
+- (improvement) group chat should close connection when leaders / members change
+- ???
+
+
+### Milestone 12
+
 **May support**
 
 - (improvement) more maps generally
 - (improvement) clients should time out after some inactivity
-- (improvement) group chat should close connection when leaders / members change
 - (improvement) group-mapchange should be implemented more stable, server side
 - (improvement) skill casting should disable movement (if not stances etc.)
-- (improvement) before skillbar changes, check if the skill is available for the player
 - (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
 - (old feature) whisper messages
 - (new feature) portals
