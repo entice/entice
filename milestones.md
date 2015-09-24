@@ -171,6 +171,8 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) before skillbar changes, check if the skill is available for the player
 - (improvement) enhance channel tests, add integration-like tests where feasible
 - (improvement) group chat should close connection when leaders / members change
+- (old feature) simple map layouts (loaded into mem from a trapezoid map file)
+- (old feature) simple NPC spawn, one static NPC, does nothing, non-scripted location
 - ???
 
 
