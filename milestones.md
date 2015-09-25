@@ -185,6 +185,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) group-mapchange should be implemented more stable, server side
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
+- (improvement) disable skillcasting in outposts (enable via command?)
 - (old feature) whisper messages
 - (new feature) portals
 - (new feature) health regen/degen in its own module
