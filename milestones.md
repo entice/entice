@@ -151,7 +151,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - casting skills from the skillbar, considering cast-time and recharge-time
 - the skill distortion (id: 11), also update the unlocked skills
 
-### Milestone 10 (a.k.a. the longest running milestone in the world of entice :P)
+### Milestone 10 (a.k.a. the longest running milestone in the world of entice :P) `DONE`
 
 **Should support**
 
@@ -173,10 +173,14 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) group chat should close connection when leaders / members change
 - (improvement) add a max mana for energy - let skills only affect the current mana lvl
 - (improvement) add a max health
-- (old feature) simple map layouts (loaded into mem from a trapezoid map file)
+- (improvement) friendslist show the current character and online-status of an acc
 - (old feature) simple NPC spawn, one static NPC, does nothing, non-scripted location
 - (new feature) skill casts can have a target now, skills casting should be done in a module
 - (new feature) skills can decrease a targets health points
+
+**Should not support**
+
+- no dynamic max mana/health yet (static in a module)
 
 ### Milestone 12
 
@@ -188,6 +192,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
 - (improvement) disable skillcasting in outposts (enable via command?)
+- (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position
 - (new feature) portals
