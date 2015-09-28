@@ -2,7 +2,7 @@
 
 ### Running the server locally
 
-*Weird error while trying to connect to the server, it says the method is unknown:*
+**Weird error while trying to connect to the server, it says the method is unknown:**
 
 ```
 [error] Process #PID<0.313.0> raised an exception
@@ -16,4 +16,4 @@
                 Terminate batch job (Y/N)? 
 ```
 
-*Solution:* The client is configured to use a secured connection with SSL enabled. Disable SSL support in the client by using "ws://" for websocket connections instead of "wss://"
+**Solution:** The client is configured to use a secured connection with SSL enabled. Disable SSL support in the client by using "ws://" for websocket connections instead of "wss://"
