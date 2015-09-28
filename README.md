@@ -18,8 +18,9 @@ can find the complete documentation here in this repository.
 
 * [Milestones](https://github.com/entice/entice/blob/master/milestones.md) - These define the features we implemented and are working on
 * [Routes](https://github.com/entice/entice/blob/master/routes.md) - The public & secured HTTP API for the server
-* [Topics](https://github.com/entice/entice/blob/master/topics.md) - The secured Websocket API for the server as an overview. This is the place to start when you are looking
-for how things of this server work internally (API wise).
+* [Topics](https://github.com/entice/entice/blob/master/topics.md) - The secured Websocket API for the server as an overview. This is the place to start when you are looking for how things of this server work internally (API wise).
+* [FAQ & Known Bugs](https://github.com/entice/entice/blob/master/faq.md) - Common questions and bugs that we encountered but could not fix or only work-around
+
 
 
 ## Overview
