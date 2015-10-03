@@ -5,24 +5,28 @@ access most of the api, which you can aquire by logging in. It always helps to c
 state of the live instance, since I will try to keep the web UI in sync with the capabilities
 
 ```
-       page_path  GET   /                  Entice.Web.PageController.index/2
-       page_path  GET   /auth              Entice.Web.PageController.auth/2
-       page_path  GET   /client/:map       Entice.Web.PageController.client/2
-       page_path  GET   /account           Entice.Web.PageController.account/2
-       auth_path  POST  /api/login         Entice.Web.AuthController.login/2
-       auth_path  POST  /api/logout        Entice.Web.AuthController.logout/2
-       char_path  GET   /api/char          Entice.Web.CharController.list/2
-       char_path  POST  /api/char          Entice.Web.CharController.create/2
-       docu_path  GET   /api/maps          Entice.Web.DocuController.maps/2
-       docu_path  GET   /api/skills        Entice.Web.DocuController.skills/2
-       docu_path  GET   /api/skills/:id    Entice.Web.DocuController.skills/2
-      token_path  GET   /api/token/entity  Entice.Web.TokenController.entity_token/2
-    account_path  POST  /api/account       Entice.Web.AccountController.create/2
- web_socket_path  GET   /ws                Phoenix.Transports.WebSocket.upgrade/2
- web_socket_path  POST  /ws                Phoenix.Transports.WebSocket.upgrade/2
-long_poller_path  GET   /ws/poll           Phoenix.Transports.LongPoller.poll/2
-long_poller_path  POST  /ws/poll           Phoenix.Transports.LongPoller.publish/2
+   page_path  GET     /                          Entice.Web.PageController :index
+   page_path  GET     /auth                      Entice.Web.PageController :auth
+   page_path  GET     /client/:map               Entice.Web.PageController :client
+   page_path  GET     /register                  Entice.Web.PageController :account
+   page_path  GET     /invitation                Entice.Web.PageController :invitation
+   page_path  GET     /friend                    Entice.Web.PageController :friend
+   auth_path  POST    /api/login                 Entice.Web.AuthController :login
+   auth_path  POST    /api/logout                Entice.Web.AuthController :logout
+   char_path  GET     /api/char                  Entice.Web.CharController :list
+   char_path  POST    /api/char                  Entice.Web.CharController :create
+   docu_path  GET     /api/maps                  Entice.Web.DocuController :maps
+   docu_path  GET     /api/skills                Entice.Web.DocuController :skills
+   docu_path  GET     /api/skills/:id            Entice.Web.DocuController :skills
+  token_path  GET     /api/token/entity          Entice.Web.TokenController :entity_token
+account_path  GET     /api/account/by_char_name  Entice.Web.AccountController :by_char_name
+account_path  POST    /api/account/register      Entice.Web.AccountController :register
+account_path  POST    /api/account/request       Entice.Web.AccountController :request_invite
+friends_path  GET     /api/friend                Entice.Web.FriendsController :index
+friends_path  POST    /api/friend                Entice.Web.FriendsController :create
+friends_path  DELETE  /api/friend                Entice.Web.FriendsController :delete
 
+Websockets should connect to /socket/websocket
 ```
 
 ### Details
@@ -34,6 +38,21 @@ A JavaScript frontend to the server, mainly here for testing purposes for now.
 #### `/api/char`
 
 Available skills of this API are represented as a base-16 encoded bit array.
+
+Chars can be create with a POST to this route.
+You can define the name of the new char (which needs to be unique) and the appearance, with the parameters:
+
+```
+name
+profession     // only used to determine how a character looks
+campaign
+sex
+height
+skin_color
+hair_color
+hairstyle
+face
+```
 
 #### `/api/token/entity`
 

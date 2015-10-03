@@ -166,21 +166,31 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 ### Milestone 11
 
-**Should support**
+**Bugs & Random Stuff**
 
-- (improvement) before skillbar changes, check if the skill is available for the player
-- (improvement) enhance channel tests, add integration-like tests where feasible
-- (improvement) group chat should close connection when leaders / members change
-- (improvement) add a max mana for energy - let skills only affect the current mana lvl
-- (improvement) add a max health
-- (improvement) friendslist show the current character and online-status of an acc
-- (old feature) simple NPC spawn, one static NPC, does nothing, non-scripted location
-- (new feature) skill casts can have a target now, skills casting should be done in a module
-- (new feature) skills can decrease a targets health points
+- add accounts for devs on prod & staging (a task for everyone)
+- make char-create accept appearance values
+- add static release-verion check for clients when they try to get a token for playing
+- entity channel "disconnect" - function not exported - check for correct syntax in broadcast/3
+
+**Should improve**
+
+- before skillbar changes, check if the skill is available for the player
+- enhance channel tests, add integration-like tests where feasible
+- group chat should close connection when leaders / members change
+- player level, which affects max mana / health and is propagated to the client
+- add a max mana for energy - let skills only affect the current mana lvl
+- add a max health
+- friendslist show the current character and online-status of an acc
+
+**Should support**
+- simple NPC spawn, one static NPC, does nothing, non-scripted location
+- skill casts can have a target now, skills casting should be done in a module
+- skills can decrease a targets health points
 
 **Should not support**
 
-- no dynamic max mana/health yet (static in a module)
+- no dynamic max mana/health yet, except based on the entity level
 
 ### Milestone 12
 
@@ -192,6 +202,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
 - (improvement) disable skillcasting in outposts (enable via command?)
+- (improvement) get logged in after account registration automatically
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position
