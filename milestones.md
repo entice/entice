@@ -168,7 +168,7 @@ _(Hint: Make sure that all groups in a world are known to all clients, either by
 
 **Bugs & Random Stuff**
 
-- fix the migrations: conform to ecto migrations, use a separated seed file
+- [ ] fix the migrations: conform to ecto migrations, use a separated seed file
 - add accounts for devs on prod & staging (a task for everyone)
 - make char-create accept appearance values
 - add static release-verion check for clients when they try to get a token for playing
