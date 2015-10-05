@@ -34,19 +34,16 @@ Failure:
 Asynchroneous client requests.
 
 ```
-update:pos
+update
 - pos             // the new position
-```
-
-```
-update:goal
-- goal            // the new goal
-- plane           // the new plane
-```
-
-```
-update:movetype
-- movetype        // the new movement type (0-10)
+  - x
+  - y
+  - plane
+- goal            // the point towards we are moving
+  - x
+  - y
+  - plane
+- movetype        // movement type  (0-10)
 - velocity        // the new velocity coefficient (-1-2)
 ```
 
@@ -58,19 +55,14 @@ Asynchroneous server updates.
 update:pos
 - entity          // event sender
 - pos             // the new position
-```
-
-```
-update:goal
-- entity          // event sender
-- goal            // the new goal
-- plane           // the new plane
-```
-
-```
-update:movetype
-- entity          // event sender
-- movetype        // the new movement type (0-10)
+  - x
+  - y
+  - plane
+- goal            // the point towards we are moving
+  - x
+  - y
+  - plane
+- movetype        // movement type  (0-10)
 - velocity        // the new velocity coefficient (-1-2)
 ```
 
