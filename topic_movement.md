@@ -43,7 +43,7 @@ update
   - x
   - y
   - plane
-- movetype        // movement type  (0-10)
+- move_type       // movement type  (0-10)
 - velocity        // the new velocity coefficient (-1-2)
 ```
 
@@ -62,7 +62,7 @@ update:pos
   - x
   - y
   - plane
-- movetype        // movement type  (0-10)
+- move_type       // movement type  (0-10)
 - velocity        // the new velocity coefficient (-1-2)
 ```
 

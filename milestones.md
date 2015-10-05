@@ -50,7 +50,7 @@ Generally, we need to create the following features over the single milestones:
 - [x] fix the migrations: conform to ecto migrations, use a separated seed file
 - [x] add accounts for devs on prod & staging (a task for everyone)
 - [x] make char-create accept appearance values
-- [ ] movement should be updated in only one packet, both pos & goal have a plane
+- [x] movement should be updated in only one packet, both pos & goal have a plane
 - [ ] add static release-verion check for clients when they try to get a token for playing
 - [ ] entity channel "disconnect" - function not exported - check for correct syntax in broadcast/3
 
