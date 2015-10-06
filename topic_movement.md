@@ -33,7 +33,7 @@ Asynchroneous client requests.
 
 ```
 update
-- pos             // the new position
+- position        // the new position
   - x
   - y
   - plane
@@ -52,7 +52,7 @@ Asynchroneous server updates.
 ```
 update
 - entity          // event sender
-- pos             // the new position
+- position        // the new position
   - x
   - y
   - plane
