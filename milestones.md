@@ -57,7 +57,7 @@ Generally, we need to create the following features over the single milestones:
 **Should improve**
 
 - [ ] before skillbar changes, check if the skill is available for the player
-- [ ] enhance channel tests, add integration-like tests where feasible
+- [x] enhance ~~channel tests~~ (changed: ongoing improvement), add integration-like tests where feasible
 - [ ] group chat should close connection when leaders / members change
 - [ ] player level, which affects max mana / health and is propagated to the client
 - [ ] add a max mana for energy - let skills only affect the current mana lvl
