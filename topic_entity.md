@@ -15,8 +15,12 @@ Guaranteed to be present when an entity is reported to have spawned:
  - y
  - plane
 - health          // the health of the entity (in HP)
+ - health         // current level of health
+ - max_health     // maximum possible level
 - energy          // the energy of the entity (in mana)
-- level           // the level of the entity
+ - mana           // current level of mana
+ - max_mana       // maximum possible level
+- level           // the guild-wars character level of the entity
 
 Present if the entity is a player
 - appearance      // as it says (the GW stuff)
