@@ -60,9 +60,9 @@ Generally, we need to create the following features over the single milestones:
 - [ ] before skillbar changes, check if the skill is available for the player
 - [x] enhance ~~channel tests~~ (changed: ongoing improvement), add integration-like tests where feasible
 - [ ] group chat should close connection when leaders / members change
-- [ ] player level, which affects max mana / health and is propagated to the client
-- [ ] add a max mana for energy - let skills only affect the current mana lvl
-- [ ] add a max health
+- [x] player level, which affects max mana / health and is propagated to the client
+- [x] add a max mana for energy - let skills only affect the current mana lvl
+- [x] add a max health
 - [ ] friendslist show the current character and online-status of an acc
 
 **Should support**
