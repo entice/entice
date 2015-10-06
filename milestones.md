@@ -53,6 +53,7 @@ Generally, we need to create the following features over the single milestones:
 - [x] movement should be updated in only one packet, both pos & goal have a plane
 - [ ] add static release-verion check for clients when they try to get a token for playing
 - [ ] entity channel "disconnect" - function not exported - check for correct syntax in broadcast/3
+- [x] entity channel only reports position during spawn, and when added-to or removed-from entity
 
 **Should improve**
 
