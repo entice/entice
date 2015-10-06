@@ -33,6 +33,7 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
 - (improvement) disable skillcasting in outposts (enable via command?)
 - (improvement) get logged in after account registration automatically
+- (improvement) maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position
@@ -51,7 +52,7 @@ Generally, we need to create the following features over the single milestones:
 - [x] add accounts for devs on prod & staging (a task for everyone)
 - [x] make char-create accept appearance values
 - [x] movement should be updated in only one packet, both pos & goal have a plane
-- [ ] add static release-verion check for clients when they try to get a token for playing
+- [ ] add static release-version check for clients when they try to get a token for playing
 - [ ] entity channel "disconnect" - function not exported - check for correct syntax in broadcast/3
 - [x] entity channel only reports position during spawn, and when added-to or removed-from entity
 
