@@ -52,7 +52,7 @@ update
 Asynchroneous server updates.
 
 ```
-update:pos
+update
 - entity          // event sender
 - pos             // the new position
   - x
