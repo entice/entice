@@ -8,18 +8,24 @@ case of a map change)
 This topic broadcasts changes to the following attributes of entities in the following format:
 
 ```
-Guaranteed to be present:
+Guaranteed to be present when an entity is reported to have spawned:
 - name            // the name of the entity
-- position        // the position of the entity
+- position        // the position of the entity (only when adding/spawning!)
  - x
  - y
+ - plane
 - health          // the health of the entity (in HP)
 - energy          // the energy of the entity (in mana)
+- level           // the level of the entity
 
 Present if the entity is a player
 - appearance      // as it says (the GW stuff)
  - hair_color
  - ...
+
+The Position attribute is only sent when the entity spawns.
+This means that changes to that attribute will be broadcasted via another topic,
+which is the movement topic.
 ```
 
 ---
