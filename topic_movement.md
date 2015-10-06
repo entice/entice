@@ -13,8 +13,6 @@ Synchroneously join.
 
 ```
 join
-- client_id       // the id of your client, from API
-- entity_token    // a temporary token for authentication
 ```
 
 Success:
