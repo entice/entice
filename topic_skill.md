@@ -7,24 +7,12 @@ empty skillbar slots._
 
 ---
 
-Synchroneously add the skill ability to your player.
+Asynchroneous initial message after successful join
 
 ```
-join
-```
-
-Success:
-
-```
-join:ok
+initial
 - unlocked_skills // overall available skills
 - skillbar        // your current skillbar as list of skill-ids
-```
-
-Failure:
-
-```
-*socket crash*
 ```
 
 ---

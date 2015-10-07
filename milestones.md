@@ -34,6 +34,7 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) disable skillcasting in outposts (enable via command?)
 - (improvement) get logged in after account registration automatically
 - (improvement) maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
+- (improvement) `*socket crash*` is not a valid reply :P - also clean up the inconsistently named events etc.
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position

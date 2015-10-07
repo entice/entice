@@ -34,23 +34,11 @@ which is the movement topic.
 
 ---
 
-Synchroneously join.
+Asynchroneous initial message after successful join
 
 ```
-join
-```
-
-Success:
-
-```
-join:ok
+initial
 - attributes      // attributes of the entity, see above
-```
-
-Failure:
-
-```
-*socket crash*
 ```
 
 ---

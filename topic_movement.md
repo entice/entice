@@ -9,38 +9,18 @@ when the server propagates it back to you._
 
 ---
 
-Synchroneously join.
-
-```
-join
-```
-
-Success:
-
-```
-join:ok
-```
-
-Failure:
-
-```
-*socket crash*
-```
-
----
-
 Asynchroneous client requests.
 
 ```
 update
 - position        // the new position
-  - x
-  - y
-  - plane
+ - x
+ - y
+ - plane
 - goal            // the point towards we are moving
-  - x
-  - y
-  - plane
+ - x
+ - y
+ - plane
 - move_type       // movement type  (0-10)
 - velocity        // the new velocity coefficient (-1-2)
 ```
@@ -53,13 +33,13 @@ Asynchroneous server updates.
 update
 - entity          // event sender
 - position        // the new position
-  - x
-  - y
-  - plane
+ - x
+ - y
+ - plane
 - goal            // the point towards we are moving
-  - x
-  - y
-  - plane
+ - x
+ - y
+ - plane
 - move_type       // movement type  (0-10)
 - velocity        // the new velocity coefficient (-1-2)
 ```

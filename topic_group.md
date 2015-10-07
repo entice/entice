@@ -12,26 +12,6 @@ figure this out and negotiate on its own using the existing APIs)_
 
 ---
 
-Synchroneously join.
-
-```
-join
-```
-
-Success:
-
-```
-join:ok
-```
-
-Failure:
-
-```
-*socket crash*
-```
-
----
-
 Asynchroneous client requests.
 
 ```

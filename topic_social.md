@@ -17,26 +17,6 @@ server wont check them._
 
 ---
 
-Synchroneously join.
-
-```
-join
-```
-
-Success:
-
-```
-join:ok
-```
-
-Failure: (If no crash: Means that you're not allowed to join this topic)
-
-```
-join:error
-```
-
----
-
 Asynchroneous chat message event. (Topic-wide broadcast)
 Note that you will receive the Server -> Client broadcast yourself as well,
 after successfully sending a chat message.
