@@ -43,7 +43,7 @@ Chars can be create with a POST to this route.
 You can define the name of the new char (which needs to be unique) and the appearance, with the parameters:
 
 ```
-name
+char_name
 profession     // only used to determine how a character looks
 campaign
 sex
