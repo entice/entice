@@ -69,3 +69,20 @@ game-mechanics through the different topics.
   "is_outpost": ...,    // indicates whether you'll be joining an outpost
 }
 ```
+
+#### `/api/friend`
+
+Use this to get a listing of all friends on the server. Friends are identified by
+the name of the character that you added them to your friendslist with. They have
+an online status, and depending on that a character that they are currently playing with.
+
+{
+  "friends": [
+    {"base_name": "Char Name", "current_name": "Other Name", "status": "online"},
+    {...}
+  ]
+}
+
+- `base_name` is the name of the character that they were added to the friendslist with
+- `current_name` is the name of the char that they are currently online with, or the same as `base_name`
+- `status` is either `online` or `offline`
