@@ -35,6 +35,7 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) get logged in after account registration automatically
 - (improvement) maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
 - (improvement) `*socket crash*` is not a valid reply :P - also clean up the inconsistently named events etc.
+- (improvement) Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position
@@ -65,7 +66,7 @@ Generally, we need to create the following features over the single milestones:
 - [x] player level, which affects max mana / health and is propagated to the client
 - [x] add a max mana for energy - let skills only affect the current mana lvl
 - [x] add a max health
-- [ ] friendslist show the current character and online-status of an acc
+- [x] friendslist show the current character and online-status of an acc
 
 **Should support**
 - [ ] simple NPC spawn, one static NPC, does nothing, non-scripted location
