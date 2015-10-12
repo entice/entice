@@ -35,6 +35,12 @@ Websockets should connect to /socket/websocket
 
 A JavaScript frontend to the server, mainly here for testing purposes for now.
 
+#### `/api/login`
+
+Takes an `email`, a `password` and a `client_version`, with the latter not being
+a security check, but rather a sanity check for clients that may have not been
+updated to the latest released version that works with the server version.
+
 #### `/api/char`
 
 Available skills of this API are represented as a base-16 encoded bit array.
