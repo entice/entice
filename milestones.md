@@ -69,7 +69,7 @@ Generally, we need to create the following features over the single milestones:
 - [x] friendslist show the current character and online-status of an acc
 
 **Should support**
-- [ ] simple NPC spawn, one static NPC, does nothing, non-scripted location
+- [x] simple NPC spawn, one static NPC, does nothing, non-scripted location
 - [ ] skill casts can have a target now, skills casting should be done in a module
 - [ ] skills can decrease a targets health points
 
