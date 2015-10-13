@@ -27,6 +27,9 @@ Present if the entity is a player
  - hair_color
  - ...
 
+Present if the entity is an NPC
+- npc             // the name of the npc model, e.g. "dhuum"
+
 The Position attribute is only sent when the entity spawns.
 This means that changes to that attribute will be broadcasted via another topic,
 which is the movement topic.
@@ -50,7 +53,9 @@ map:change
 - map             // the underscore name of the map
 ```
 
-Success: (Since this topic kills your entity upon leave, you will have to do so on your own)
+Success: (Since this topic kills your entity upon leave,
+you will have to go through the token -> websocket process for the
+new map again on your own)
 
 ```
 map:change:ok
