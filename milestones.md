@@ -71,7 +71,7 @@ Generally, we need to create the following features over the single milestones:
 
 - [x] before skillbar changes, check if the skill is available for the player
 - [x] enhance ~~channel tests~~ (changed: ongoing improvement), add integration-like tests where feasible
-- [ ] group chat should close connection when leaders / members change
+- [x] group chat should close connection when leaders / members change
 - [x] player level, which affects max mana / health and is propagated to the client
 - [x] add a max mana for energy - let skills only affect the current mana lvl
 - [x] add a max health
@@ -80,7 +80,7 @@ Generally, we need to create the following features over the single milestones:
 **Should support**
 
 - [x] simple NPC spawn, one static NPC, does nothing, non-scripted location
-- [ ] skill casts can have a target now, skills casting should be done in a module
+- [x] skill casts can have a target now, skills casting should be done in a module
 - [x] skills can increase / decrease a targets health points (healing / causing damage)
 
 **Should not support**
