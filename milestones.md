@@ -12,12 +12,12 @@ Generally, we need to create the following features over the single milestones:
 ```
 * login                [DONE]
 * account-c/r/u/d      [70%]
-* char-c/r/u/d         [50%]
-* entity-propagation   [DONE]
-* map-change           [DONE]
-* movement             [70%] <- long term WIP
+* char-c/r/u/d         [DONE]
+* map-change           [DONE] <- re-connect based
+* movement             [DONE] <- client side
 * chat/emotes          [70%]
-* npc-spawns           [?]
+* skill-casting        [70%]
+* npc-spawns           [50%] <- still static
 * npc-dialogues        [?]
 * ...
 ```
@@ -26,25 +26,34 @@ Generally, we need to create the following features over the single milestones:
 
 **May support**
 
+**Generally**
+
 - (improvement) more maps generally
 - (improvement) clients should time out after some inactivity
 - (improvement) group-mapchange should be implemented more stable, server side
-- (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
-- (improvement) disable skillcasting in outposts (enable via command?)
 - (improvement) get logged in after account registration automatically
 - (improvement) maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
 - (improvement) `*socket crash*` is not a valid reply :P - also clean up the inconsistently named events etc.
 - (improvement) Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
+
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position
+
 - (new feature) portals
 - (new feature) health regen/degen in its own module
+- (new feature) NPC dynamic map-based spawns (loaded from DB?)
 - (new feature) NPC dialogues
 - (new feature) items
 - (new feature) guilds
 - (new feature) more chat channels (guild, trade)
+
+**Skill-wise**
+
+- (improvement) disable skillcasting in outposts (enable via command?)
+- (improvement) skill casting should disable movement (if not stances etc.)
+- (improvement) before casting, invoke a skill callback that checks all preconditions
 
 ### Milestone 11
 
@@ -69,9 +78,10 @@ Generally, we need to create the following features over the single milestones:
 - [x] friendslist show the current character and online-status of an acc
 
 **Should support**
+
 - [x] simple NPC spawn, one static NPC, does nothing, non-scripted location
 - [ ] skill casts can have a target now, skills casting should be done in a module
-- [x] skills can decrease a targets health points
+- [x] skills can increase / decrease a targets health points (healing / causing damage)
 
 **Should not support**
 
