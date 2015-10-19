@@ -22,7 +22,7 @@ Generally, we need to create the following features over the single milestones:
 * ...
 ```
 
-### Milestone 12
+### Milestone 13
 
 **May support**
 
@@ -31,18 +31,12 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) more maps generally
 - (improvement) clients should time out after some inactivity
 - (improvement) group-mapchange should be implemented more stable, server side
-- (improvement) segmented message buses in coordination layer (based on entity location? or attributes? etc.)
-- (improvement) get logged in after account registration automatically
-- (improvement) maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
-- (improvement) `*socket crash*` is not a valid reply :P - also clean up the inconsistently named events etc.
-- (improvement) Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
 
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
 - (old feature) map based sanity check when entities update their position
 
 - (new feature) portals
-- (new feature) health regen/degen in its own module
 - (new feature) NPC dynamic map-based spawns (loaded from DB?)
 - (new feature) NPC dialogues
 - (new feature) items
@@ -54,6 +48,25 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) disable skillcasting in outposts (enable via command?)
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) before casting, invoke a skill callback that checks all preconditions
+
+### Milestone 12
+
+**Bugs & Random Stuff**
+
+- [ ] `*socket crash*` is not a valid reply :P - also clean up the inconsistently named events etc.
+- [ ] get logged in after account registration automatically (and do a redirect)
+
+**Should improve**
+
+- [ ] possibility of segmented message buses in coordination layer
+- [ ] maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
+- [ ] damage and healing as public api in vitals module
+- [ ] Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
+
+**Should support**
+
+- [ ] entity death in vitals module and propagated event
+- [ ] health regen/degen in vitals
 
 ### Milestone 11
 
