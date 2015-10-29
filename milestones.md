@@ -58,7 +58,7 @@ Generally, we need to create the following features over the single milestones:
 
 **Should improve**
 
-- [ ] possibility of segmented message buses in coordination layer
+- [x] possibility of segmented message buses in coordination layer
 - [ ] maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
 - [ ] damage and healing as public api in vitals module
 - [ ] Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
@@ -68,7 +68,7 @@ Generally, we need to create the following features over the single milestones:
 - [ ] entity death in vitals module and propagated event
 - [ ] health regen/degen in vitals
 
-### Milestone 11
+### Milestone 11 `DONE`
 
 **Bugs & Random Stuff**
 
