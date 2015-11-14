@@ -54,18 +54,21 @@ Generally, we need to create the following features over the single milestones:
 **Bugs & Random Stuff**
 
 - [ ] `*socket crash*` is not a valid reply :P - also clean up the inconsistently named events etc.
-- [ ] get logged in after account registration automatically (and do a redirect)
+- [x] get logged in after account registration automatically (and do a redirect)
 
 **Should improve**
 
 - [x] possibility of segmented message buses in coordination layer
-- [ ] maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
-- [ ] damage and healing as public api in vitals module
-- [ ] Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
+- [x] maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
+- [ ] delegate new players to the appropriate map instance entity
+- [x] damage and healing as public api in vitals module
+- [ ] implement the heal/damage in the skill api
+- [x] Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
 
 **Should support**
 
-- [ ] entity death in vitals module and propagated event
+- [x] entity death in vitals module and propagated event
+- [ ] propagate the death of an entity to the client
 - [ ] health regen/degen in vitals
 
 ### Milestone 11 `DONE`
