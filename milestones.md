@@ -60,7 +60,7 @@ Generally, we need to create the following features over the single milestones:
 
 - [x] possibility of segmented message buses in coordination layer
 - [x] maps should be their own entity + cleanup area/map mess: Map (the macros), Maps (the defs), Instance
-- [ ] delegate new players to the appropriate map instance entity
+- [x] delegate new players to the appropriate map instance entity
 - [x] damage and healing as public api in vitals module
 - [ ] implement the heal/damage in the skill api
 - [x] Entic.Web.Client.Server should be replaced with an ETS solution, or clients need to be monitored
