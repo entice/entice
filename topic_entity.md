@@ -65,7 +65,8 @@ map:change:ok
 Failure:
 
 ```
-*socket crash*
+map:change:error
+- reason "map_unknown"
 ```
 
 ---
