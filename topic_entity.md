@@ -20,7 +20,9 @@ Guaranteed to be present when an entity is reported to have spawned:
 - energy          // the energy of the entity (in mana)
  - mana           // current level of mana
  - max_mana       // maximum possible level
+- morale          // the morale (default 0) up to -100 / +100 for malus & boost
 - level           // the guild-wars character level of the entity
+- npc             // the NPC model id (the name of the model)
 
 Present if the entity is a player
 - appearance      // as it says (the GW stuff)
