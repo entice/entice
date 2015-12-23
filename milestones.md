@@ -73,6 +73,7 @@ Generally, we need to create the following features over the single milestones:
 
 - [x] entity death in vitals module and propagated event
 - [x] propagate the death / resurrection of an entity to the client
+- [x] resurrection of an entity via rezz signet
 - [x] health regen/degen in vitals
 
 ### Milestone 11 `DONE`
