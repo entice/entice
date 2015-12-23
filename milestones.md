@@ -32,6 +32,8 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) clients should time out after some inactivity
 - (improvement) group-mapchange should be implemented more stable, server side
 - (improvement) check how error replies are formatted (entity & skill channel), fix docs
+- (improvement) check why joining the entity channel results in entity_add of the player entity twice (we filter them out for now)
+- (imrpovement) character-model etc.: replace the deprecated ecto models and callbacks, see [this blog](http://blog.plataformatec.com.br/2015/12/ecto-v1-1-released-and-ecto-v2-0-plans/)
 
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
@@ -48,9 +50,10 @@ Generally, we need to create the following features over the single milestones:
 
 - (improvement) disable skillcasting in outposts (enable via command?)
 - (improvement) skill casting should disable movement (if not stances etc.)
+- (improvement) death should disable skill casting (should death be an attribute?)
 - (improvement) before casting, invoke a skill callback that checks all preconditions
 
-### Milestone 12
+### Milestone 12 `DONE`
 
 **Bugs & Random Stuff**
 
@@ -70,7 +73,7 @@ Generally, we need to create the following features over the single milestones:
 
 - [x] entity death in vitals module and propagated event
 - [x] propagate the death / resurrection of an entity to the client
-- [ ] health regen/degen in vitals
+- [x] health regen/degen in vitals
 
 ### Milestone 11 `DONE`
 
