@@ -19,7 +19,7 @@ These are the currently available topics:
 - `movement` - enables the player to move and also get notified of other entities position changes
 - `skill` - enables the player to use skills and the skill bar
 - `social` - handles chat & emotes between players, parties, guilds and so on
-- `vitality` - gives your entity basic vital stats like health and energy
+- `vitals` - gives your entity basic vital stats like health, energy and morale
 
 Since some topics are more important for gameplay than others (entity and vitality for example) we might in the future make
 some topics madatory to join and stay on (or otherwise kick your entity).
