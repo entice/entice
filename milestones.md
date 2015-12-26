@@ -34,6 +34,7 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) check how error replies are formatted (entity & skill channel), fix docs
 - (improvement) check why joining the entity channel results in entity_add of the player entity twice (we filter them out for now)
 - (imrpovement) character-model etc.: replace the deprecated ecto models and callbacks, see [this blog](http://blog.plataformatec.com.br/2015/12/ecto-v1-1-released-and-ecto-v2-0-plans/)
+- (imrpovement) NPC should despawn some time after its death
 
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
