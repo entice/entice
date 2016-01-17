@@ -52,7 +52,10 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) disable skillcasting in outposts (enable via command?)
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) death should disable skill casting (should death be an attribute?)
-- (improvement) before casting, invoke a skill callback that checks all preconditions (valid target? enough health etc.)
+
+**Draft**
+- [ ] implement generic skill-casting preconditions (callback based? passing the caster-entity?)
+- [ ] investigate possible APIs for NPC AIs (periodically run functions? treatment as external client?)
 
 ### Milestone 12 `DONE`
 
