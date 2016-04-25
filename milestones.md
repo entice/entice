@@ -22,7 +22,7 @@ Generally, we need to create the following features over the single milestones:
 * ...
 ```
 
-### Milestone 13
+### Milestone 14
 
 **May support**
 
@@ -33,8 +33,9 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) group-mapchange should be implemented more stable, server side
 - (improvement) check how error replies are formatted (entity & skill channel), fix docs
 - (improvement) check why joining the entity channel results in entity_add of the player entity twice (we filter them out for now)
-- (imrpovement) character-model etc.: replace the deprecated ecto models and callbacks, see [this blog](http://blog.plataformatec.com.br/2015/12/ecto-v1-1-released-and-ecto-v2-0-plans/)
-- (imrpovement) NPC should despawn some time after its death
+- (improvement) character-model etc.: replace the deprecated ecto models and callbacks, see [this blog](http://blog.plataformatec.com.br/2015/12/ecto-v1-1-released-and-ecto-v2-0-plans/)
+- (improvement) NPC should despawn some time after its death
+- (improvement) death should be noted in terms of data (attribute) not only by putting DeathBehaviour + fix skill death prerequisite checks
 
 - (old feature) simple map layouts (loaded into mem from a trapezoid map file)
 - (old feature) whisper messages
@@ -53,8 +54,9 @@ Generally, we need to create the following features over the single milestones:
 - (improvement) skill casting should disable movement (if not stances etc.)
 - (improvement) death should disable skill casting (should death be an attribute?)
 
-**Draft**
-- [ ] implement generic skill-casting preconditions (callback based? passing the caster-entity?)
+### Milestone 13
+
+- [ ] implement generic skill-casting prerequisites (callback based, passing the caster-entity and target entity-id)
 - [ ] investigate possible APIs for NPC AIs (periodically run functions? treatment as external client?)
 
 ### Milestone 12 `DONE`
