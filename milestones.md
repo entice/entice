@@ -26,6 +26,10 @@ Generally, we need to create the following features over the single milestones:
 
 **May support**
 
+**Fixes**
+
+- Web-UI / Web-Client should enable the user to select a character before playing (currently theres a default char, which doesnt belong to the account, thus the server throws a fit)
+
 **Generally**
 
 - (improvement) more maps generally
