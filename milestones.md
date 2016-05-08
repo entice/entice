@@ -29,6 +29,7 @@ Generally, we need to create the following features over the single milestones:
 **Fixes**
 
 - Web-UI / Web-Client should enable the user to select a character before playing (currently theres a default char, which doesnt belong to the account, thus the server throws a fit)
+- Controllers and channels should handle errors gracefully and return meaningful error messages - apart from the rest of the elixir world, here we are communicating with outside clients that dont know of the 'let it crash' principle
 
 **Generally**
 
@@ -60,7 +61,7 @@ Generally, we need to create the following features over the single milestones:
 
 ### Milestone 13
 
-- [ ] implement generic skill-casting prerequisites (callback based, passing the caster-entity and target entity-id)
+- [x] implement generic skill-casting prerequisites (callback based, passing the caster-entity and target entity-id)
 - [ ] investigate possible APIs for NPC AIs (periodically run functions? treatment as external client?)
 
 ### Milestone 12 `DONE`
